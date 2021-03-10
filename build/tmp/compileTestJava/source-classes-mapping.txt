@@ -1,0 +1,2 @@
+com/gngs/gngs_assignment/GngsAssignmentApplicationTests.java
+ com.gngs.gngs_assignment.GngsAssignmentApplicationTests

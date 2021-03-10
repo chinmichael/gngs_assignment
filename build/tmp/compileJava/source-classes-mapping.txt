@@ -1,0 +1,10 @@
+com/gngs/gngs_assignment/GngsAssignmentApplication.java
+ com.gngs.gngs_assignment.GngsAssignmentApplication
+com/gngs/gngs_assignment/model/SampleAccountVO.java
+ com.gngs.gngs_assignment.model.SampleAccountVO
+com/gngs/gngs_assignment/repository/GngsDao.java
+ com.gngs.gngs_assignment.repository.GngsDao
+com/gngs/gngs_assignment/service/GngsLogic.java
+ com.gngs.gngs_assignment.service.GngsLogic
+com/gngs/gngs_assignment/controller/TestController.java
+ com.gngs.gngs_assignment.controller.TestController
