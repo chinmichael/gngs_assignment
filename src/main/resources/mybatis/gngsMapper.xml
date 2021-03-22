@@ -1,7 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gngs.gngs_assignment.repository.GngsDao">
-    <select id="selectAccount" resultType="SampleAccountVO">
-        select userid, userpw from sample_account
+
+    <!--Sample Account Login-->
+    <select id="sampleIdPwCheck" parameterType="LoginVO" resultType="String">
+        select userpw from sample_account where userid=#{userid}
     </select>
+    <select id="sampleLogin" parameterType="LoginVO" resultType="LoginVO">
+        select * from sample_account where userid=#{userid} and userpw=#{userpw}
+    </select>
+    <!--/Sample Account Login-->
+
+    <!--BP Regist-->
+    <select id="lastBpIdCheck" resultType="String">
+        select bp_id from bp_inform_tbl
+        order by regist_date desc limit 1
+    </select>
+
+    <select id="bpUuidCheck" parameterType="String" resultType="String">
+        select bp_id from bp_inform_tbl where uuid=#{uuid}
+    </select>
+
+    <insert id="bpRequestInsert" parameterType="BpInformVO">
+        insert into bp_inform_tbl(bp_id, bp_type, corporate_name, corporate_type1,
+                                  contract_dept, contract_manager, contract_mail, contract_tel,
+                                  procedure_status, deal_status, regist_date, userid, uuid, uuid_date)
+        values (#{bp_id},#{bp_type},#{corporate_name},#{corporate_type1},
+                #{contract_dept},#{contract_manager},#{contract_mail},#{contract_tel},
+                #{procedure_status},#{deal_status},current_timestamp,#{userid},#{uuid},current_timestamp)
+    </insert>
+
+    <select id="showBpInform" parameterType="BpInformVO" resultType="BpInformDetailVO">
+        select * from bp_inform_tbl where uuid = #{uuid}
+    </select>
+
+    <!--/BP Regist-->
+
+    <!--Paging-->
+    <!--BP List Paging-->
+    <select id="getBpPagingList" parameterType="BpPagingVO" resultType="BpInformDetailVO">
+        select a.*
+        from   (select a.*, @rownum:=@rownum+1 as rnum, floor((@rownum - 1)/#{rows}) + 1 as pageNumber
+                from (select corporate_name, bp_type, corporate_type1, corporate_type2, corporate_address1,
+                             procedure_status, date_format(procedure_pass_date, '%y/%m/%d') as procedure_pass_date,
+                             deal_status, date_format(deal_pass_date, '%y/%m/%d') as deal_pass_date, uuid
+                        from bp_inform_tbl order by regist_date desc)a,
+                     (select @rownum:=0) TMP)a
+        where a.pageNumber = #{page} order by a.rnum
+    </select>
+
+    <select id="getBpPagingListCnt" parameterType="BpPagingVO" resultType="Long">
+        select ceil(count(*)/#{rows}) totalPage from bp_inform_tbl order by regist_date desc
+    </select>
+
+    <select id="getBpSearchPagingListNoType" parameterType="BpPagingVO" resultType="BpInformDetailVO">
+        select  a.*
+        from    (select a.*, @rownum:=@rownum+1 as rnum, floor((@rownum- 1 )/#{rows}) + 1 as pageNumber
+                 from (select corporate_name, bp_type, corporate_type1, corporate_type2, corporate_address1,
+                     procedure_status, date_format(procedure_pass_date, '%y/%m/%d') as procedure_pass_date,
+                     deal_status, date_format(deal_pass_date, '%y/%m/%d') as deal_pass_date, uuid
+                     from bp_inform_tbl
+                     where corporate_name like #{search_name}
+                     order by regist_date desc)a,
+                     (select @rownum:=0) TMP )a
+        where a.pageNumber = #{page} order by a.rnum
+    </select>
+
+    <select id="getBpSearchPagingListNoTypeCnt" parameterType="BpPagingVO" resultType="Long">
+        select ceil(count(*)/#{rows}) totalPage
+        from bp_inform_tbl
+        where corporate_name like #{search_name}
+        order by regist_date desc
+    </select>
+
+    <select id="getBpSearchPagingList" parameterType="BpPagingVO" resultType="BpInformDetailVO">
+        select  a.*
+        from    (select a.*, @rownum:=@rownum+1 as rnum, floor((@rownum- 1 )/#{rows}) + 1 as pageNumber
+                 from (select corporate_name, bp_type, corporate_type1, corporate_type2, corporate_address1,
+                              procedure_status, date_format(procedure_pass_date, '%y/%m/%d') as procedure_pass_date,
+                              deal_status, date_format(deal_pass_date, '%y/%m/%d') as deal_pass_date, uuid
+                         from bp_inform_tbl
+                        where ${search_type1} = #{search_type2} and corporate_name like #{search_name}
+                     order by regist_date desc)a,
+                      (select @rownum:=0) TMP )a
+        where a.pageNumber = #{page} order by a.rnum
+    </select>
+
+    <select id="getBpSearchPagingListCnt" parameterType="BpPagingVO" resultType="Long">
+        select ceil(count(*)/#{rows}) totalPage
+        from bp_inform_tbl
+        where corporate_name like #{search_name} and ${search_type1} = #{search_type2}
+        order by regist_date desc
+    </select>
+    <!--/BP list Paging-->
+    <!--/Paging-->
+
 </mapper>

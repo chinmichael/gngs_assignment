@@ -3,9 +3,14 @@
 
 <!DOCTYPE html>
 <html>
-    <%@ include file="coverTop"%>
+    <%@ include file="coverTop.jsp"%>
     <body>
-        <div class="container-fluid">
-        </div>
-        <%@ include file="coverBottom"%>
+    <div class="container-fluid">
+
+        <%--Main Contents--%>
+
+
+        <%--/Main Contents--%>
+
+        <%@ include file="coverBottom.jsp"%>
 </html>
