@@ -16,7 +16,7 @@
             BP基本情報登録</h3>
 
         <%--Regist Form--%>
-        <form:form modelAttribute="bpInformDetailVO" action="../bp/bpRequestSend" method="post" name="bpRequestFrm" onsubmit="return check(this)">
+        <form:form modelAttribute="bpInformDetailVO" action="#" method="post" name="bpRequestFrm" onsubmit="return check(this)">
 
             <table class="table table-bordered border-secondary">
                 <thead>

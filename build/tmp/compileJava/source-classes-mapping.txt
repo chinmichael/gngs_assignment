@@ -1,7 +1,7 @@
 com/gngs/gngs_assignment/controller/ItemController.java
  com.gngs.gngs_assignment.controller.ItemController
-com/gngs/gngs_assignment/service/Mail.java
- com.gngs.gngs_assignment.service.Mail
+com/gngs/gngs_assignment/service/RegistImpl.java
+ com.gngs.gngs_assignment.service.RegistImpl
 com/gngs/gngs_assignment/model/AdditionalInformVO.java
  com.gngs.gngs_assignment.model.AdditionalInformVO
 com/gngs/gngs_assignment/controller/HomeController.java
@@ -10,9 +10,8 @@ com/gngs/gngs_assignment/Config.java
  com.gngs.gngs_assignment.Config
 com/gngs/gngs_assignment/GngsAssignmentApplication.java
  com.gngs.gngs_assignment.GngsAssignmentApplication
-com/gngs/gngs_assignment/service/MailImpl.java
- com.gngs.gngs_assignment.service.MailImpl
- com.gngs.gngs_assignment.service.MailImpl$1
+com/gngs/gngs_assignment/service/LoginImpl.java
+ com.gngs.gngs_assignment.service.LoginImpl
 com/gngs/gngs_assignment/model/AccountPagingVO.java
  com.gngs.gngs_assignment.model.AccountPagingVO
 com/gngs/gngs_assignment/model/BpInformVO.java
@@ -23,8 +22,8 @@ com/gngs/gngs_assignment/model/ItemPagingVO.java
  com.gngs.gngs_assignment.model.ItemPagingVO
 com/gngs/gngs_assignment/service/Login.java
  com.gngs.gngs_assignment.service.Login
-com/gngs/gngs_assignment/model/BpMailVO.java
- com.gngs.gngs_assignment.model.BpMailVO
+com/gngs/gngs_assignment/service/BpPaging.java
+ com.gngs.gngs_assignment.service.BpPaging
 com/gngs/gngs_assignment/model/ItemVO.java
  com.gngs.gngs_assignment.model.ItemVO
 com/gngs/gngs_assignment/model/MailVO.java
@@ -63,11 +62,12 @@ com/gngs/gngs_assignment/service/PagingListImpl.java
  com.gngs.gngs_assignment.service.PagingListImpl
 com/gngs/gngs_assignment/service/Regist.java
  com.gngs.gngs_assignment.service.Regist
-com/gngs/gngs_assignment/service/BpPaging.java
- com.gngs.gngs_assignment.service.BpPaging
-com/gngs/gngs_assignment/service/RegistImpl.java
- com.gngs.gngs_assignment.service.RegistImpl
+com/gngs/gngs_assignment/service/MailImpl.java
+ com.gngs.gngs_assignment.service.MailImpl
+ com.gngs.gngs_assignment.service.MailImpl$1
+com/gngs/gngs_assignment/model/BpMailVO.java
+ com.gngs.gngs_assignment.model.BpMailVO
+com/gngs/gngs_assignment/service/Mail.java
+ com.gngs.gngs_assignment.service.Mail
 com/gngs/gngs_assignment/controller/BPController.java
  com.gngs.gngs_assignment.controller.BPController
-com/gngs/gngs_assignment/service/LoginImpl.java
- com.gngs.gngs_assignment.service.LoginImpl
