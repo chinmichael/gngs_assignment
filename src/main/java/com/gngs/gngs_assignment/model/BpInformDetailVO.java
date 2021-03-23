@@ -9,7 +9,6 @@ public class BpInformDetailVO extends BpInformVO {
 
     private String corporate_name_kana;
     private String corporate_name_eng;
-    private String corporate_name_short;
     private Integer corporate_type2;
     private String corporate_birth;
     private String corporate_zipcode;

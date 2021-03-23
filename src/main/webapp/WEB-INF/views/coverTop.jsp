@@ -19,7 +19,7 @@
         }
 
         .container-fluid {
-            min-height: 90%;
+            min-height: 92%;
             position: relative;
             overflow: auto;
         }
