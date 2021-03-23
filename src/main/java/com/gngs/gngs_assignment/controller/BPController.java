@@ -70,10 +70,6 @@ public class BPController {
         vo.setSearch_type1(searchType1);
         vo.setSearch_type2(searchType2);
 
-        System.out.println(vo.getSearch_name());
-        System.out.println(vo.getSearch_type1());
-        System.out.println(vo.getSearch_type2());
-
         vo.setPage(initPage);
         List<BpInformDetailVO> list = pagingList.getBpPagingSearchList(vo);
         HashMap<String, Object> pagingListCnt = paging.getSearchCnt(vo);
