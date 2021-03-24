@@ -38,8 +38,8 @@ public class BpInformDetailVO extends BpInformVO {
     private String dispatch_manager;
 
     private String dispatch_mail;
-    private String dispatchMail1;
-    private String dispatchMail2;
+    /*private String dispatchMail1;
+    private String dispatchMail2;*/
 
     private String dispatch_tel;
     private String dispatchTel1;

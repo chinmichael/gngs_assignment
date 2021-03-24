@@ -39,10 +39,11 @@
             <td>
                 <div class="row g-0">
                     <div class="col-sm-auto">
-                        <form:select path="bp_type" cssClass="form-select form-select-sm">
+                        <form:select path="bp_type" id="bp_type" cssClass="form-select form-select-sm">
                             <option value="0" selected>顧客</option>
                             <option value="1">パートナー</option>
                         </form:select>
+                        <input type="hidden" id="bpType" value="${bpType}">
                     </div>
                 </div>
             </td>
@@ -53,11 +54,12 @@
             <td>
                 <div class="row g-0">
                     <div class="col-sm-auto">
-                        <form:select path="corporate_type1" cssClass="form-select form-select-sm">
+                        <form:select path="corporate_type1" id="corporate_type1" cssClass="form-select form-select-sm">
                             <option value="0" selected>法人</option>
                             <option value="1">自営業</option>
                             <option value="2">その他</option>
                         </form:select>
+                        <input type="hidden" id="compType" value="${compType}"/>
                     </div>
                 </div>
             </td>
@@ -100,7 +102,7 @@
             <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
                 <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;契約担当メール</th>
             <td>
-                <div class="row g-3">
+                <%--<div class="row g-3">
                     <div class="col-sm-5">
                         <form:input cssClass="form-control form-control-sm" path="mailAddress1" id="mailAddress1"/>
                     </div>
@@ -119,7 +121,8 @@
                         </select>
                     </div>
                 </div>
-                <form:hidden path="contract_mail" id="contractMail"/>
+                <form:hidden path="contract_mail" id="contractMail"/>--%>
+                <form:input path="contract_mail" cssClass="form-control form-control-sm"/>
                 <form:errors path="contract_mail" style="font-size: 10pt;color: red;padding-left: 5px;"/>
             </td>
         </tr>
@@ -155,7 +158,7 @@
 <%@ include file="../coverBottom.jsp" %>
 
 <script type="text/javascript">
-    $("#mailSelect").change(function() {
+    /*$("#mailSelect").change(function() {
         $("#mailSelect option:selected").each(function () {
             if($(this).val() == '0') {
                 //$("#mailAddress2").val('');
@@ -165,15 +168,25 @@
                 $("#mailAddress2").attr("disabled",true);
             }
         });
-    });
+    });*/
 
     function check(frm) {
         var tel = $("#contractTel1").val() + "-" + $("#contractTel2").val() + "-" + $("#contractTel3").val();
-        var mail = $("#mailAddress1").val() + "@" + $("#mailAddress2").val();
+        //var mail = $("#mailAddress1").val() + "@" + $("#mailAddress2").val();
 
         $("#contractTel").val(tel);
-        $("#contractMail").val(mail);
+        //$("#contractMail").val(mail);
     }
+
+    $(document).ready(function(){
+        var bpType = $("#bpType").val();
+        var compType = $("#compType").val();
+        if(bpType != "" && compType != "") {
+            $("#bp_type").val(bpType).attr("selected", "true");
+            $("#corporate_type1").val(compType).attr("selected", "true");
+        }
+    });
+
 </script>
 
 </html>

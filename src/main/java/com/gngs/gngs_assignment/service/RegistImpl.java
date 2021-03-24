@@ -59,12 +59,35 @@ public class RegistImpl implements Regist {
     public BpInformDetailVO showBpInform(BpInformVO vo) {
         BpInformDetailVO result = dao.showBpInform(vo);
 
-        int mailIdx = result.getContract_mail().indexOf("@");
-        result.setMailAddress1(result.getContract_mail().substring(0,mailIdx));
-        result.setMailAddress2(result.getContract_mail().substring(mailIdx+1));
+        System.out.println(result.getCorporate_birth());
+        String[] birth = result.getUuid_date().split(" ");
+        result.setCorporate_birth(birth[0]);
 
-        String[] telArray = result.getContract_tel().split("-");
-        result.setContractTel1(telArray[0]); result.setContractTel2(telArray[1]); result.setContractTel3(telArray[2]);
+        /*int mailIdx = result.getContract_mail().indexOf("@");
+        result.setMailAddress1(result.getContract_mail().substring(0,mailIdx));
+        result.setMailAddress2(result.getContract_mail().substring(mailIdx+1));*/
+        String[] telArray;
+
+        if(result.getContract_tel() != null && !result.getContract_tel().isEmpty()) {
+            telArray = result.getContract_tel().split("-");
+            result.setContractTel1(telArray[0]); result.setContractTel2(telArray[1]); result.setContractTel3(telArray[2]);
+        }
+        if(result.getContract_phone() != null && !result.getContract_phone().isEmpty()) {
+            telArray = result.getContract_phone().split("-");
+            result.setContractPhone1(telArray[0]);result.setContractPhone2(telArray[1]);result.setContractPhone3(telArray[2]);
+        }
+        if(result.getCorporate_tel() != null && !result.getCorporate_tel().isEmpty()) {
+            telArray = result.getCorporate_tel().split("-");
+            result.setCorporateTel1(telArray[0]);result.setCorporateTel2(telArray[1]);result.setCorporateTel3(telArray[2]);
+        }
+        if(result.getCorporate_fax() != null && !result.getCorporate_fax().isEmpty()) {
+            telArray = result.getCorporate_fax().split("-");
+            result.setCorporateFax1(telArray[0]);result.setCorporateFax2(telArray[1]);result.setCorporateFax3(telArray[2]);
+        }
+        if(result.getDispatch_tel() != null && !result.getDispatch_tel().isEmpty()) {
+            telArray = result.getDispatch_tel().split("-");
+            result.setDispatchTel1(telArray[0]);result.setDispatchTel2(telArray[1]);result.setDispatchTel3(telArray[2]);
+        }
 
         return result;
     }

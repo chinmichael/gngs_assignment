@@ -77,11 +77,13 @@
                     <td>
                         <div class="row g-0">
                             <div class="col-sm-auto">
-                                <form:select path="corporate_type1" cssClass="form-select form-select-sm">
+                                <form:select path="corporate_type1" cssClass="form-select form-select-sm"
+                                             onchange="changeCompType(this)">
                                     <option value="0" selected>法人</option>
                                     <option value="1">自営業</option>
                                     <option value="2">その他</option>
                                 </form:select>
+                                <input type="hidden" id="compType1" value="${bpInform.getCorporate_type1()}"/>
                             </div>
                         </div>
                     </td>
@@ -116,7 +118,9 @@
                     <td>
                         <div class="row g-0">
                             <div class="col-sm-auto">
-                                <input type="date" name="corporate_birth"/>
+                                <input type="date" name="corporateBirth" value="${bpInform.getCorporate_birth()}"/>
+                                <form:hidden path="corporate_birth" id="corporate_birth" />
+                                <form:errors path="corporate_birth" style="font-size: 10pt;color: red;padding-left: 5px;"/>
                             </div>
                         </div>
                     </td>
@@ -129,6 +133,7 @@
                             <div class="input-group input-group-sm">
                                 <div class="input-group-text">〒</div>
                                 <form:input path="corporate_zipcode" cssClass="form-control form-control-sm" maxlength="7" id="zipcode" onchange="searchAddress();"/>
+                                <form:errors path="corporate_zipcode" style="font-size: 10pt;color: red;padding-left: 5px;"/>
                             </div>
                         </div>
                     </td>
@@ -253,26 +258,8 @@
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
                         <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;契約担当メール</th>
                     <td>
-                        <div class="row g-3">
-                            <div class="col-sm-5">
-                                <form:input cssClass="form-control form-control-sm" path="mailAddress1" id="mailAddress1" value="${bpInform.getMailAddress1()}"/>
-                            </div>
-                            <div class="col-sm-5">
-                                <div class="input-group input-group-sm">
-                                    <div class="input-group-text">@</div>
-                                    <form:input cssClass="form-control form-control-sm" path="mailAddress2" id="mailAddress2" value="${bpInform.getMailAddress2()}"/>
-                                </div>
-                            </div>
-                            <div class="col-sm-auto">
-                                <select class="form-select form-select-sm" id="mailSelect">
-                                    <option value="0" selected>直接入力</option>
-                                    <option value="1">google.com</option>
-                                    <option value="2">yahoo.co.jp</option>
-                                    <option value="3">naver.com</option>
-                                </select>
-                            </div>
-                        </div>
-                        <form:hidden path="contract_mail" id="contractMail"/>
+                        <form:input path="contract_mail" cssClass="form-control form-control-sm"
+                                    value="${bpInform.getContract_mail()}"/>
                         <form:errors path="contract_mail" style="font-size: 10pt;color: red;padding-left: 5px;"/>
                     </td>
                 </tr>
@@ -283,6 +270,7 @@
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
                         <span style="color: blue"><i class="fas fa-caret-right"></i></span>&nbsp;派遣元部署名</th>
                     <td><form:input path="dispatch_dept" cssClass="form-control form-control-sm"/>
+                        <form:errors path="dispatch_dept" style="font-size: 10pt;color: red;padding-left: 5px;"/>
                     </td>
                 </tr>
                 <tr>
@@ -291,6 +279,7 @@
                     <td>
                         <div class="col-sm-5">
                             <form:input path="dispatch_admin" cssClass="form-control form-control-sm"/>
+                            <form:errors path="dispatch_admin" style="font-size: 10pt;color: red;padding-left: 5px;"/>
                         </div>
                     </td>
                 </tr>
@@ -300,6 +289,7 @@
                     <td>
                         <div class="col-sm-5">
                             <form:input path="dispatch_manager" cssClass="form-control form-control-sm"/>
+                            <form:errors path="dispatch_manager" style="font-size: 10pt;color: red;padding-left: 5px;"/>
                         </div>
                     </td>
                 </tr>
@@ -326,26 +316,8 @@
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
                         <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;派遣元メール</th>
                     <td>
-                        <div class="row g-3">
-                            <div class="col-sm-5">
-                                <form:input cssClass="form-control form-control-sm" path="dispatchMail1" id="dispatchMail1" value="${bpInform.getDispatchMail1()}"/>
-                            </div>
-                            <div class="col-sm-5">
-                                <div class="input-group input-group-sm">
-                                    <div class="input-group-text">@</div>
-                                    <form:input cssClass="form-control form-control-sm" path="dispatchMail2" id="dispatchMail2" value="${bpInform.getDispatchMail2()}"/>
-                                </div>
-                            </div>
-                            <div class="col-sm-auto">
-                                <select class="form-select form-select-sm" id="dispatchMailSelect">
-                                    <option value="0" selected>直接入力</option>
-                                    <option value="1">google.com</option>
-                                    <option value="2">yahoo.co.jp</option>
-                                    <option value="3">naver.com</option>
-                                </select>
-                            </div>
-                        </div>
-                        <form:hidden path="dispatch_mail" id="dispatchMail"/>
+                        <form:input path="dispatch_mail" cssClass="form-control form-control-sm"
+                                    value="${bpInform.getDispatch_mail()}"/>
                         <form:errors path="dispatch_mail" style="font-size: 10pt;color: red;padding-left: 5px;"/>
                     </td>
                 </tr>
@@ -422,23 +394,43 @@
 <script src="//api.zipaddress.net/sdk/zipaddr.min.js" async></script>
 
 <script type="text/javascript">
+    function changeCompType(type) {
+        var comp1 = ["零細","中小","大手"];
+        var comp2 = ["男","女"];
+        var set;
+        var target = document.getElementById("corporate_type2");
+
+        if(type.value == "0") set = comp1;
+        else set = comp2;
+
+        target.options.length = 0;
+
+        for(x in set) {
+            var opt = document.createElement("option");
+            opt.value = x + 3;
+            opt.innerHTML = set[x];
+            target.appendChild(opt);
+        }
+    }
+
     $(document).ready(function () {
        var checkBp = $("#bpType").val();
+       var checkComp1 = $("#compType1").val();
+       var checkComp2 = $("#compType2").val();
+       var checkProcedure = $("#procedureStatus").val();
+       var checkDeal = $("#dealStatus").val();
 
-       if(checkBp == "0") {
+       /*if(checkBp == "0") {
            $("#bp_type option:eq(0)").attr("selected", "selected");
        } else {
            $("#bp_type option:eq(1)").attr("selected", "selected");
-       }
+       }*/
+        if(checkBp != "") $("#bp_type").val(checkBp).attr("selected", "true");
+        if(checkComp1 != "") $("#corporate_type1").val(checkComp1).attr("selected", "true");
+        if(checkComp2 != "") $("#corporate_type2").val(checkComp2).attr("selected", "true");
+        if(checkProcedure != "") $("#procedure_status").val(checkProcedure).attr("selected", "true");
+        if(checkDeal != "") $("#deal_status").val(checkDeal).attr("selected", "true");
 
-       var checkComp2 = $("#compType2").val();
-        if(checkComp2 == "0") {
-            $("#corporate_type2 option:eq(0)").attr("selected", "selected");
-        } else if(checkComp2 == "1") {
-            $("#corporate_type2e option:eq(1)").attr("selected", "selected");
-        } else {
-            $("#corporate_type2e option:eq(2)").attr("selected", "selected");
-        }
 
     });
 
@@ -449,13 +441,10 @@
 
         if(zipcode && zipcode.length === 7) {
             ZA.request(zipcode, function (data, err) {
-               /*if(err) {
-                   $address.val('');
-                   $zipcode.focus();
-                   return alert(data.message);
-               }*/
                if(err) {
                    $address.val('');
+                   //$zipcode.focus();
+                   //return alert(data.message);
                }
                $address.val(data.fullAddress);
                //$address.focus();
@@ -467,25 +456,18 @@
         }
     };
 
-
-    $("#mailSelect").change(function() {
-        $("#mailSelect option:selected").each(function () {
-            if($(this).val() == '0') {
-                //$("#mailAddress2").val('');
-                $("#mailAddress2").attr("disabled",false);
-            } else {
-                $("#mailAddress2").val($(this).text());
-                $("#mailAddress2").attr("disabled",true);
-            }
-        });
-    });
-
     function check(frm) {
-        var tel = $("#contractTel1").val() + "-" + $("#contractTel2").val() + "-" + $("#contractTel3").val();
-        var mail = $("#mailAddress1").val() + "@" + $("#mailAddress2").val();
+        var compTel = $("#corporateTel1").val() + "-" + $("#corporateTel2").val() + "-" + $("#corporateTel3").val();
+        var compFax = $("#corporateFax1").val() + "-" + $("#corporateFax2").val() + "-" + $("#corporateFax3").val();
+        var contractTel = $("#contractTel1").val() + "-" + $("#contractTel2").val() + "-" + $("#contractTel3").val();
+        var contractPhone = $("#contractPhone1").val() + "-" + $("#contractPhone2").val() + "-" + $("#contractPhone3").val();
+        var dispatchTel = $("#dispatchTel1").val() + "-" + $("#dispatchTel2").val() + "-" + $("#dispatchTel3").val();
 
-        $("#contractTel").val(tel);
-        $("#contractMail").val(mail);
+        $("#corporateTel").val(compTel);
+        $("#corporateFax").val(compFax);
+        $("#contractTel").val(contractTel);
+        $("#contractPhone").val(contractPhone);
+        $("#dispatchTel").val(dispatchTel);
     }
 </script>
 

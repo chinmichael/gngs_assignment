@@ -7,7 +7,6 @@ import lombok.Setter;
 @Setter
 public class AccountVO {
     private String bp_id;
-    private Integer account_seq;
     private String bank_num;
     private String bank_name;
     private String branch_num;
@@ -15,6 +14,5 @@ public class AccountVO {
     private Integer account_type;
     private String account_num;
     private String account_name;
-    private Integer use_type_flag;
 
 }

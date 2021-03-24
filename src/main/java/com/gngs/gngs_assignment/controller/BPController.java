@@ -100,6 +100,8 @@ public class BPController {
         if(br.hasErrors()) {
             mav = new ModelAndView("bp/bpRequestForm");
             mav.getModel().putAll(br.getModel());
+            mav.addObject("bpType", vo.getBp_type());
+            mav.addObject("compType", vo.getCorporate_type1());
             return mav;
         }
 

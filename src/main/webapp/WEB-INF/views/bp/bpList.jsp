@@ -37,7 +37,7 @@
                                 </select>
                             </div>
                             <div class="col-sm-auto">
-                                <input type="text" class="form-control form-control-sm" id="searchBpName" name="searchBpName"/>
+                                <input type="text" class="form-control form-control-sm" id="searchName" name="searchName" value="${searchName}"/>
                             </div>
                             <div class="col-sm-auto">
                                 <button type="submit" class="btn btn-secondary btn-sm"  ><i class="fas fa-search"></i></button>
@@ -303,5 +303,17 @@
                 target.appendChild(opt);
             }
         }
+
+        $(document).ready(function () {
+            var searchT1 = document.searchMove.searchType1.value;
+            var searchT2 = document.searchMove.searchType2.value;
+
+            if(searchT1 != "" && searchT2 != "") {
+                $("#searchType1").val(searchT1).attr("selected", "true");
+                var target = document.getElementById("searchType1");
+                changeSearchType2(target);
+                $("#searchType2").val(searchT2).attr("selected", "true");
+            }
+        });
     </script>
 </html>

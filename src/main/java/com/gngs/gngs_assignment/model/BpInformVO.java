@@ -24,8 +24,8 @@ public class BpInformVO {
     @NotBlank(message = "メールをチェックしてください")
     @Email(message = "メールをチェックしてください")
     private String contract_mail;
-    private String mailAddress1;
-    private String mailAddress2;
+    /*private String mailAddress1;
+    private String mailAddress2;*/
 
     @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$",
             message = "電話番号をチェックしてください")
