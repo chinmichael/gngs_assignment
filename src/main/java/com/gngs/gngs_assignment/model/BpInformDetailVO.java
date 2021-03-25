@@ -3,11 +3,17 @@ package com.gngs.gngs_assignment.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+
 @Getter
 @Setter
 public class BpInformDetailVO extends BpInformVO {
 
+    @NotBlank(message = "名前を入力してください")
     private String corporate_name_kana;
+    @NotBlank(message = "名前を入力してください")
     private String corporate_name_eng;
     private Integer corporate_type2;
     private String corporate_birth;
@@ -15,6 +21,8 @@ public class BpInformDetailVO extends BpInformVO {
     private String corporate_address1;
     private String corporate_address2;
 
+    @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$",
+            message = "電話番号をチェックしてください")
     private String corporate_tel;
     private String corporateTel1;
     private String corporateTel2;
@@ -37,10 +45,14 @@ public class BpInformDetailVO extends BpInformVO {
     private String dispatch_admin;
     private String dispatch_manager;
 
+    @NotBlank(message = "メールをチェックしてください")
+    @Email(message = "メールをチェックしてください")
     private String dispatch_mail;
     /*private String dispatchMail1;
     private String dispatchMail2;*/
 
+    @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$",
+            message = "電話番号をチェックしてください")
     private String dispatch_tel;
     private String dispatchTel1;
     private String dispatchTel2;

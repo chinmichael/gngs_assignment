@@ -13,10 +13,10 @@
     <main class="col bg-faded py-4 flex-grow-1" style="font-family: Meiryo; margin-bottom: 150px; padding-left: 30px; padding-right: 25px;">
 
         <h3 style="font-size: 20pt;font-weight: bold;text-decoration-line: underline;margin-bottom: 20px">
-            BP基本情報登録</h3>
+            BP詳細情報登録</h3>
 
         <%--Regist Form--%>
-        <form:form modelAttribute="bpInformDetailVO" action="#" method="post" name="bpRequestFrm" onsubmit="return check(this)">
+        <form:form modelAttribute="bpInformDetailVO" action="bpRegistAdminSend" method="post" name="bpRequestFrm" onsubmit="return check(this)">
 
             <table class="table table-bordered border-secondary">
                 <thead>
@@ -118,7 +118,7 @@
                     <td>
                         <div class="row g-0">
                             <div class="col-sm-auto">
-                                <input type="date" name="corporateBirth" value="${bpInform.getCorporate_birth()}"/>
+                                <input type="date" name="corporateBirth" id="corporateBirth" value="${bpInform.getCorporate_birth()}"/>
                                 <form:hidden path="corporate_birth" id="corporate_birth" />
                                 <form:errors path="corporate_birth" style="font-size: 10pt;color: red;padding-left: 5px;"/>
                             </div>
@@ -127,7 +127,7 @@
                 </tr>
                 <tr>
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
-                        <span style="color: blue"><i class="fas fa-caret-right"></i></span>&nbsp;郵便番号</th>
+                        <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;郵便番号</th>
                     <td>
                         <div class="col-sm-3">
                             <div class="input-group input-group-sm">
@@ -140,7 +140,7 @@
                 </tr>
                 <tr>
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
-                        <span style="color: blue"><i class="fas fa-caret-right"></i></span>&nbsp;住所</th>
+                        <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;住所</th>
                     <td><form:input path="corporate_address1" cssClass="form-control form-control-sm" readonly="true" id="address1"/>
                         <form:input path="corporate_address2" cssClass="form-control form-control-sm" style="margin-top:10px;"/>
                     </td>
@@ -166,7 +166,7 @@
                 </tr>
                 <tr>
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
-                        <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;FAX番号</th>
+                        <span style="color: blue"><i class="fas fa-caret-right"></i></span>&nbsp;FAX番号</th>
                     <td>
                         <div class="row g-3">
                             <div class="col-sm-3">
@@ -186,7 +186,7 @@
                 <tr>
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
                         <span style="color: blue"><i class="fas fa-caret-right"></i></span>&nbsp;ホームページ URL</th>
-                    <td><form:input path="contract_dept" cssClass="form-control form-control-sm"/>
+                    <td><form:input path="corporate_homepage" cssClass="form-control form-control-sm"/>
                     </td>
                 </tr>
                 <tr>
@@ -194,7 +194,7 @@
                         <span style="color: blue"><i class="fas fa-caret-right"></i></span>&nbsp;代表者名</th>
                     <td>
                         <div class="col-sm-5">
-                            <form:input path="contract_manager" cssClass="form-control form-control-sm"/>
+                            <form:input path="corporate_applier" cssClass="form-control form-control-sm"/>
                         </div>
                     </td>
                 </tr>
@@ -237,7 +237,7 @@
                 </tr>
                 <tr>
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
-                        <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;契約担当携帯番号</th>
+                        <span style="color: blue"><i class="fas fa-caret-right"></i></span>&nbsp;契約担当携帯番号</th>
                     <td>
                         <div class="row g-3">
                             <div class="col-sm-3">
@@ -268,14 +268,14 @@
                 <!--Dispatch Information-->
                 <tr>
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
-                        <span style="color: blue"><i class="fas fa-caret-right"></i></span>&nbsp;派遣元部署名</th>
+                        <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;派遣元部署名</th>
                     <td><form:input path="dispatch_dept" cssClass="form-control form-control-sm"/>
                         <form:errors path="dispatch_dept" style="font-size: 10pt;color: red;padding-left: 5px;"/>
                     </td>
                 </tr>
                 <tr>
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
-                        <span style="color: blue"><i class="fas fa-caret-right"></i></span>&nbsp;派遣元役職名</th>
+                        <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;派遣元役職名</th>
                     <td>
                         <div class="col-sm-5">
                             <form:input path="dispatch_admin" cssClass="form-control form-control-sm"/>
@@ -285,7 +285,7 @@
                 </tr>
                 <tr>
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
-                        <span style="color: blue"><i class="fas fa-caret-right"></i></span>&nbsp;派遣元担当者名</th>
+                        <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;派遣元担当者名</th>
                     <td>
                         <div class="col-sm-5">
                             <form:input path="dispatch_manager" cssClass="form-control form-control-sm"/>
@@ -434,7 +434,33 @@
 
     });
 
-    var searchAddress = function () {
+    function searchAddress () {
+        var $zipcode = $("#zipcode");
+        var zipcode = $zipcode.val();
+
+        var $address = $("#address1");
+
+        if(zipcode.length === 7) {
+            $.ajax({
+                url: "bpZipcodeCheck",
+                type: "POST",
+                data: {
+                    zipcode: zipcode
+                },
+                success: function (result) {
+                    $address.val(result.address);
+                },
+                error: function () {
+                    alert("err");
+                    $address.val('');
+                }
+            });
+        } else {
+            $address.val('');
+        }
+    }
+
+    /*var searchAddress = function () {
         var $zipcode = $('#zipcode');
         var zipcode = $zipcode.val();
         var $address = $('#address1');
@@ -450,11 +476,11 @@
                //$address.focus();
             });
         } else {
-            /*alert("郵便番号に誤りがあります。");
-            $zipcode.focus();*/
+            /!*alert("郵便番号に誤りがあります。");
+            $zipcode.focus();*!/
             $address.val('');
         }
-    };
+    };*/
 
     function check(frm) {
         var compTel = $("#corporateTel1").val() + "-" + $("#corporateTel2").val() + "-" + $("#corporateTel3").val();
@@ -462,12 +488,14 @@
         var contractTel = $("#contractTel1").val() + "-" + $("#contractTel2").val() + "-" + $("#contractTel3").val();
         var contractPhone = $("#contractPhone1").val() + "-" + $("#contractPhone2").val() + "-" + $("#contractPhone3").val();
         var dispatchTel = $("#dispatchTel1").val() + "-" + $("#dispatchTel2").val() + "-" + $("#dispatchTel3").val();
+        var birth = $("#corporateBirth").val();
 
         $("#corporateTel").val(compTel);
         $("#corporateFax").val(compFax);
         $("#contractTel").val(contractTel);
         $("#contractPhone").val(contractPhone);
         $("#dispatchTel").val(dispatchTel);
+        $("#corporate_birth").val(birth);
     }
 </script>
 

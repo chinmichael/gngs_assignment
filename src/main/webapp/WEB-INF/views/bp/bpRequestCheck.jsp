@@ -12,7 +12,7 @@
 <main class="col bg-faded py-4 flex-grow-1" style="font-family: Meiryo; margin-bottom: 150px; padding-left: 30px; padding-right: 25px;">
 
     <h3 style="font-size: 20pt;font-weight: bold;text-decoration-line: underline;margin-bottom: 20px">
-        BP登録依頼</h3>
+        BP情報登録確認</h3>
 
     <%--Regist Form--%>
     <form:form modelAttribute="bpInformVO" action="../bp/bpRequestCheckSend" method="post" name="bpRequestCheckFrm">

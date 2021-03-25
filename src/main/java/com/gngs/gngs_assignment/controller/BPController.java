@@ -4,10 +4,11 @@ import com.gngs.gngs_assignment.model.*;
 import com.gngs.gngs_assignment.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -15,7 +16,7 @@ import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/bp")
 public class BPController {
 
@@ -148,6 +149,19 @@ public class BPController {
         return mav;
     }
 
+    @RequestMapping(value="/bpZipcodeCheck")
+    public HashMap<String, String> bpZipcodeCheck (@RequestParam("zipcode") String zipcode) {
+        HashMap<String, String> result = new HashMap <String,String>();
+
+        if(zipcode == null || zipcode.isEmpty()) {
+            zipcode = "";
+        }
+        String address = regist.zipAddress(zipcode);
+        result.put("address", address);
+
+        return result;
+    }
+
     @RequestMapping(value="/bpRegistAdmin")
     public ModelAndView bpRegistAdmin(String key) {
         ModelAndView mav = new ModelAndView("bp/bpRegistAdmin");
@@ -157,6 +171,33 @@ public class BPController {
 
         mav.addObject(new BpInformDetailVO());
         mav.addObject("bpInform", result);
+        return mav;
+    }
+
+    @RequestMapping(value="/bpRegistAdminSend")
+    public ModelAndView bpRegistAdminSend (@Valid @ModelAttribute BpInformDetailVO vo, BindingResult br) {
+        ModelAndView mav;
+
+        if(br.hasErrors()) {
+            mav = new ModelAndView("bp/bpRegistAdmin");
+            mav.getModel().putAll(br.getModel());
+
+            mav.addObject("bpInform", vo);
+
+            return mav;
+        }
+
+        mav = new ModelAndView("bp/bpRegistAdminCheck");
+        mav.addObject("bpInform", vo);
+        mav.addObject(new BpInformDetailVO());
+
+        return mav;
+    }
+
+    @RequestMapping(value="/bpRegistAdminCheckSend")
+    public ModelAndView bpRegistAdminCheckSend(@ModelAttribute BpInformDetailVO vo, HttpSession session) {
+        ModelAndView mav = new ModelAndView("redirect:/bp/bpRequestClear");
+
         return mav;
     }
 

@@ -7,4 +7,5 @@ public interface Regist {
     public Integer bpRuquestInsert(BpInformVO vo);
     public BpInformDetailVO showBpInform(BpInformVO vo);
     public String pullBpId(String uuid);
+    public String zipAddress(String zipcode);
 }

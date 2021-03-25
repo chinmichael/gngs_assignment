@@ -11,7 +11,7 @@
     <main class="col bg-faded py-4 flex-grow-1" style="font-family: Meiryo; margin-bottom: 150px; padding-left: 30px; padding-right: 25px;">
 
         <h3 style="font-size: 20pt;font-weight: bold;text-decoration-line: underline;margin-bottom: 20px">
-            BP一覧</h3>
+            BP情報一覧</h3>
 
         <table class="table table-bordered" style="font-size: 11pt;">
             <tr>

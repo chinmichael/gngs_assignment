@@ -41,7 +41,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid" style="overflow: visible; min-height: 0px; position: static;">
 
-            <a class="navbar-brand" style="font-weight: bold; font-size: 20pt; margin-left: 10px;" href="../cover">G&G 外注管理</a>
+            <a class="navbar-brand" style="font-weight: bold; font-size: 20pt; margin-left: 10px;" href="../cover">外注契約管理</a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -54,15 +54,15 @@
                     <c:if test="${not empty login}">
                     <li class="nav-item">
                         <a class="nav-link" href="../bp/bpList"
-                            style="font-weight: bold;font-size: large;color: #b6d4fe; padding-right: 20px;">BP管理</a>
+                            style="font-weight: bold;font-size: large;color: #b6d4fe; padding-right: 20px;">BP情報管理</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../item/itemList"
-                           style="font-weight: bold;font-size: large;color: #b6d4fe; padding-right: 20px;">案件管理</a>
+                           style="font-weight: bold;font-size: large;color: #b6d4fe; padding-right: 20px;">案件情報管理</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#"
-                           style="font-weight: bold;font-size: large;color: #b6d4fe;">契約管理</a>
+                           style="font-weight: bold;font-size: large;color: #b6d4fe;">契約情報管理</a>
                     </li>
                     </c:if>
                 </ul>

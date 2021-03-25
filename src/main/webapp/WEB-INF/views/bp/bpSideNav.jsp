@@ -29,25 +29,19 @@
 
                             <li class="nav-item" style="margin-top:5px;">
                                 <a class="nav-link" href=../bp/bpList>
-                                    <i class="far fa-dot-circle"></i>&nbsp;&nbsp;BP一覧
-                                </a>
-                            </li>
-
-                            <li class="nav-item" style="margin-top:5px;">
-                                <a class="nav-link" href=../bp/bpRequestForm>
-                                    <i class="far fa-dot-circle"></i>&nbsp;&nbsp;BP登録依頼
+                                    <i class="far fa-dot-circle"></i>&nbsp;&nbsp;BP情報一覧
                                 </a>
                             </li>
 
                             <li class="nav-item" style="margin-top:5px;">
                                 <a class="nav-link" href=#>
-                                    <i class="far fa-dot-circle"></i>&nbsp;&nbsp;口座一覧
+                                    <i class="far fa-dot-circle"></i>&nbsp;&nbsp;口座情報一覧
                                 </a>
                             </li>
 
                             <li class="nav-item" style="margin-top:5px;">
                                 <a class="nav-link" href=#>
-                                    <i class="far fa-dot-circle"></i>&nbsp;&nbsp;36協定一覧
+                                    <i class="far fa-dot-circle"></i>&nbsp;&nbsp;36協定情報一覧
                                 </a>
                             </li>
 

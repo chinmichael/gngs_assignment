@@ -2,6 +2,7 @@ package com.gngs.gngs_assignment.service;
 
 import com.gngs.gngs_assignment.model.BpInformDetailVO;
 import com.gngs.gngs_assignment.model.BpInformVO;
+import com.gngs.gngs_assignment.model.ZipcodeVO;
 import com.gngs.gngs_assignment.repository.GngsDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,9 +60,10 @@ public class RegistImpl implements Regist {
     public BpInformDetailVO showBpInform(BpInformVO vo) {
         BpInformDetailVO result = dao.showBpInform(vo);
 
-        System.out.println(result.getCorporate_birth());
-        String[] birth = result.getUuid_date().split(" ");
-        result.setCorporate_birth(birth[0]);
+        if(result.getCorporate_birth() != null && !result.getCorporate_birth().isEmpty()) {
+            String[] birth = result.getUuid_date().split(" ");
+            result.setCorporate_birth(birth[0]);
+        }
 
         /*int mailIdx = result.getContract_mail().indexOf("@");
         result.setMailAddress1(result.getContract_mail().substring(0,mailIdx));
@@ -97,4 +99,21 @@ public class RegistImpl implements Regist {
         if(bpId == null || bpId.isEmpty()) bpId="";
         return bpId;
     }
+
+    public String zipAddress(String zipcode) {
+        ZipcodeVO vo = dao.getZipAddress(zipcode);
+
+        if(vo == null) {
+            return "";
+        }
+
+        if(vo.getKen() == null || vo.getKen().isEmpty()) vo.setKen("");
+        if(vo.getSi() == null || vo.getSi().isEmpty()) vo.setSi("");
+        if(vo.getMachi() == null || vo.getMachi().isEmpty()) vo.setMachi("");
+
+        String address = vo.getKen() + vo.getSi() + vo.getMachi();
+
+        return address;
+    }
+
 }
