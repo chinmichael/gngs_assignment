@@ -11,7 +11,16 @@
 <%--Main Contents--%>
 <main class="col bg-faded py-4 flex-grow-1" style="font-family: Meiryo; margin-bottom: 150px; padding-left: 30px; padding-right: 25px;">
 
-    <h3 style="font-size: 20pt;font-weight: bold;text-decoration-line: underline;margin-bottom: 20px">
+    <a href=# data-bs-toggle="modal" data-bs-target="#logMoveModal" style="text-decoration:none;"
+       onclick="logMove('BP情報一覧', -2)">BP情報一覧 ></a>
+    <a href=# data-bs-toggle="modal" data-bs-target="#logMoveModal" style="text-decoration:none;"
+       onclick="logMove('BP情報登録依頼', -1)">
+        BP情報登録依頼 ></a>
+    <a style="text-decoration:none;">BP情報登録確認</a>
+
+    <%@ include file="../logMoveModal.jsp"%>
+
+    <h3 style="font-size: 20pt;font-weight: bold;text-decoration-line: underline;margin-bottom: 20px; margin-top:20px;">
         BP情報登録確認</h3>
 
     <%--Regist Form--%>
@@ -80,12 +89,32 @@
         <form:hidden path="contract_mail" value="${bpInform.getContract_mail()}"/>
         <form:hidden path="userid" value="${login.getUserid()}"/>
 
+        <div class="modal fade" id="bpRequestFormCheckModal" tabindex="-1" aria-labelledby="bpRequestFormCheckModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-body" align="center" style="font-size: 11pt;font-weight: bold;">
+                        登録依頼メールをおくりましょうか。
+                    </div>
+                    <div align="center" style="color: cornflowerblue; font-size: 50pt; margin-bottom: 5px;">
+                        <i class="fas fa-paper-plane"></i>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal"
+                                style="margin-left:20px; margin-bottom:15px;padding-top: 6px;"
+                                onclick="goDetailRegist()">&nbsp;いいえ&nbsp;</button>
+                        <button type="submit" class="btn btn-success btn-sm" id="moveAccept"
+                                style="float:right; margin-right: 20px; margin-bottom: 15px;padding-top: 6px;">&nbsp;はい&nbsp;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <%--Regist Buttons--%>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button class="btn btn-secondary me-md-2" style="font-weight:bold;" type="button"
                     onclick="history.back()">&nbsp;&nbsp;戻る&nbsp;&nbsp;
             </button>
-            <button class="btn btn-dark" type="submit" style="font-weight:bold;">
+            <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#bpRequestFormCheckModal" style="font-weight:bold;">
                 &nbsp;&nbsp;登録&nbsp;&nbsp;
             </button>
         </div>
@@ -102,5 +131,12 @@
 
 
 <%@ include file="../coverBottom.jsp" %>
+
+<script type="text/javascript">
+    function goDetailRegist() {
+        document.bpRequestCheckFrm.action="";
+        document.bpRequestCheckFrm.submit();
+    }
+</script>
 
 </html>

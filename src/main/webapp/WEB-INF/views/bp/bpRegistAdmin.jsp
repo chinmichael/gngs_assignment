@@ -12,7 +12,13 @@
     <%--Main Contents--%>
     <main class="col bg-faded py-4 flex-grow-1" style="font-family: Meiryo; margin-bottom: 150px; padding-left: 30px; padding-right: 25px;">
 
-        <h3 style="font-size: 20pt;font-weight: bold;text-decoration-line: underline;margin-bottom: 20px">
+        <a href=# data-bs-toggle="modal" data-bs-target="#logMoveModal" style="text-decoration:none;"
+           onclick="logMove('BP情報一覧', -1)">BP情報一覧 ></a>
+        <a style="text-decoration:none;">BP詳細情報登録</a>
+
+        <%@ include file="../logMoveModal.jsp"%>
+
+        <h3 style="font-size: 20pt;font-weight: bold;text-decoration-line: underline;margin-bottom: 20px; margin-top:20px;">
             BP詳細情報登録</h3>
 
         <%--Regist Form--%>
@@ -21,16 +27,18 @@
             <table class="table table-bordered border-secondary">
                 <thead>
                 <tr><th colspan="2" style="text-align: right; background-color: #F2F2F2;">
-                    <span style="color: blue"><i class="fas fa-caret-right"></i> : 法人のみ</span>&nbsp;
-                    <span style="color: red"><i class="fas fa-caret-right"></i> : 必須</span>
+                    <span style="color: red;margin-right:5px;"><i class="fas fa-caret-right"></i> : 必須</span>
                 </th></tr>
                 </thead>
                 <tbody>
                 <tr>
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
                         <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;BPコード</th>
-                    <td><form:input path="bp_id" cssClass="form-control form-control-sm"
-                                    cssStyle="text-align: center" value="${bpInform.getBp_id()}" readonly="true"/>
+                    <td>
+                        <div class="col-sm-5">
+                            <form:input path="bp_id" cssClass="form-control form-control-sm"
+                                        cssStyle="text-align: center" value="${bpInform.getBp_id()}" readonly="true"/>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -149,13 +157,13 @@
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
                         <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;電話番号</th>
                     <td>
-                        <div class="row g-3">
+                        <div class="row g-2">
                             <div class="col-sm-3">
                                 <form:input class="form-control form-control-sm" maxlength="3" path="corporateTel1" id="corporateTel1" value="${bpInform.getCorporateTel1()}"/>
-                            </div>
+                            </div><div class="col-sm-auto" style="padding-top: 4px;" align="center">-</div>
                             <div class="col-sm-3">
                                 <form:input class="form-control form-control-sm" maxlength="4" path="corporateTel2" id="corporateTel2" value="${bpInform.getCorporateTel2()}"/>
-                            </div>
+                            </div><div class="col-sm-auto" style="padding-top: 4px;" align="center">-</div>
                             <div class="col-sm-3">
                                 <form:input class="form-control form-control-sm" maxlength="4" path="corporateTel3" id="corporateTel3" value="${bpInform.getCorporateTel3()}"/>
                             </div>
@@ -166,15 +174,15 @@
                 </tr>
                 <tr>
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
-                        <span style="color: blue"><i class="fas fa-caret-right"></i></span>&nbsp;FAX番号</th>
+                        &nbsp;&nbsp;FAX番号</th>
                     <td>
-                        <div class="row g-3">
+                        <div class="row g-2">
                             <div class="col-sm-3">
                                 <form:input class="form-control form-control-sm" maxlength="3" path="corporateFax1" id="corporateFax1" value="${bpInform.getCorporateFax1()}"/>
-                            </div>
+                            </div><div class="col-sm-auto" style="padding-top: 4px;" align="center">-</div>
                             <div class="col-sm-3">
                                 <form:input class="form-control form-control-sm" maxlength="4" path="corporateFax2" id="corporateFax2" value="${bpInform.getCorporateFax2()}"/>
-                            </div>
+                            </div><div class="col-sm-auto" style="padding-top: 4px;" align="center">-</div>
                             <div class="col-sm-3">
                                 <form:input class="form-control form-control-sm" maxlength="4" path="corporateFax3" id="corporateFax3" value="${bpInform.getCorporateFax3()}"/>
                             </div>
@@ -185,13 +193,13 @@
                 </tr>
                 <tr>
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
-                        <span style="color: blue"><i class="fas fa-caret-right"></i></span>&nbsp;ホームページ URL</th>
+                        &nbsp;&nbsp;ホームページ URL</th>
                     <td><form:input path="corporate_homepage" cssClass="form-control form-control-sm"/>
                     </td>
                 </tr>
                 <tr>
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
-                        <span style="color: blue"><i class="fas fa-caret-right"></i></span>&nbsp;代表者名</th>
+                        &nbsp;&nbsp;代表者名</th>
                     <td>
                         <div class="col-sm-5">
                             <form:input path="corporate_applier" cssClass="form-control form-control-sm"/>
@@ -203,13 +211,13 @@
                 <!--Department Information-->
                 <tr>
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
-                        <span style="color: blue"><i class="fas fa-caret-right"></i></span>&nbsp;契約担当部署名</th>
+                        &nbsp;&nbsp;契約担当部署名</th>
                     <td><form:input path="contract_dept" cssClass="form-control form-control-sm"/>
                     </td>
                 </tr>
                 <tr>
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
-                        <span style="color: blue"><i class="fas fa-caret-right"></i></span>&nbsp;契約担当者名</th>
+                        &nbsp;&nbsp;契約担当者名</th>
                     <td>
                         <div class="col-sm-5">
                             <form:input path="contract_manager" cssClass="form-control form-control-sm"/>
@@ -220,13 +228,13 @@
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
                         <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;契約担当電話番号</th>
                     <td>
-                        <div class="row g-3">
+                        <div class="row g-2">
                             <div class="col-sm-3">
                                 <form:input class="form-control form-control-sm" maxlength="3" path="contractTel1" id="contractTel1" value="${bpInform.getContractTel1()}"/>
-                            </div>
+                            </div><div class="col-sm-auto" style="padding-top: 4px;" align="center">-</div>
                             <div class="col-sm-3">
                                 <form:input class="form-control form-control-sm" maxlength="4" path="contractTel2" id="contractTel2" value="${bpInform.getContractTel2()}"/>
-                            </div>
+                            </div><div class="col-sm-auto" style="padding-top: 4px;" align="center">-</div>
                             <div class="col-sm-3">
                                 <form:input class="form-control form-control-sm" maxlength="4" path="contractTel3" id="contractTel3" value="${bpInform.getContractTel3()}"/>
                             </div>
@@ -237,15 +245,15 @@
                 </tr>
                 <tr>
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
-                        <span style="color: blue"><i class="fas fa-caret-right"></i></span>&nbsp;契約担当携帯番号</th>
+                        &nbsp;&nbsp;契約担当携帯番号</th>
                     <td>
-                        <div class="row g-3">
+                        <div class="row g-2">
                             <div class="col-sm-3">
                                 <form:input class="form-control form-control-sm" maxlength="3" path="contractPhone1" id="contractPhone1" value="${bpInform.getContractPhone1()}"/>
-                            </div>
+                            </div><div class="col-sm-auto" style="padding-top: 4px;" align="center">-</div>
                             <div class="col-sm-3">
                                 <form:input class="form-control form-control-sm" maxlength="4" path="contractPhone2" id="contractPhone2" value="${bpInform.getContractPhone2()}"/>
-                            </div>
+                            </div><div class="col-sm-auto" style="padding-top: 4px;" align="center">-</div>
                             <div class="col-sm-3">
                                 <form:input class="form-control form-control-sm" maxlength="4" path="contractPhone3" id="contractPhone3" value="${bpInform.getContractPhone3()}"/>
                             </div>
@@ -297,13 +305,13 @@
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
                         <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;派遣元電話番号</th>
                     <td>
-                        <div class="row g-3">
+                        <div class="row g-2">
                             <div class="col-sm-3">
                                 <form:input class="form-control form-control-sm" maxlength="3" path="dispatchTel1" id="dispatchTel1" value="${bpInform.getDispatchTel1()}"/>
-                            </div>
+                            </div><div class="col-sm-auto" style="padding-top: 4px;" align="center">-</div>
                             <div class="col-sm-3">
                                 <form:input class="form-control form-control-sm" maxlength="4" path="dispatchTel2" id="dispatchTel2" value="${bpInform.getDispatchTel2()}"/>
-                            </div>
+                            </div><div class="col-sm-auto" style="padding-top: 4px;" align="center">-</div>
                             <div class="col-sm-3">
                                 <form:input class="form-control form-control-sm" maxlength="4" path="dispatchTel3" id="dispatchTel3" value="${bpInform.getDispatchTel3()}"/>
                             </div>
@@ -359,20 +367,38 @@
                 <tr>
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
                         <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;登録者</th>
-                    <td><input class="form-control form-control-sm" type="text" style="text-align: center"
-                               id="userName" readonly="true" value="${login.getUsername()}">
+                    <td>
+                        <div class="col-sm-5">
+                            <input class="form-control form-control-sm" type="text" style="text-align: center"
+                                   id="userName" readonly="true" value="${login.getUsername()}">
+                        </div>
                     </td>
                 </tr>
                 <!--/Process Information-->
 
+                <!--Account, Agreement Regist Form Button + Extra-->
+                <tr>
+                    <th colspan="2" style="width: 200px;font-size: 12pt; padding-left: 15px;text-align:center;" valign="middle">
+                        <button class="btn btn-dark me-md-2" style="font-weight:bold; color: white;" type="button"
+                                onclick="moveAccount()">&nbsp;&nbsp;口座情報情報登録&nbsp;&nbsp;</button>
+                        <button class="btn btn-dark me-md-2" style="font-weight:bold; color: white;" type="button"
+                                onclick="moveAgreement()">&nbsp;&nbsp;３６協定情報登録&nbsp;&nbsp;</button>
+                    </th>
+                </tr>
+                <tr>
+                    <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
+                        &nbsp;&nbsp;備考
+                    </th>
+                    <td>
+                        <form:textarea path="note" cssClass="form-control form-control-sm" rows="3"/>
+                    </td>
+                </tr>
+                <!--/Account, Agreement Regist Form Button + Extra-->
                 </tbody>
             </table>
 
             <%--Regist Buttons--%>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button class="btn btn-info me-md-2" style="font-weight:bold; color: white" type="button"
-                        href=#>&nbsp;&nbsp;口座情報・３６協定情報登録&nbsp;&nbsp;
-                </button>
                 <button class="btn btn-secondary me-md-2" style="font-weight:bold;" type="button"
                         onclick="history.back()">&nbsp;&nbsp;戻る&nbsp;&nbsp;
                 </button>
@@ -481,6 +507,16 @@
             $address.val('');
         }
     };*/
+
+    function moveAccount() {
+        document.bpRequestFrm.action="";
+        document.bpRequestFrm.submit();
+    }
+
+    function moveAgreement() {
+        document.bpRequestFrm.action="";
+        document.bpRequestFrm.submit();
+    }
 
     function check(frm) {
         var compTel = $("#corporateTel1").val() + "-" + $("#corporateTel2").val() + "-" + $("#corporateTel3").val();

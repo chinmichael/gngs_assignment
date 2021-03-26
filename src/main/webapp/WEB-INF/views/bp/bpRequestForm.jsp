@@ -12,7 +12,13 @@
 <%--Main Contents--%>
 <main class="col bg-faded py-4 flex-grow-1" style="font-family: Meiryo; margin-bottom: 150px; padding-left: 30px; padding-right: 25px;">
 
-    <h3 style="font-size: 20pt;font-weight: bold;text-decoration-line: underline;margin-bottom: 20px">
+    <a href=# data-bs-toggle="modal" data-bs-target="#logMoveModal" style="text-decoration:none;"
+        onclick="logMove('BP情報一覧', -1)">BP情報一覧 ></a>
+    <a style="text-decoration:none;">BP情報登録依頼</a>
+
+    <%@ include file="../logMoveModal.jsp"%>
+
+    <h3 style="font-size: 20pt;font-weight: bold;text-decoration-line: underline;margin-bottom: 20px; margin-top:20px;">
         BP情報登録依頼</h3>
 
     <%--Regist Form--%>
@@ -21,8 +27,7 @@
     <table class="table table-bordered border-secondary">
         <thead>
             <tr><th colspan="2" style="text-align: right; background-color: #F2F2F2;">
-                <span style="color: blue"><i class="fas fa-caret-right"></i> : 法人のみ</span>&nbsp;
-                <span style="color: red"><i class="fas fa-caret-right"></i> : 必須</span>
+                <span style="color: red;margin-right:5px;"><i class="fas fa-caret-right"></i> : 必須</span>
             </th></tr>
         </thead>
         <tbody>
@@ -66,13 +71,13 @@
         </tr>
         <tr>
             <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
-                <span style="color: blue"><i class="fas fa-caret-right"></i></span>&nbsp;契約担当部署名</th>
+                &nbsp;&nbsp;契約担当部署名</th>
             <td><form:input path="contract_dept" cssClass="form-control form-control-sm"/>
             </td>
         </tr>
         <tr>
             <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
-                <span style="color: blue"><i class="fas fa-caret-right"></i></span>&nbsp;契約担当者名</th>
+                &nbsp;&nbsp;契約担当者名</th>
             <td>
                 <div class="col-sm-5">
                     <form:input path="contract_manager" cssClass="form-control form-control-sm"/>
@@ -83,13 +88,13 @@
             <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
                 <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;契約担当電話番号</th>
             <td>
-                <div class="row g-3">
+                <div class="row g-2">
                     <div class="col-sm-3">
                         <form:input class="form-control form-control-sm" maxlength="3" path="contractTel1" id="contractTel1"/>
-                    </div>
+                    </div><div class="col-sm-auto" style="padding-top: 4px;" align="center">-</div>
                     <div class="col-sm-3">
                         <form:input class="form-control form-control-sm" maxlength="4" path="contractTel2" id="contractTel2"/>
-                    </div>
+                    </div><div class="col-sm-auto" style="padding-top: 4px;" align="center">-</div>
                     <div class="col-sm-3">
                         <form:input class="form-control form-control-sm" maxlength="4" path="contractTel3" id="contractTel3"/>
                     </div>

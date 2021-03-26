@@ -11,7 +11,15 @@
 <%--Main Contents--%>
 <main class="col bg-faded py-4 flex-grow-1" style="font-family: Meiryo; margin-bottom: 150px; padding-left: 30px; padding-right: 25px;">
 
-    <h3 style="font-size: 20pt;font-weight: bold;text-decoration-line: underline;margin-bottom: 20px">
+    <a href=# data-bs-toggle="modal" data-bs-target="#logMoveModal" style="text-decoration:none;"
+       onclick="logMove('BP情報一覧', -2)">BP情報一覧 ></a>
+    <a href=# data-bs-toggle="modal" data-bs-target="#logMoveModal" style="text-decoration:none;"
+       onclick="logMove('BP詳細情報登録', -1)">BP詳細情報登録 ></a>
+    <a style="text-decoration:none;">BP詳細情報登録確認</a>
+
+    <%@ include file="../logMoveModal.jsp"%>
+
+    <h3 style="font-size: 20pt;font-weight: bold;text-decoration-line: underline;margin-bottom: 20px; margin-top:20px;">
         BP詳細情報登録確認</h3>
 
     <%--Regist Form--%>

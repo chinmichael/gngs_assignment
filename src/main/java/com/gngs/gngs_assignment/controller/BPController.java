@@ -33,6 +33,10 @@ public class BPController {
     @Qualifier("bpPaging")
     private PagingMap paging;
 
+    //BP Log Controll~
+
+    //~BP Log Controll
+
     @RequestMapping(value="/bpList")
     public ModelAndView bpList(Long page) throws Exception {
         ModelAndView mav = new ModelAndView("bp/bpList");

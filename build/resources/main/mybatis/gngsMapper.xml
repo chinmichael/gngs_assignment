@@ -12,6 +12,10 @@
     <!--/Sample Account Login-->
 
     <!--BP Regist-->
+    <select id="getZipAddress" parameterType="String" resultType="ZipcodeVO">
+        select * from zipcode_jp where zipcode=#{zipcode}
+    </select>
+
     <select id="lastBpIdCheck" resultType="String">
         select bp_id from bp_inform_tbl
         order by regist_date desc limit 1

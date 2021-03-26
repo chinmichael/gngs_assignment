@@ -61,4 +61,5 @@ public class BpInformDetailVO extends BpInformVO {
     private String procedure_pass_date;
     private String deal_pass_date;
 
+    private String note;
 }
