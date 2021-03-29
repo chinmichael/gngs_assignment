@@ -12,7 +12,9 @@
 <main class="col bg-faded py-4 flex-grow-1" style="font-family: Meiryo; margin-bottom: 150px; padding-left: 30px; padding-right: 25px;">
 
     <a href=# data-bs-toggle="modal" data-bs-target="#logMoveModal" style="text-decoration:none;"
-       onclick="logMove('BP情報一覧', -2)">BP情報一覧 ></a>
+       onclick="logMove('BP情報一覧', 'bpList')">BP情報一覧 ></a>
+    <a style="text-decoration:none;">BP情報登録依頼 ></a>
+    <a style="text-decoration:none;">BP情報登録依頼確認 ></a>
     <a href=# data-bs-toggle="modal" data-bs-target="#logMoveModal" style="text-decoration:none;"
        onclick="logMove('BP詳細情報登録', -1)">BP詳細情報登録 ></a>
     <a style="text-decoration:none;">BP詳細情報登録確認</a>

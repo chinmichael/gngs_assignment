@@ -166,12 +166,29 @@ public class BPController {
         return result;
     }
 
+    @RequestMapping(value="/bpGoRegistAdmin")
+    public ModelAndView bpGoRegistAdmin(@ModelAttribute BpInformVO vo) {
+
+        if(vo.getContract_dept() == null || vo.getContract_dept().isEmpty()) vo.setContract_dept("");
+        if(vo.getContract_manager() == null || vo.getContract_manager().isEmpty()) vo.setContract_manager("");
+
+        String key = security.createBpUuid();
+        vo.setUuid(key);
+
+        Integer check = regist.bpRuquestInsert(vo);
+
+        ModelAndView mav = new ModelAndView("redirect:/bp/bpRegistAdmin?key=" + key);
+        return mav;
+    }
+
     @RequestMapping(value="/bpRegistAdmin")
     public ModelAndView bpRegistAdmin(String key) {
-        ModelAndView mav = new ModelAndView("bp/bpRegistAdmin");
+
         BpInformVO vo = new BpInformVO();
         vo.setUuid(key);
         BpInformDetailVO result = regist.showBpInform(vo);
+
+        ModelAndView mav = new ModelAndView("bp/bpRegistAdmin");
 
         mav.addObject(new BpInformDetailVO());
         mav.addObject("bpInform", result);
@@ -205,11 +222,49 @@ public class BPController {
         return mav;
     }
 
-    @RequestMapping(value="/additionalInform")
-    public ModelAndView additionalInform(String key) {
-        ModelAndView mav = new ModelAndView("bp/additionalInform");
-        mav.addObject("keyId", regist.pullBpId(key));
-        mav.addObject(new AdditionalInformVO());
+    @RequestMapping(value="/bpModify")
+    public ModelAndView bpModify(String key) {
+        ModelAndView mav = new ModelAndView("bp/bpModify");
+        BpInformVO vo = new BpInformVO();
+        vo.setUuid(key);
+        BpInformDetailVO result = regist.showBpInform(vo);
+
+        mav.addObject(new BpInformDetailVO());
+        mav.addObject("bpInform", result);
+        return mav;
+    }
+
+    @RequestMapping(value="/bpModifySend")
+    public ModelAndView bpModifySend (@Valid @ModelAttribute BpInformDetailVO vo, BindingResult br) {
+        ModelAndView mav;
+
+        if(br.hasErrors()) {
+            mav = new ModelAndView("bp/bpModify");
+            mav.getModel().putAll(br.getModel());
+
+            mav.addObject("bpInform", vo);
+
+            return mav;
+        }
+
+        mav = new ModelAndView("bp/bpModifyCheck");
+        mav.addObject("bpInform", vo);
+        mav.addObject(new BpInformDetailVO());
+
+        return mav;
+    }
+
+    @RequestMapping(value="/bpModifyCheckSend")
+    public ModelAndView bpModifyCheckSend(@ModelAttribute BpInformDetailVO vo, HttpSession session) {
+        ModelAndView mav = new ModelAndView("redirect:/bp/bpRequestClear");
+
+        return mav;
+    }
+
+    @RequestMapping(value="/agreementList")
+    public ModelAndView agreementList() {
+        ModelAndView mav = new ModelAndView("bp/agreementList");
+
         return mav;
     }
 }

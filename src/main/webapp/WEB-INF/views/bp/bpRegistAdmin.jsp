@@ -13,7 +13,9 @@
     <main class="col bg-faded py-4 flex-grow-1" style="font-family: Meiryo; margin-bottom: 150px; padding-left: 30px; padding-right: 25px;">
 
         <a href=# data-bs-toggle="modal" data-bs-target="#logMoveModal" style="text-decoration:none;"
-           onclick="logMove('BP情報一覧', -1)">BP情報一覧 ></a>
+           onclick="logMove('BP情報一覧', 'bpList')">BP情報一覧 ></a>
+        <a style="text-decoration:none;">BP情報登録依頼 ></a>
+        <a style="text-decoration:none;">BP情報登録依頼確認 ></a>
         <a style="text-decoration:none;">BP詳細情報登録</a>
 
         <%@ include file="../logMoveModal.jsp"%>
@@ -27,7 +29,7 @@
             <table class="table table-bordered border-secondary">
                 <thead>
                 <tr><th colspan="2" style="text-align: right; background-color: #F2F2F2;">
-                    <span style="color: red;margin-right:5px;"><i class="fas fa-caret-right"></i> : 必須</span>
+                    <span style="color: red;margin-right:5px;"><i class="fas fa-caret-right"></i> : 入力必須項目です</span>
                 </th></tr>
                 </thead>
                 <tbody>

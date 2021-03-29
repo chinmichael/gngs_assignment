@@ -22,3 +22,50 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript"
         src="../../resource/js/bootstrap.js"></script>
+
+<script type="text/javascript">
+    function pageClose() {
+        window.close();
+    }
+
+    function pageTablePrint() {
+        reportPrint(printTableArea.innerHTML);
+    }
+
+    function reportPrint(param) {
+        var popupX = (document.body.offsetWidth / 2) - (841 / 2);
+        var popupY= (window.screen.height / 2) - (890 / 2);
+        const objWin = window.open('', 'print', 'status=no, height=890, width=841, left='+ popupX + ', top='+ popupY);
+        objWin.document.open();
+        objWin.document.write('<html><head><title>印刷ページ</title>');
+        objWin.document.write('<link rel="stylesheet" type="text/css" href="../../resource/css/bootstrap.css"/>');
+        objWin.document.write('<style type="text/css">@page { size: landscape; }</style>')
+        objWin.document.write('</head><body>');
+        objWin.document.write(param);
+        objWin.document.write('</body></html>');
+        objWin.focus();
+
+        setTimeout(function(){
+            objWin.print();
+            objWin.close();
+            }, 800);
+    }
+
+    /*var initBody;
+    function beforePrint()
+    {
+        initBody = document.body.innerHTML;
+        document.body.innerHTML = printArea.innerHTML;
+    }
+    function afterPrint()
+    {
+        document.body.innerHTML = initBody;
+    }
+    function pagePrint()
+    {
+        window.onbeforeprint = beforePrint;
+        window.onafterprint = afterPrint;
+        window.print();
+    }*/
+
+</script>

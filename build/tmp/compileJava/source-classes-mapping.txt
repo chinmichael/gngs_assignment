@@ -31,12 +31,12 @@ com/gngs/gngs_assignment/model/MailVO.java
  com.gngs.gngs_assignment.model.MailVO
 com/gngs/gngs_assignment/model/LoginVO.java
  com.gngs.gngs_assignment.model.LoginVO
-com/gngs/gngs_assignment/model/AgreementPagingVO.java
- com.gngs.gngs_assignment.model.AgreementPagingVO
+com/gngs/gngs_assignment/service/RegistImpl.java
+ com.gngs.gngs_assignment.service.RegistImpl
 com/gngs/gngs_assignment/service/PagingMap.java
  com.gngs.gngs_assignment.service.PagingMap
-com/gngs/gngs_assignment/model/AgreementVO.java
- com.gngs.gngs_assignment.model.AgreementVO
+com/gngs/gngs_assignment/service/LoginImpl.java
+ com.gngs.gngs_assignment.service.LoginImpl
 com/gngs/gngs_assignment/model/BpPagingVO.java
  com.gngs.gngs_assignment.model.BpPagingVO
 com/gngs/gngs_assignment/service/Security.java
@@ -47,14 +47,16 @@ com/gngs/gngs_assignment/model/AccountVO.java
  com.gngs.gngs_assignment.model.AccountVO
 com/gngs/gngs_assignment/model/AdditionalInformVO.java
  com.gngs.gngs_assignment.model.AdditionalInformVO
+com/gngs/gngs_assignment/service/GngsLogic.java
+ com.gngs.gngs_assignment.service.GngsLogic
+com/gngs/gngs_assignment/model/ZipcodeVO.java
+ com.gngs.gngs_assignment.model.ZipcodeVO
 com/gngs/gngs_assignment/model/BpInformDetailVO.java
  com.gngs.gngs_assignment.model.BpInformDetailVO
 com/gngs/gngs_assignment/model/BpRegistUrlVO.java
  com.gngs.gngs_assignment.model.BpRegistUrlVO
 com/gngs/gngs_assignment/repository/GngsDao.java
  com.gngs.gngs_assignment.repository.GngsDao
-com/gngs/gngs_assignment/service/GngsLogic.java
- com.gngs.gngs_assignment.service.GngsLogic
 com/gngs/gngs_assignment/service/SecurityImpl.java
  com.gngs.gngs_assignment.service.SecurityImpl
 com/gngs/gngs_assignment/service/PagingListImpl.java
@@ -63,11 +65,9 @@ com/gngs/gngs_assignment/service/Regist.java
  com.gngs.gngs_assignment.service.Regist
 com/gngs/gngs_assignment/service/BpPaging.java
  com.gngs.gngs_assignment.service.BpPaging
-com/gngs/gngs_assignment/model/ZipcodeVO.java
- com.gngs.gngs_assignment.model.ZipcodeVO
-com/gngs/gngs_assignment/service/LoginImpl.java
- com.gngs.gngs_assignment.service.LoginImpl
-com/gngs/gngs_assignment/service/RegistImpl.java
- com.gngs.gngs_assignment.service.RegistImpl
+com/gngs/gngs_assignment/model/AgreementPagingVO.java
+ com.gngs.gngs_assignment.model.AgreementPagingVO
+com/gngs/gngs_assignment/model/AgreementVO.java
+ com.gngs.gngs_assignment.model.AgreementVO
 com/gngs/gngs_assignment/controller/BPController.java
  com.gngs.gngs_assignment.controller.BPController

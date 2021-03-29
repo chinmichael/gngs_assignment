@@ -12,7 +12,7 @@
 <main class="col bg-faded py-4 flex-grow-1" style="font-family: Meiryo; margin-bottom: 150px; padding-left: 30px; padding-right: 25px;">
 
     <a href=# data-bs-toggle="modal" data-bs-target="#logMoveModal" style="text-decoration:none;"
-       onclick="logMove('BP情報一覧', -2)">BP情報一覧 ></a>
+       onclick="logMove('BP情報一覧', 'bpList')">BP情報一覧 ></a>
     <a href=# data-bs-toggle="modal" data-bs-target="#logMoveModal" style="text-decoration:none;"
        onclick="logMove('BP情報登録依頼', -1)">
         BP情報登録依頼 ></a>
@@ -134,7 +134,7 @@
 
 <script type="text/javascript">
     function goDetailRegist() {
-        document.bpRequestCheckFrm.action="";
+        document.bpRequestCheckFrm.action="../bp/bpGoRegistAdmin";
         document.bpRequestCheckFrm.submit();
     }
 </script>

@@ -40,7 +40,7 @@
                             </li>
 
                             <li class="nav-item" style="margin-top:5px;">
-                                <a class="nav-link" href=#>
+                                <a class="nav-link" href="../bp/agreementList">
                                     <i class="far fa-dot-circle"></i>&nbsp;&nbsp;36協定情報一覧
                                 </a>
                             </li>

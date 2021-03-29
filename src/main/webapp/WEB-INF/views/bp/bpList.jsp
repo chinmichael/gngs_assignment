@@ -49,7 +49,7 @@
         </table>
 
         <table class="table table-hover" style="font-size: 10pt;">
-            <thead class="table-secondary">
+            <thead class="table-secondary" style="vertical-align: middle; text-align: center;">
                 <tr>
                     <th scope="col">No.</th>
                     <th scope="col">会社(氏)名</th>
@@ -64,11 +64,11 @@
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody style="vertical-align: middle; text-align: center;">
             <c:forEach var="pagingList" items="${pagingList}">
                 <tr>
                     <th scope="row" style="color: gray">${pagingList.getRnum()}</th>
-                    <td><a href="../bp/bpRegistAdmin?key=${pagingList.getUuid()}">
+                    <td><a href="../bp/bpModify?key=${pagingList.getUuid()}">
                             ${pagingList.getCorporate_name()}</a></td>
                     <td>
                         <c:choose>

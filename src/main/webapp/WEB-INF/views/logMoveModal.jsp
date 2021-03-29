@@ -18,12 +18,16 @@
 </div>
 
 <script type="text/javascript">
-    function logMove(target, count) {
+    function logMove(target, loc) {
         var targetName = target + "に移動しますか。";
+        var locVar = loc;
+
         document.getElementById("moveTargetName").innerHTML=targetName;
-        $("#moveAccept").attr("onclick","goBack("+count+")");
-    }
-    function goBack(count) {
-        window.history.go(count);
+
+        if(locVar == 'bpList') {
+            $("#moveAccept").attr("onclick","location.href='../bp/bpList'");
+        } else if(!isNaN(locVar)) {
+            $("#moveAccept").attr("onclick","window.history.go("+locVar+")");
+        }
     }
 </script>
