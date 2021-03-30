@@ -33,9 +33,7 @@ public class BPController {
     @Qualifier("bpPaging")
     private PagingMap paging;
 
-    //BP Log Controll~
-
-    //~BP Log Controll
+    // BP
 
     @RequestMapping(value="/bpList")
     public ModelAndView bpList(Long page) throws Exception {
@@ -261,9 +259,33 @@ public class BPController {
         return mav;
     }
 
+    // BP Account
+
+    @RequestMapping(value="/accountList")
+    public ModelAndView accountList() {
+        ModelAndView mav = new ModelAndView("bp/accountList");
+
+        return mav;
+    }
+
+    // BP 36Agreement
+
     @RequestMapping(value="/agreementList")
     public ModelAndView agreementList() {
         ModelAndView mav = new ModelAndView("bp/agreementList");
+
+        return mav;
+    }
+
+    @RequestMapping(value="/agreementForm")
+    public ModelAndView agreementForm(String bpUuid) {
+        ModelAndView mav = new ModelAndView("bp/agreementForm");
+
+        if(bpUuid == null || bpUuid.isEmpty()) {
+
+        } else {
+            mav.addObject(new AgreementVO());
+        }
 
         return mav;
     }

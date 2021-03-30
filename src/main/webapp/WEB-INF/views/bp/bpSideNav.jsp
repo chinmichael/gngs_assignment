@@ -3,7 +3,6 @@
 
 <!DOCTYPE html>
 <html>
-<body>
 <%--Side Navigation--%>
 <div class="container-fluid">
     <div class="row min-vh-100 flex-column flex-xl-row">
@@ -34,7 +33,7 @@
                             </li>
 
                             <li class="nav-item" style="margin-top:5px;">
-                                <a class="nav-link" href=#>
+                                <a class="nav-link" href="../bp/accountList">
                                     <i class="far fa-dot-circle"></i>&nbsp;&nbsp;口座情報一覧
                                 </a>
                             </li>

@@ -10,10 +10,11 @@ public class AgreementVO {
 
     //JOIN
     private String corporate_name;
-
-    private String dispatch_code = "1"; // Sample code
-    private String dispatch_name = "株式会社ジエンジサービス"; // Sample name
+    private String uuid;
     //JOIN END
+
+    private String dispatch_code;
+    private String dispatch_name;
 
     private String pattern;
     private String pattern_name;

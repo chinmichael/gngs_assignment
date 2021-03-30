@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
     <%@ include file="../coverTop.jsp"%>
-<body>
+
     <%@ include file="bpSideNav.jsp"%>
 
     <%--Main Contents--%>
@@ -37,10 +37,11 @@
                                 </select>
                             </div>
                             <div class="col-sm-auto">
-                                <input type="text" class="form-control form-control-sm" id="searchName" name="searchName" value="${searchName}"/>
+                                <input type="text" class="form-control form-control-sm" id="searchName"
+                                       name="searchName" value="${searchName}" placeholder="会社(氏)名"/>
                             </div>
                             <div class="col-sm-auto">
-                                <button type="submit" class="btn btn-secondary btn-sm"  ><i class="fas fa-search"></i></button>
+                                <button type="submit" class="btn btn-secondary btn-sm"><i class="fas fa-search"></i></button>
                             </div>
                         </div>
                     </form>
@@ -48,8 +49,10 @@
             </tr>
         </table>
 
-        <table class="table table-hover" style="font-size: 10pt;">
-            <thead class="table-secondary" style="vertical-align: middle; text-align: center;">
+        <div id="printTableArea">
+
+            <table class="table table-bordered table-hover" style="font-size: 10pt;">
+                <thead class="table-secondary" style="vertical-align: middle; text-align: center;">
                 <tr>
                     <th scope="col">No.</th>
                     <th scope="col">会社(氏)名</th>
@@ -62,89 +65,91 @@
                     <th scope="col">取引状況</th>
                     <th scope="col">処理日</th>
                 </tr>
-            </thead>
+                </thead>
 
-            <tbody style="vertical-align: middle; text-align: center;">
-            <c:forEach var="pagingList" items="${pagingList}">
-                <tr>
-                    <th scope="row" style="color: gray">${pagingList.getRnum()}</th>
-                    <td><a href="../bp/bpModify?key=${pagingList.getUuid()}">
-                            ${pagingList.getCorporate_name()}</a></td>
-                    <td>
-                        <c:choose>
-                            <c:when test="${pagingList.getBp_type() == '0'}">
-                                顧客
-                            </c:when>
-                            <c:otherwise>
-                                パートナー
-                            </c:otherwise>
-                        </c:choose>
-                    </td>
-                    <td>
-                        <c:choose>
-                            <c:when test="${pagingList.getCorporate_type1() == '0'}">
-                                法人
-                            </c:when>
-                            <c:when test="${pagingList.getCorporate_type1() == '1'}">
-                                自営業
-                            </c:when>
-                            <c:otherwise>
-                                その他
-                            </c:otherwise>
-                        </c:choose>
-                    </td>
-                    <td>
-                        <c:choose>
-                            <c:when test="${pagingList.getCorporate_type2() == '0'}">
-                                零細
-                            </c:when>
-                            <c:when test="${pagingList.getCorporate_type2() == '1'}">
-                                中小
-                            </c:when>
-                            <c:when test="${pagingList.getCorporate_type2() == '2'}">
-                                大手
-                            </c:when>
-                            <c:when test="${pagingList.getCorporate_type2() == '3'}">
-                                男
-                            </c:when>
-                            <c:when test="${pagingList.getCorporate_type2() == '4'}">
-                                女
-                            </c:when>
-                        </c:choose>
-                    </td>
-                    <td>ready...</td>
-                    <td>
-                        <c:choose>
-                            <c:when test="${pagingList.getProcedure_status() == '0'}">
-                                登録依頼
-                            </c:when>
-                            <c:when test="${pagingList.getProcedure_status() == '1'}">
-                                審査待ち
-                            </c:when>
-                            <c:otherwise>
-                                完了
-                            </c:otherwise>
-                        </c:choose>
-                    </td>
-                    <td>${pagingList.getProcedure_pass_date()}</td>
-                    <td>
-                        <c:choose>
-                            <c:when test="${pagingList.getDeal_status() == '0'}">
-                                取引前
-                            </c:when>
-                            <c:when test="${pagingList.getDeal_status() == '1'}">
-                                取引中
-                            </c:when>
-                            <c:otherwise>
-                                取引停止
-                            </c:otherwise>
-                        </c:choose>
-                    </td>
-                    <td>${pagingList.getDeal_pass_date()}</td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+                <tbody style="vertical-align: middle; text-align: center;">
+                <c:forEach var="pagingList" items="${pagingList}">
+                    <tr>
+                        <th scope="row" style="color: gray">${pagingList.getRnum()}</th>
+                        <td><a href="../bp/bpModify?key=${pagingList.getUuid()}">
+                                ${pagingList.getCorporate_name()}</a></td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${pagingList.getBp_type() == '0'}">
+                                    顧客
+                                </c:when>
+                                <c:otherwise>
+                                    パートナー
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${pagingList.getCorporate_type1() == '0'}">
+                                    法人
+                                </c:when>
+                                <c:when test="${pagingList.getCorporate_type1() == '1'}">
+                                    自営業
+                                </c:when>
+                                <c:otherwise>
+                                    その他
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${pagingList.getCorporate_type2() == '0'}">
+                                    零細
+                                </c:when>
+                                <c:when test="${pagingList.getCorporate_type2() == '1'}">
+                                    中小
+                                </c:when>
+                                <c:when test="${pagingList.getCorporate_type2() == '2'}">
+                                    大手
+                                </c:when>
+                                <c:when test="${pagingList.getCorporate_type2() == '3'}">
+                                    男
+                                </c:when>
+                                <c:when test="${pagingList.getCorporate_type2() == '4'}">
+                                    女
+                                </c:when>
+                            </c:choose>
+                        </td>
+                        <td>ready...</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${pagingList.getProcedure_status() == '0'}">
+                                    登録依頼
+                                </c:when>
+                                <c:when test="${pagingList.getProcedure_status() == '1'}">
+                                    審査待ち
+                                </c:when>
+                                <c:otherwise>
+                                    完了
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td>${pagingList.getProcedure_pass_date()}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${pagingList.getDeal_status() == '0'}">
+                                    取引前
+                                </c:when>
+                                <c:when test="${pagingList.getDeal_status() == '1'}">
+                                    取引中
+                                </c:when>
+                                <c:otherwise>
+                                    取引停止
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td>${pagingList.getDeal_pass_date()}</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+
+        </div>
 
         <%--Paging--%>
         <nav aria-label="Page navigation example">
@@ -246,6 +251,14 @@
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button class="btn btn-dark" type="button" style="font-weight:bold;">
                 <a href="../bp/bpRequestForm" style="text-decoration: none; color: white;">新規登録</a>
+            </button>
+
+            <button class="btn btn-secondary" type="button" style="font-weight:bold;" onclick="pageTablePrint()">
+                <a href=# style="text-decoration: none; color: white;">印刷</a>
+            </button>
+
+            <button class="btn btn-danger" type="button" style="font-weight:bold;">
+                <a href=# style="text-decoration: none; color: white;">閉じる</a>
             </button>
         </div>
         <%--/Regist Buttons--%>

@@ -5,7 +5,7 @@
 
 <!DOCTYPE html>
 <html>
-<%@ include file="../coverTop.jsp" %>
+    <%@ include file="../coverTop.jsp" %>
 <div>
     <%@ include file="bpSideNav.jsp" %>
 

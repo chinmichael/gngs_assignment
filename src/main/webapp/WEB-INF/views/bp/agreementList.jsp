@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <%@ include file="../coverTop.jsp"%>
-<body>
+
 <%@ include file="bpSideNav.jsp"%>
 
 <%--Main Contents--%>
@@ -14,40 +14,34 @@
         36協定情報一覧</h3>
 
     <table class="table table-bordered" style="font-size: 11pt;">
-        <thead class="table-secondary">
-            <tr>
-                <th>検索条件</th>
-            </tr>
-        </thead>
         <tr>
-            <th>
-                <form method="post" name="agreementSearchFrm" action="">
+            <th style="width: 120px;background-color: #E6E6E6; text-align: center;" valign="middle">
+                &nbsp;検索条件</th>
+            <td>
+                <form method="post" name="bpSearchFrm" action="../bp/bpSearch">
                     <div class="row g-2">
                         <div class="col-sm-auto">
-                            <select class="form-select form-select-sm" id="searchType1" name="searchType1"
-                                    onchange="changeSearchType2(this)">
-                                <option value="0" selected>区分なし</option>
-                                <option value="bp_type">BP区分</option>
-                                <option value="corporate_type1">企業区分</option>
-                                <option value="corporate_type2">詳細区分</option>
-                                <option value="procedure_status">手続き状況</option>
-                                <option value="deal_status">取引状況</option>
+                            <select class="form-select form-select-sm" id="search_dispatch" name="search_dispatch">
+                                <option value="0" selected>派遣元事業所選択</option>
+                                <option value="1">株式会社ジエンジサービス</option>
                             </select>
                         </div>
                         <div class="col-sm-auto">
-                            <select class="form-select form-select-sm" id="searchType2" name="searchType2">
-                                <option value="0">区分なし</option>
-                            </select>
+                            <input type="text" class="form-control form-control-sm" id="search_pattern_code"
+                                   name="search_pattern_code" value="${search_pattern_code}"
+                                   placeholder="36協定パターンコード"/>
                         </div>
                         <div class="col-sm-auto">
-                            <input type="text" class="form-control form-control-sm" id="searchName" name="searchName" value="${searchName}"/>
+                            <input type="text" class="form-control form-control-sm" id="search_pattern_name"
+                                   name="search_pattern_name" value="${search_pattern_name}"
+                                   placeholder="36協定パターン名"/>
                         </div>
                         <div class="col-sm-auto">
-                            <button type="submit" class="btn btn-secondary btn-sm"  ><i class="fas fa-search"></i></button>
+                            <button type="submit" class="btn btn-secondary btn-sm"><i class="fas fa-search"></i></button>
                         </div>
                     </div>
                 </form>
-            </th>
+            </td>
         </tr>
     </table>
 
@@ -84,8 +78,6 @@
                                     <button class="btn btn-dark" type="button" style="font-weight:bold;">
                                         <a href=# style="text-decoration: none; color: white;">更新</a>
                                     </button>
-                                </div>
-                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                     <button class="btn btn-dark" type="button" style="font-weight:bold;">
                                         <a href=# style="text-decoration: none; color: white;">削除</a>
                                     </button>
@@ -215,14 +207,12 @@
         <button class="btn btn-dark" type="button" style="font-weight:bold;">
             <a href=# style="text-decoration: none; color: white;">新規入力</a>
         </button>
-    </div>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end print">
-        <button class="btn btn-dark" type="button" style="font-weight:bold;" onclick="pageTablePrint()">
+
+        <button class="btn btn-secondary" type="button" style="font-weight:bold;" onclick="pageTablePrint()">
             <a href=# style="text-decoration: none; color: white;">印刷</a>
         </button>
-    </div>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button class="btn btn-dark" type="button" style="font-weight:bold;">
+
+        <button class="btn btn-danger" type="button" style="font-weight:bold;">
             <a href=# style="text-decoration: none; color: white;">閉じる</a>
         </button>
     </div>
@@ -235,9 +225,9 @@
 <%--Search Hidden Form--%>
 <form name="searchMove" action="../bp/bpSearch" method="post">
     <input type="hidden" name="page">
-    <input type="hidden" name="searchName" value="${searchName}">
-    <input type="hidden" name="searchType1" value="${searchType1}">
-    <input type="hidden" name="searchType2" value="${searchType2}">
+    <input type="hidden" name="search_dispatch" value="${search_dispatch}">
+    <input type="hidden" name="search_pattern_code" value="${search_pattern_code}">
+    <input type="hidden" name="search_pattern_name" value="${search_pattern_name}">
 </form>
 <%--/Search Hidden Form--%>
 

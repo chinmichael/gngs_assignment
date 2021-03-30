@@ -4,14 +4,14 @@
 <!DOCTYPE html>
 <html>
 <%@ include file="../coverTop.jsp"%>
-<body>
+
 <%@ include file="bpSideNav.jsp"%>
 
 <%--Main Contents--%>
 <main class="col bg-faded py-4 flex-grow-1" style="font-family: Meiryo; margin-bottom: 150px; padding-left: 30px; padding-right: 25px;">
 
     <h3 style="font-size: 20pt;font-weight: bold;text-decoration-line: underline;margin-bottom: 20px">
-        BP情報一覧</h3>
+        口座情報一覧</h3>
 
     <table class="table table-bordered" style="font-size: 11pt;">
         <tr>
@@ -21,26 +21,29 @@
                 <form method="post" name="bpSearchFrm" action="../bp/bpSearch">
                     <div class="row g-2">
                         <div class="col-sm-auto">
-                            <select class="form-select form-select-sm" id="searchType1" name="searchType1"
-                                    onchange="changeSearchType2(this)">
-                                <option value="0" selected>区分なし</option>
-                                <option value="bp_type">BP区分</option>
-                                <option value="corporate_type1">企業区分</option>
-                                <option value="corporate_type2">詳細区分</option>
-                                <option value="procedure_status">手続き状況</option>
-                                <option value="deal_status">取引状況</option>
+                            <input type="text" class="form-control form-control-sm" id="search_bank_name"
+                                   name="search_bank_name" value="${search_bank_name}"
+                                   placeholder="銀行名"/>
+                        </div>
+                        <div class="col-sm-auto">
+                            <input type="text" class="form-control form-control-sm" id="search_branch_name"
+                                   name="search_branch_name" value="${search_bracnch_name}"
+                                   placeholder="支店名"/>
+                        </div>
+                        <div class="col-sm-auto">
+                            <select class="form-select form-select-sm" id="search_account_type" name="search_account_type">
+                                <option selected>区分なし</option>
+                                <option value="0">普通</option>
+                                <option value="1">当座</option>
                             </select>
                         </div>
                         <div class="col-sm-auto">
-                            <select class="form-select form-select-sm" id="searchType2" name="searchType2">
-                                <option value="0">区分なし</option>
-                            </select>
+                            <input type="text" class="form-control form-control-sm" id="search_account_name"
+                                   name="search_account_name" value="${search_account_name}"
+                                   placeholder="口座名義"/>
                         </div>
                         <div class="col-sm-auto">
-                            <input type="text" class="form-control form-control-sm" id="searchName" name="searchName" value="${searchName}"/>
-                        </div>
-                        <div class="col-sm-auto">
-                            <button type="submit" class="btn btn-secondary btn-sm"  ><i class="fas fa-search"></i></button>
+                            <button type="submit" class="btn btn-secondary btn-sm"><i class="fas fa-search"></i></button>
                         </div>
                     </div>
                 </form>
@@ -48,103 +51,58 @@
         </tr>
     </table>
 
-    <table class="table table-hover" style="font-size: 10pt;">
-        <thead class="table-secondary">
-        <tr>
-            <th scope="col">No.</th>
-            <th scope="col">会社(氏)名</th>
-            <th scope="col">BP区分</th>
-            <th scope="col">企業区分</th>
-            <th scope="col">詳細区分</th>
-            <th scope="col">所在地</th>
-            <th scope="col">手続き状況</th>
-            <th scope="col">処理日</th>
-            <th scope="col">取引状況</th>
-            <th scope="col">処理日</th>
-        </tr>
-        </thead>
+    <div id="printTableArea">
+        <table class="table table-hover table-bordered" style="font-size: 9pt;">
+            <thead class="table-secondary" style="vertical-align: middle; text-align: center;">
 
-        <tbody>
-        <c:forEach var="pagingList" items="${pagingList}">
             <tr>
-                <th scope="row" style="color: gray">${pagingList.getRnum()}</th>
-                <td><a href="../bp/bpModify?key=${pagingList.getUuid()}">
-                        ${pagingList.getCorporate_name()}</a></td>
-                <td>
-                    <c:choose>
-                        <c:when test="${pagingList.getBp_type() == '0'}">
-                            顧客
-                        </c:when>
-                        <c:otherwise>
-                            パートナー
-                        </c:otherwise>
-                    </c:choose>
-                </td>
-                <td>
-                    <c:choose>
-                        <c:when test="${pagingList.getCorporate_type1() == '0'}">
-                            法人
-                        </c:when>
-                        <c:when test="${pagingList.getCorporate_type1() == '1'}">
-                            自営業
-                        </c:when>
-                        <c:otherwise>
-                            その他
-                        </c:otherwise>
-                    </c:choose>
-                </td>
-                <td>
-                    <c:choose>
-                        <c:when test="${pagingList.getCorporate_type2() == '0'}">
-                            零細
-                        </c:when>
-                        <c:when test="${pagingList.getCorporate_type2() == '1'}">
-                            中小
-                        </c:when>
-                        <c:when test="${pagingList.getCorporate_type2() == '2'}">
-                            大手
-                        </c:when>
-                        <c:when test="${pagingList.getCorporate_type2() == '3'}">
-                            男
-                        </c:when>
-                        <c:when test="${pagingList.getCorporate_type2() == '4'}">
-                            女
-                        </c:when>
-                    </c:choose>
-                </td>
-                <td>ready...</td>
-                <td>
-                    <c:choose>
-                        <c:when test="${pagingList.getProcedure_status() == '0'}">
-                            登録依頼
-                        </c:when>
-                        <c:when test="${pagingList.getProcedure_status() == '1'}">
-                            審査待ち
-                        </c:when>
-                        <c:otherwise>
-                            完了
-                        </c:otherwise>
-                    </c:choose>
-                </td>
-                <td>${pagingList.getProcedure_pass_date()}</td>
-                <td>
-                    <c:choose>
-                        <c:when test="${pagingList.getDeal_status() == '0'}">
-                            取引前
-                        </c:when>
-                        <c:when test="${pagingList.getDeal_status() == '1'}">
-                            取引中
-                        </c:when>
-                        <c:otherwise>
-                            取引停止
-                        </c:otherwise>
-                    </c:choose>
-                </td>
-                <td>${pagingList.getDeal_pass_date()}</td>
+                <th scope="col">No.</th>
+                <th scope="col">取引先</th>
+                <th scope="col">銀行名</th>
+                <th scope="col">支店名</th>
+                <th scope="col">口座区分</th>
+                <th scope="col">口座番号</th>
+                <th scope="col">口座名義</th>
             </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+            </thead>
+
+            <tbody>
+            <c:forEach var="pagingList" items="${pagingList}">
+                <tr>
+                    <th>
+                        <c:choose>
+                            <c:when test="">
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <button class="btn btn-dark" type="button" style="font-weight:bold;">
+                                        <a href=# style="text-decoration: none; color: white;">更新</a>
+                                    </button>
+                                    <button class="btn btn-dark" type="button" style="font-weight:bold;">
+                                        <a href=# style="text-decoration: none; color: white;">削除</a>
+                                    </button>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+
+                            </c:otherwise>
+                        </c:choose>
+                    </th>
+                    <td>${pagingList.getBp_id()}<br/>${pagingList.getCoporate_name()}</td>
+                    <td>${pagingList.getDispatch_code()}<br/>${pagingList.getDispatch_name()}</td>
+                    <td>${pagingList.getPattern()}</td>
+                    <td>${pagingList.getPattern_name()}</td>
+                    <td>${pagingList.getOvertime_day()}</td>
+                    <td>${pagingList.getOvertime_month()}</td>
+                    <td>${pagingList.getOvertime_quarter()}</td>
+                    <td>${pagingList.getOvertime_half()}</td>
+                    <td>${pagingList.getOvertime_year()}</td>
+                    <td>${pagingList.getHoliday_work()}</td>
+                    <td>${pagingList.getCheck_month()}/${pagingList.getCheck_date()}</td>
+                    <td>${pagingList.getStart_date()}~<br/>${pagingList.getEnd_date()}</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
 
     <%--Paging--%>
     <nav aria-label="Page navigation example">
@@ -245,7 +203,15 @@
     <%--Regist Buttons--%>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <button class="btn btn-dark" type="button" style="font-weight:bold;">
-            <a href="../bp/bpRequestForm" style="text-decoration: none; color: white;">新規登録</a>
+            <a href=# style="text-decoration: none; color: white;">新規入力</a>
+        </button>
+
+        <button class="btn btn-secondary" type="button" style="font-weight:bold;" onclick="pageTablePrint()">
+            <a href=# style="text-decoration: none; color: white;">印刷</a>
+        </button>
+
+        <button class="btn btn-danger" type="button" style="font-weight:bold;">
+            <a href=# style="text-decoration: none; color: white;">閉じる</a>
         </button>
     </div>
     <%--/Regist Buttons--%>
@@ -257,9 +223,9 @@
 <%--Search Hidden Form--%>
 <form name="searchMove" action="../bp/bpSearch" method="post">
     <input type="hidden" name="page">
-    <input type="hidden" name="searchName" value="${searchName}">
-    <input type="hidden" name="searchType1" value="${searchType1}">
-    <input type="hidden" name="searchType2" value="${searchType2}">
+    <input type="hidden" name="search_dispatch" value="${search_dispatch}">
+    <input type="hidden" name="search_pattern_code" value="${search_pattern_code}">
+    <input type="hidden" name="search_pattern_name" value="${search_pattern_name}">
 </form>
 <%--/Search Hidden Form--%>
 
@@ -275,45 +241,5 @@
         document.searchMove.page.value = page;
         document.searchMove.submit();
     }
-
-    function changeSearchType2(type1) {
-        var non = ["区分なし"]
-        var bp = ["顧客","パートナー"];
-        var comp1 = ["法人","自営業","その他"];
-        var comp2 = ["零細","中小","大手","男","女"];
-        var procedure = ["登録依頼","審査待ち","完了"];
-        var deal = ["取引前","取引中","取引停止"];
-
-        var set;
-
-        if(type1.value == "0") set = non;
-        else if(type1.value == "bp_type") set = bp;
-        else if(type1.value == "corporate_type1") set = comp1;
-        else if(type1.value == "corporate_type2") set = comp2;
-        else if(type1.value == "procedure_status") set = procedure;
-        else if(type1.value == "deal_status") set = deal;
-
-        var target = document.getElementById("searchType2")
-        target.options.length = 0;
-
-        for (x in set) {
-            var opt = document.createElement("option");
-            opt.value = x;
-            opt.innerHTML = set[x];
-            target.appendChild(opt);
-        }
-    }
-
-    $(document).ready(function () {
-        var searchT1 = document.searchMove.searchType1.value;
-        var searchT2 = document.searchMove.searchType2.value;
-
-        if(searchT1 != "" && searchT2 != "") {
-            $("#searchType1").val(searchT1).attr("selected", "true");
-            var target = document.getElementById("searchType1");
-            changeSearchType2(target);
-            $("#searchType2").val(searchT2).attr("selected", "true");
-        }
-    });
 </script>
 </html>
