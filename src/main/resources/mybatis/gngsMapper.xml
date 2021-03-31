@@ -11,11 +11,13 @@
     </select>
     <!--/Sample Account Login-->
 
-    <!--BP Regist-->
+    <!--Ajax-->
     <select id="getZipAddress" parameterType="String" resultType="ZipcodeVO">
         select * from zipcode_jp where zipcode=#{zipcode}
     </select>
+    <!--/Ajax-->
 
+    <!--BP Inform-->
     <select id="lastBpIdCheck" resultType="String">
         select bp_id from bp_inform_tbl
         order by regist_date desc limit 1
@@ -28,17 +30,67 @@
     <insert id="bpRequestInsert" parameterType="BpInformVO">
         insert into bp_inform_tbl(bp_id, bp_type, corporate_name, corporate_type1,
                                   contract_dept, contract_manager, contract_mail, contract_tel,
-                                  procedure_status, deal_status, regist_date, userid, uuid, uuid_date)
+                                  procedure_status, deal_status, regist_date, userid, uuid)
         values (#{bp_id},#{bp_type},#{corporate_name},#{corporate_type1},
                 #{contract_dept},#{contract_manager},#{contract_mail},#{contract_tel},
-                #{procedure_status},#{deal_status},current_timestamp,#{userid},#{uuid},current_timestamp)
+                #{procedure_status},#{deal_status},current_timestamp,#{userid},#{uuid})
     </insert>
 
     <select id="showBpInform" parameterType="BpInformVO" resultType="BpInformDetailVO">
         select * from bp_inform_tbl where uuid = #{uuid}
     </select>
+    <!--/BP Inform-->
 
-    <!--/BP Regist-->
+    <!--BP Account-->
+    <select id="accountCheck" parameterType="AccountVO" resultType="AccountVO">
+        select bp_id from bp_account_tbl where bp_id=#{bp_id}
+    </select>
+
+    <select id="showAccount" parameterType="AccountVO" resultType="AccountVO">
+        select ac.bp_id, corporate_name, uuid, bank_num, bank_name, branch_num, branch_name, account_type, account_num, account_name
+        from   bp_account_tbl ac, bp_inform_tbl i
+        where  ac.bp_id = i.bp_id and uuid = #{uuid}
+    </select>
+
+    <insert id="accountRegist" parameterType="AccountVO">
+        insert into bp_account_tbl
+        values (#{bp_id},#{bank_num},#{bank_name},#{branch_num},#{branch_name},
+                #{account_type},#{account_num},#{account_name},current_timestamp)
+    </insert>
+    <!--/BP Account-->
+
+    <!--BP 36Agreement-->
+    <select id="agreementCheck" parameterType="AgreementVO" resultType="AgreementVO">
+        select bp_id, date_format(start_date, '%y%m') as start_date from bp_agreement_tbl where bp_id = #{bp_id}
+    </select>
+
+    <select id="agreementDateCheck" parameterType="AgreementVO" resultType="AgreementVO">
+        select bp_id from bp_agreement_tbl
+        where bp_id = #{bp_id} and date_format(start_date, '%y%m') = #{start_date}
+    </select>
+
+    <insert id="agreementRegist" parameterType="AgreementVO">
+        insert into bp_agreement_tbl
+        values (#{bp_id},#{dispatch_code},#{dispatch_name},#{pattern},#{pattern_name},
+                #{overtime_date},#{overtime_month},#{overtime_quarter},#{overtime_half},#{overtime_year},
+                #{holiday_work},#{holiday_dayweek},#{check_month},#{check_date},#{start_date},#{end_date},#{work_time},
+                #{extend_day},#{extend_month},#{extend_quarter},#{extend_half},#{extend_year},
+                #{agreement_type},#{count_limit},current_timestamp)
+    </insert>
+
+    <select id="showAgreement" parameterType="AgreementVO" resultType="AgreementVO">
+        select ag.bp_id, corporate_name, uuid, dispatch_code, dispatch_name, pattern, pattern_name,
+               overtime_day, overtime_month, overtime_quarter, overtime_half, overtime_year,
+               holiday_work, holiday_dayweek, check_month, check_date,
+               date_format(start_date, '%y%m') as start_date, date_format(end_date, '%y%m') as end_date, work_time,
+               extend_day, extend_month, extend_quarter, extend_half, extend_year,
+               agreement_type, count_limit
+        from   bp_agreement_tbl ag, bp_inform_tbl i
+        where  ag.bp_id = i.bp_id
+    </select>
+
+    <insert id="agreementRegist"
+    <!--/BP 36Agreement-->
 
     <!--Paging-->
     <!--BP List Paging-->
@@ -97,14 +149,74 @@
         order by regist_date desc
     </select>
     <!--/BP list Paging-->
+
+    <!--BP Account Paging-->
+
+    <select id="getAccountPagingList" parameterType="AccountPagingVO" resultType="AccountVO">
+        select a.*
+        from    (select a.*, @rownum:=rownum+1 as rnum, floor((@rownum - 1)/#{rows}) + 1 as pageNumber
+                 from   (select ac.bp_id, corporate_name, uuid, bank_name, branch_name, account_type, account_name
+                         from   bp_account_tbl ac, bp_inform_tbl i
+                         where  ac.bp_id = i.bp_id order by ac.regist_date desc)a,
+                        (select @rownum:=0) TMP)a
+        where a.pageNumber = #{page} order by a.rnum
+    </select>
+
+    <select id="getAccountPagingListCnt" parameterType="AccountPagingVO" resultType="Long">
+        select ceil(count(*)/#{rows}) totalPage from bp_account_tbl order by regist_date
+    </select>
+
+    <select id="getAccountSearchPagingList" parameterType="AccountPagingVO" resultType="AccountVO">
+        select a.*
+        from    (select a.*, @rownum:=rownum+1 as rnum, floor((@rownum - 1)/#{rows}) + 1 as pageNumber
+                 from   (select ac.bp_id, corporate_name, uuid, bank_name, branch_name, account_type, account_name
+                     from   bp_account_tbl ac, bp_inform_tbl i
+                     where  ac.bp_id = i.bp_id
+                            and bank_name like #{search_bank_name} and branch_name like #{search_branch_name}
+                            and account_name like #{search_account_name} and account_type = #{search_account_type}
+                     order by ac.regist_date desc)a,
+                     (select @rownum:=0) TMP)a
+        where a.pageNumber = #{page} order by a.rnum
+    </select>
+
+    <select id="getAccountSearchPagingListCnt" parameterType="AccountPagingVO" resultType="Long">
+        select ceil(count(*)/#{rows}) totalPage from bp_account_tbl
+        where bank_name like #{search_bank_name} and branch_name like #{search_branch_name}
+              and account_name like #{search_account_name} and account_type = #{search_account_type}
+        order by regist_date
+    </select>
+
+    <select id="getAccountSearchPagingListNoType" parameterType="AccountPagingVO" resultType="AccountVO">
+        select a.*
+        from    (select a.*, @rownum:=rownum+1 as rnum, floor((@rownum - 1)/#{rows}) + 1 as pageNumber
+                 from   (select ac.bp_id, corporate_name, uuid, bank_name, branch_name, account_type, account_name
+                     from   bp_account_tbl ac, bp_inform_tbl i
+                     where  ac.bp_id = i.bp_id
+                     and bank_name like #{search_bank_name} and branch_name like #{search_branch_name}
+                     and account_name like #{search_account_name}
+                     order by ac.regist_date desc)a,
+                     (select @rownum:=0) TMP)a
+        where a.pageNumber = #{page} order by a.rnum
+    </select>
+
+    <select id="getAccountSearchPagingListCntNoType" parameterType="AccountPagingVO" resultType="Long">
+        select ceil(count(*)/#{rows}) totalPage from bp_account_tbl
+        where bank_name like #{search_bank_name} and branch_name like #{search_branch_name}
+          and account_name like #{search_account_name}
+        order by regist_date
+    </select>
+
+    <!--/BP Account Paging-->
+
+    <!--BP 36 Agreement Paging-->
     <select id="get36PagingList" parameterType="AgreementPagingVO" resultType="AgreementVO">
         select a.*
         from    (select a.*, @rownum:=@rownum+1 as rnum, floor((@rownum - 1)/#{rows}) + 1 as pageNumber
-                 from (select a.bp_id, corporate_name, uuid, dispatch_code, dispatch_name, pattern, pattern_name,
-                              overtiem_day, overtime_month, overtime_quarter, overtime_half, overtime_year, holiday_work, a.regist_date
+                 from (select ag.bp_id, corporate_name, uuid, dispatch_code, dispatch_name, pattern, pattern_name,
+                              overtiem_day, overtime_month, overtime_quarter, overtime_half, overtime_year, holiday_work, ag.regist_date
                               check_month, check_date, date_format(start_date, '%y/%m') as start_date, date_format(end_date, '%y/%m') as end_date
-                         from bp_agreement_tbl a, bp_inform_tbl i
-                        where a.bp_id = i.bp_id order by a.regist_date desc)a,
+                         from bp_agreement_tbl ag, bp_inform_tbl i
+                        where ag.bp_id = i.bp_id order by ag.regist_date desc)a,
                       (select @rownum:=0) TMP)a
         where a.pageNumber = #{page} order by a.rnum
     </select>
@@ -131,7 +243,6 @@
         where dispatch_code=#{search_dispatch} and pattern like #{search_pattern_code} and pattern_name like #{search_pattern_name}
         order by regist_date
     </select>
-    <!--BP 36 Agreement Paging-->
     <!--/BP 36 Agreement Paging-->
     <!--/Paging-->
 

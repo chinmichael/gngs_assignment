@@ -6,7 +6,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AccountVO {
+    private Integer rnum;
     private String bp_id;
+    private String uuid;
+    private String corporate_name;
+
     private String bank_num;
     private String bank_name;
     private String branch_num;
@@ -15,4 +19,5 @@ public class AccountVO {
     private String account_num;
     private String account_name;
 
+    private String regist_date;
 }

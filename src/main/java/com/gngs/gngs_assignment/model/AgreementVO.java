@@ -41,4 +41,6 @@ public class AgreementVO {
 
     private Integer agreement_type;
     private Integer count_limit;
+
+    private String regist_date;
 }
