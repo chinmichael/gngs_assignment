@@ -43,4 +43,5 @@ public class AgreementVO {
     private Integer count_limit;
 
     private String regist_date;
+    private String origin_start_date;
 }

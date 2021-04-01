@@ -31,12 +31,20 @@ public class BPController {
 
     @Autowired
     @Qualifier("bpPaging")
-    private PagingMap paging;
+    private PagingMap bpPaging;
+
+    @Autowired
+    @Qualifier("accountPaging")
+    private PagingMap accountPaging;
+
+    @Autowired
+    @Qualifier("agreementPaging")
+    private PagingMap agreementPaging;
 
     // BP
 
     @RequestMapping(value="/bpList")
-    public ModelAndView bpList(Long page) throws Exception {
+    public ModelAndView bpList(Long page) {
         ModelAndView mav = new ModelAndView("bp/bpList");
 
         if(page == null) {
@@ -46,8 +54,8 @@ public class BPController {
         BpPagingVO vo = new BpPagingVO();
         vo.setPage(initPage);
         List<BpInformDetailVO> list = pagingList.getBpPagingList(vo);
-        HashMap<String, Object> pagingListCnt = paging.getPagingCnt(vo);
-        HashMap<String, Object> resMap = paging.getResMap(vo, pagingListCnt);
+        HashMap<String, Object> pagingListCnt = bpPaging.getPagingCnt(vo);
+        HashMap<String, Object> resMap = bpPaging.getResMap(vo, pagingListCnt);
 
         mav.addObject("pagingList", list);
         mav.addObject("resMap", resMap);
@@ -75,8 +83,8 @@ public class BPController {
 
         vo.setPage(initPage);
         List<BpInformDetailVO> list = pagingList.getBpPagingSearchList(vo);
-        HashMap<String, Object> pagingListCnt = paging.getSearchCnt(vo);
-        HashMap<String, Object> resMap = paging.getResMap(vo, pagingListCnt);
+        HashMap<String, Object> pagingListCnt = bpPaging.getSearchCnt(vo);
+        HashMap<String, Object> resMap = bpPaging.getResMap(vo, pagingListCnt);
 
         mav.addObject("pagingList", list);
         mav.addObject("resMap", resMap);
@@ -90,14 +98,14 @@ public class BPController {
     }
 
     @RequestMapping(value="/bpRequestForm")
-    public ModelAndView bpRequest() throws Exception {
+    public ModelAndView bpRequest() {
         ModelAndView mav = new ModelAndView("bp/bpRequestForm");
         mav.addObject(new BpInformVO());
         return mav;
     }
 
     @RequestMapping(value="/bpRequestSend")
-    public ModelAndView bpResquestSend(@Valid @ModelAttribute BpInformVO vo, BindingResult br) throws Exception {
+    public ModelAndView bpResquestSend(@Valid @ModelAttribute BpInformVO vo, BindingResult br) {
         ModelAndView mav;
 
         if(br.hasErrors()) {
@@ -116,7 +124,7 @@ public class BPController {
     }
 
     @RequestMapping(value="/bpRequestCheckSend")
-    public ModelAndView bpRequestCheckSend(@ModelAttribute BpInformVO vo, HttpSession session) throws Exception {
+    public ModelAndView bpRequestCheckSend(@ModelAttribute BpInformVO vo, HttpSession session) {
 
         if(vo.getContract_dept() == null || vo.getContract_dept().isEmpty()) vo.setContract_dept("");
         if(vo.getContract_manager() == null || vo.getContract_manager().isEmpty()) vo.setContract_manager("");
@@ -262,8 +270,9 @@ public class BPController {
     // BP Account
 
     @RequestMapping(value="/accountList")
-    public ModelAndView accountList() {
+    public ModelAndView accountList(Long page) {
         ModelAndView mav = new ModelAndView("bp/accountList");
+
 
         return mav;
     }

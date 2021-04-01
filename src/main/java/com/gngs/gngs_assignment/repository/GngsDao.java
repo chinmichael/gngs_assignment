@@ -33,18 +33,33 @@ public interface GngsDao {
 
     //Ajax
     ZipcodeVO getZipAddress (String zipcode);
+    BpInformDetailVO getBpCode(BpCodePagingVO vo);
+    Long getBpCodeCnt(BpCodePagingVO vo);
+    BpInformDetailVO getBpCodeNoType(BpCodePagingVO vo);
+    Long getBpCodeCntNoType(BpCodePagingVO vo);
 
     //BP Inform Logic
     String lastBpIdCheck ();
     String bpUuidCheck(String uuid);
-    Integer bpRequestInsert (BpInformVO vo);
     BpInformDetailVO showBpInform(BpInformVO vo);
+    Integer bpRequestInsert (BpInformVO vo);
+    Integer bpAdminUpdate (BpInformDetailVO vo);
+    Integer bpPartnerUpdate (BpInformDetailVO vo);
+    Integer deleteBP (BpInformVO vo);
 
     //BP Account Logic
-
+    AccountVO showAccount (AccountVO vo);
+    Integer accountRegist(AccountVO vo);
+    Integer updateAccount (AccountVO vo);
+    Integer deleteAccount (AccountVO vo);
 
     //BP 36Agreement Logic
-
+    AgreementVO agreementCheck (AgreementVO vo);
+    AgreementVO agreementDateCheck (AgreementVO vo);
+    AgreementVO showAgreement (AgreementVO vo);
+    Integer agreementRegist (AgreementVO vo);
+    Integer updateAgreement (AgreementVO vo);
+    Integer deleteAgreement (AgreementVO vo);
 
     //Item Management
 }

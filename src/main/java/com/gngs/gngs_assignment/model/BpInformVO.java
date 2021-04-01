@@ -41,4 +41,6 @@ public class BpInformVO {
     private String uuid;
     private String uuid_date;
 
+    private String regist_date;
+
 }

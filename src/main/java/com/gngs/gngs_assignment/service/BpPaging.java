@@ -43,6 +43,7 @@ public class BpPaging extends PagingMap {
             } else {
                 totalPage = dao.getBpSearchPagingListCnt(tc);
             }
+            if(totalPage == null) totalPage = (long) 0;
             vo.setTotalPage(totalPage);
             bpSearchPagingListCnt.put("totalPage", totalPage);
         } catch (Exception e) {

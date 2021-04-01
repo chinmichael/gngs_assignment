@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AccountPagingVO {
+public class AccountPagingVO extends CommonPagingVO {
     private String search_bank_name;
     private String search_branch_name;
     private String search_account_name;
