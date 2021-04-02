@@ -26,16 +26,16 @@ public interface GngsDao {
     List<AccountVO> getAccountSearchPagingListNoType(AccountPagingVO vo);
     Long getAccountSearchPagingListCntNoType(AccountPagingVO vo);
 
-    List<AccountVO> get36PagingList(AgreementPagingVO vo);
+    List<AgreementVO> get36PagingList(AgreementPagingVO vo);
     Long get36PagingListCnt (AgreementPagingVO vo);
-    List<AccountVO> get36SearchPagingList(AgreementPagingVO vo);
+    List<AgreementVO> get36SearchPagingList(AgreementPagingVO vo);
     Long get36SearchPagingListCnt(AgreementPagingVO vo);
 
     //Ajax
     ZipcodeVO getZipAddress (String zipcode);
-    BpInformDetailVO getBpCode(BpCodePagingVO vo);
+    List<BpInformDetailVO> getBpCode(BpCodePagingVO vo);
     Long getBpCodeCnt(BpCodePagingVO vo);
-    BpInformDetailVO getBpCodeNoType(BpCodePagingVO vo);
+    List<BpInformDetailVO> getBpCodeNoType(BpCodePagingVO vo);
     Long getBpCodeCntNoType(BpCodePagingVO vo);
 
     //BP Inform Logic

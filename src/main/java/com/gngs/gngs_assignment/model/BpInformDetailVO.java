@@ -3,9 +3,8 @@ package com.gngs.gngs_assignment.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -16,7 +15,12 @@ public class BpInformDetailVO extends BpInformVO {
     @NotBlank(message = "名前を入力してください")
     private String corporate_name_eng;
     private Integer corporate_type2;
+
+    @PastOrPresent(message = "日付を確認してください")
+    private Date check_corporate_birth;
     private String corporate_birth;
+
+    @Min(value=7, message = "郵便番号を確認してください")
     private String corporate_zipcode;
     private String corporate_address1;
     private String corporate_address2;
@@ -41,8 +45,11 @@ public class BpInformDetailVO extends BpInformVO {
     private String contractPhone2;
     private String contractPhone3;
 
+    @NotBlank(message = "派遣元部署名を入力してください")
     private String dispatch_dept;
+    @NotBlank(message = "派遣元役職名を入力してください")
     private String dispatch_admin;
+    @NotBlank(message = "派遣元担当者名を入力してください")
     private String dispatch_manager;
 
     @NotBlank(message = "メールをチェックしてください")

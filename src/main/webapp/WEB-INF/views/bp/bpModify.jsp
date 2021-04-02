@@ -127,8 +127,8 @@
                         <div class="row g-0">
                             <div class="col-sm-auto">
                                 <input type="date" name="corporateBirth" id="corporateBirth" value="${bpInform.getCorporate_birth()}"/>
-                                <form:hidden path="corporate_birth" id="corporate_birth" />
-                                <form:errors path="corporate_birth" style="font-size: 10pt;color: red;padding-left: 5px;"/>
+                                <form:hidden path="check_corporate_birth" id="check_corporate_birth" />
+                                <form:errors path="check_corporate_birth" style="font-size: 10pt;color: red;padding-left: 5px;"/>
                             </div>
                         </div>
                     </td>
@@ -476,6 +476,7 @@
             });
         } else {
             $address.val('');
+            $zipcode.val('');
         }
     }
 
@@ -502,7 +503,7 @@
         $("#contractTel").val(contractTel);
         $("#contractPhone").val(contractPhone);
         $("#dispatchTel").val(dispatchTel);
-        $("#corporate_birth").val(birth);
+        $("#check_corporate_birth").val(birth);
     }
 </script>
 

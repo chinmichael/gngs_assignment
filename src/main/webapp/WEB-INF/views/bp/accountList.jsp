@@ -56,7 +56,7 @@
             <thead class="table-secondary" style="vertical-align: middle; text-align: center;">
 
             <tr>
-                <th scope="col">No.</th>
+                <th scope="col">コマンド</th>
                 <th scope="col">取引先</th>
                 <th scope="col">銀行名</th>
                 <th scope="col">支店名</th>

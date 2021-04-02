@@ -1,8 +1,6 @@
 package com.gngs.gngs_assignment.service;
 
-import com.gngs.gngs_assignment.model.BpInformDetailVO;
-import com.gngs.gngs_assignment.model.BpInformVO;
-import com.gngs.gngs_assignment.model.ZipcodeVO;
+import com.gngs.gngs_assignment.model.*;
 import com.gngs.gngs_assignment.repository.GngsDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +13,68 @@ public class RegistImpl implements Regist {
     @Autowired
     GngsDao dao;
 
-    public Integer bpRuquestInsert(BpInformVO vo) {
+    //Ajax
+    public String getZipAddress(String zipcode) {
+        ZipcodeVO vo = dao.getZipAddress(zipcode);
+
+        if(vo == null) {
+            return "";
+        }
+
+        if(vo.getKen() == null || vo.getKen().isEmpty()) vo.setKen("");
+        if(vo.getSi() == null || vo.getSi().isEmpty()) vo.setSi("");
+        if(vo.getMachi() == null || vo.getMachi().isEmpty()) vo.setMachi("");
+
+        String address = vo.getKen() + vo.getSi() + vo.getMachi();
+
+        return address;
+    }
+
+    //BP
+    public BpInformDetailVO getBpInform(BpInformVO vo) {
+        BpInformDetailVO result = dao.showBpInform(vo);
+
+        if(result.getCorporate_birth() != null && !result.getCorporate_birth().isEmpty()) {
+            String[] birth = result.getCorporate_birth().split(" ");
+            result.setCorporate_birth(birth[0]);
+        }
+
+        /*int mailIdx = result.getContract_mail().indexOf("@");
+        result.setMailAddress1(result.getContract_mail().substring(0,mailIdx));
+        result.setMailAddress2(result.getContract_mail().substring(mailIdx+1));*/
+        String[] telArray;
+
+        if(result.getContract_tel() != null && !result.getContract_tel().isEmpty()) {
+            telArray = result.getContract_tel().split("-");
+            result.setContractTel1(telArray[0]); result.setContractTel2(telArray[1]); result.setContractTel3(telArray[2]);
+        }
+        if(result.getContract_phone() != null && !result.getContract_phone().isEmpty()) {
+            telArray = result.getContract_phone().split("-");
+            result.setContractPhone1(telArray[0]);result.setContractPhone2(telArray[1]);result.setContractPhone3(telArray[2]);
+        }
+        if(result.getCorporate_tel() != null && !result.getCorporate_tel().isEmpty()) {
+            telArray = result.getCorporate_tel().split("-");
+            result.setCorporateTel1(telArray[0]);result.setCorporateTel2(telArray[1]);result.setCorporateTel3(telArray[2]);
+        }
+        if(result.getCorporate_fax() != null && !result.getCorporate_fax().isEmpty()) {
+            telArray = result.getCorporate_fax().split("-");
+            result.setCorporateFax1(telArray[0]);result.setCorporateFax2(telArray[1]);result.setCorporateFax3(telArray[2]);
+        }
+        if(result.getDispatch_tel() != null && !result.getDispatch_tel().isEmpty()) {
+            telArray = result.getDispatch_tel().split("-");
+            result.setDispatchTel1(telArray[0]);result.setDispatchTel2(telArray[1]);result.setDispatchTel3(telArray[2]);
+        }
+
+        return result;
+    }
+
+    public String selectBpId(String uuid) {
+        String bpId = dao.bpUuidCheck(uuid);
+        if(bpId == null || bpId.isEmpty()) bpId="";
+        return bpId;
+    }
+
+    public Integer insertBpRuquest(BpInformVO vo) {
         vo.setProcedure_status(0);
         vo.setDeal_status(0);
 
@@ -57,63 +116,44 @@ public class RegistImpl implements Regist {
         return check;
     }
 
-    public BpInformDetailVO showBpInform(BpInformVO vo) {
-        BpInformDetailVO result = dao.showBpInform(vo);
-
-        if(result.getCorporate_birth() != null && !result.getCorporate_birth().isEmpty()) {
-            String[] birth = result.getUuid_date().split(" ");
-            result.setCorporate_birth(birth[0]);
-        }
-
-        /*int mailIdx = result.getContract_mail().indexOf("@");
-        result.setMailAddress1(result.getContract_mail().substring(0,mailIdx));
-        result.setMailAddress2(result.getContract_mail().substring(mailIdx+1));*/
-        String[] telArray;
-
-        if(result.getContract_tel() != null && !result.getContract_tel().isEmpty()) {
-            telArray = result.getContract_tel().split("-");
-            result.setContractTel1(telArray[0]); result.setContractTel2(telArray[1]); result.setContractTel3(telArray[2]);
-        }
-        if(result.getContract_phone() != null && !result.getContract_phone().isEmpty()) {
-            telArray = result.getContract_phone().split("-");
-            result.setContractPhone1(telArray[0]);result.setContractPhone2(telArray[1]);result.setContractPhone3(telArray[2]);
-        }
-        if(result.getCorporate_tel() != null && !result.getCorporate_tel().isEmpty()) {
-            telArray = result.getCorporate_tel().split("-");
-            result.setCorporateTel1(telArray[0]);result.setCorporateTel2(telArray[1]);result.setCorporateTel3(telArray[2]);
-        }
-        if(result.getCorporate_fax() != null && !result.getCorporate_fax().isEmpty()) {
-            telArray = result.getCorporate_fax().split("-");
-            result.setCorporateFax1(telArray[0]);result.setCorporateFax2(telArray[1]);result.setCorporateFax3(telArray[2]);
-        }
-        if(result.getDispatch_tel() != null && !result.getDispatch_tel().isEmpty()) {
-            telArray = result.getDispatch_tel().split("-");
-            result.setDispatchTel1(telArray[0]);result.setDispatchTel2(telArray[1]);result.setDispatchTel3(telArray[2]);
-        }
-
-        return result;
+    public Integer updateBpDetail(BpInformDetailVO vo) {
+        return null;
     }
 
-    public String pullBpId(String uuid) {
-        String bpId = dao.bpUuidCheck(uuid);
-        if(bpId == null || bpId.isEmpty()) bpId="";
-        return bpId;
+
+    //BP Account
+    public AccountVO getBpAccount(AccountVO vo) {
+        return null;
     }
 
-    public String zipAddress(String zipcode) {
-        ZipcodeVO vo = dao.getZipAddress(zipcode);
-
-        if(vo == null) {
-            return "";
-        }
-
-        if(vo.getKen() == null || vo.getKen().isEmpty()) vo.setKen("");
-        if(vo.getSi() == null || vo.getSi().isEmpty()) vo.setSi("");
-        if(vo.getMachi() == null || vo.getMachi().isEmpty()) vo.setMachi("");
-
-        String address = vo.getKen() + vo.getSi() + vo.getMachi();
-
-        return address;
+    public Integer insertBpAccount(AccountVO vo) {
+        return null;
     }
+
+    public Integer updateBpAccount(AccountVO vo) {
+        return null;
+    }
+
+    public Integer deleteBpAccount(AccountVO vo) {
+        return null;
+    }
+
+    //BP Agreement
+    public AgreementVO getBpAgreement(AgreementVO vo) {
+        return null;
+    }
+
+    public Integer insertBpAgreement(AgreementVO vo) {
+        return null;
+    }
+
+    public Integer updateBpAgreement(AccountVO vo) {
+        return null;
+    }
+
+    public Integer deleteBpAgreement(AgreementVO vo) {
+        return null;
+    }
+
 
 }

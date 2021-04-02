@@ -246,7 +246,7 @@
 
     <select id="getAccountPagingList" parameterType="AccountPagingVO" resultType="AccountVO">
         select a.*
-        from    (select a.*, @rownum:=rownum+1 as rnum, floor((@rownum - 1)/#{rows}) + 1 as pageNumber
+        from    (select a.*, @rownum:=@rownum+1 as rnum, floor((@rownum - 1)/#{rows}) + 1 as pageNumber
                  from   (select ac.bp_id, corporate_name, uuid, bank_name, branch_name, account_type, account_name
                          from   bp_account_tbl ac, bp_inform_tbl i
                          where  ac.bp_id = i.bp_id order by ac.regist_date desc)a,
@@ -260,7 +260,7 @@
 
     <select id="getAccountSearchPagingList" parameterType="AccountPagingVO" resultType="AccountVO">
         select a.*
-        from    (select a.*, @rownum:=rownum+1 as rnum, floor((@rownum - 1)/#{rows}) + 1 as pageNumber
+        from    (select a.*, @rownum:=@rownum+1 as rnum, floor((@rownum - 1)/#{rows}) + 1 as pageNumber
                  from   (select ac.bp_id, corporate_name, uuid, bank_name, branch_name, account_type, account_name
                      from   bp_account_tbl ac, bp_inform_tbl i
                      where  ac.bp_id = i.bp_id
@@ -280,7 +280,7 @@
 
     <select id="getAccountSearchPagingListNoType" parameterType="AccountPagingVO" resultType="AccountVO">
         select a.*
-        from    (select a.*, @rownum:=rownum+1 as rnum, floor((@rownum - 1)/#{rows}) + 1 as pageNumber
+        from    (select a.*, @rownum:=@rownum+1 as rnum, floor((@rownum - 1)/#{rows}) + 1 as pageNumber
                  from   (select ac.bp_id, corporate_name, uuid, bank_name, branch_name, account_type, account_name
                      from   bp_account_tbl ac, bp_inform_tbl i
                      where  ac.bp_id = i.bp_id
@@ -305,7 +305,7 @@
         select a.*
         from    (select a.*, @rownum:=@rownum+1 as rnum, floor((@rownum - 1)/#{rows}) + 1 as pageNumber
                  from (select ag.bp_id, corporate_name, uuid, dispatch_code, dispatch_name, pattern, pattern_name,
-                              overtiem_day, overtime_month, overtime_quarter, overtime_half, overtime_year, holiday_work, ag.regist_date
+                              overtime_day, overtime_month, overtime_quarter, overtime_half, overtime_year, holiday_work, ag.regist_date
                               check_month, check_date, date_format(start_date, '%y/%m') as start_date, date_format(end_date, '%y/%m') as end_date
                          from bp_agreement_tbl ag, bp_inform_tbl i
                         where ag.bp_id = i.bp_id order by ag.regist_date desc)a,
@@ -321,7 +321,7 @@
         select a.*
         from    (select a.*, @rownum:=@rownum+1 as rnum, floor((@rownum - 1)/#{rows}) + 1 as pageNumber
                  from (select a.bp_id, corporate_name, uuid, dispatch_code, dispatch_name, pattern, pattern_name,
-                     overtiem_day, overtime_month, overtime_quarter, overtime_half, overtime_year, holiday_work, a.regist_date
+                     overtime_day, overtime_month, overtime_quarter, overtime_half, overtime_year, holiday_work, a.regist_date
                      check_month, check_date, date_format(start_date, '%y/%m') as start_date, date_format(end_date, '%y/%m') as end_date
                      from bp_agreement_tbl a, bp_inform_tbl i
                      where a.bp_id = i.bp_id and dispatch_code=#{search_dispatch} and pattern like #{search_pattern_code} and pattern_name like #{search_pattern_name}

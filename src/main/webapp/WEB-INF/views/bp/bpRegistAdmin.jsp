@@ -418,8 +418,8 @@
 
 
 <%@ include file="../coverBottom.jsp" %>
-
-<script src="//api.zipaddress.net/sdk/zipaddr.min.js" async></script>
+<%--
+<script src="//api.zipaddress.net/sdk/zipaddr.min.js" async></script>--%>
 
 <script type="text/javascript">
     function changeCompType(type) {
@@ -485,6 +485,7 @@
             });
         } else {
             $address.val('');
+            $zipcode.val('');
         }
     }
 

@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,6 +35,10 @@ public class BPController {
     private PagingMap bpPaging;
 
     @Autowired
+    @Qualifier("bpCodePaging")
+    private PagingMap bpCodePaging;
+
+    @Autowired
     @Qualifier("accountPaging")
     private PagingMap accountPaging;
 
@@ -41,8 +46,50 @@ public class BPController {
     @Qualifier("agreementPaging")
     private PagingMap agreementPaging;
 
-    // BP
+    //Ajax
+    @RequestMapping(value="/bpZipcodeCheck")
+    public HashMap<String, String> bpZipcodeCheck (@RequestParam("zipcode") String zipcode) {
+        HashMap<String, String> result = new HashMap <String,String>();
 
+        if(zipcode == null || zipcode.isEmpty()) {
+            zipcode = "";
+        }
+        String address = regist.getZipAddress(zipcode);
+        result.put("address", address);
+
+        return result;
+    }
+
+    @RequestMapping(value="/bpCodeSearch")
+    public HashMap<String, Object> bpCodeSearch(Long page, String code_search_name,
+                                                String code_search_type1, String code_search_type2) {
+        HashMap<String, Object> result = new HashMap<String, Object>();
+
+        if(code_search_name == null || code_search_name.isEmpty()) {
+            String errorMsg = "会社名を入力してください。";
+            result.put("error", errorMsg);
+
+        } else {
+            if(page == null) page = (long) 1;
+            long initPage = page;
+            BpCodePagingVO vo = new BpCodePagingVO();
+            vo.setPage(initPage);
+            List<BpInformDetailVO> list = pagingList.getBpCodePagingList(vo);
+            HashMap<String, Object> pagingListCnt = bpCodePaging.getSearchCnt(vo);
+            HashMap<String, Object> resMap = bpCodePaging.getResMap(vo, pagingListCnt);
+
+            result.put("pagingList", list);
+            result.put("resMap", resMap);
+            result.put("currentPage", page);
+
+            result.put("code_search_name", code_search_name);
+            result.put("code_search_type1", code_search_type1);
+            result.put("code_search_type2", code_search_type2);
+        }
+        return result;
+    }
+
+    // BP
     @RequestMapping(value="/bpList")
     public ModelAndView bpList(Long page) {
         ModelAndView mav = new ModelAndView("bp/bpList");
@@ -138,7 +185,7 @@ public class BPController {
             who = vo.getCorporate_name() + "様";
         }
 
-        Integer check = regist.bpRuquestInsert(vo);
+        Integer check = regist.insertBpRuquest(vo);
 
         LoginVO loginVO = (LoginVO) session.getAttribute("login");
         BpMailVO mailVO = new BpMailVO();
@@ -159,19 +206,6 @@ public class BPController {
         return mav;
     }
 
-    @RequestMapping(value="/bpZipcodeCheck")
-    public HashMap<String, String> bpZipcodeCheck (@RequestParam("zipcode") String zipcode) {
-        HashMap<String, String> result = new HashMap <String,String>();
-
-        if(zipcode == null || zipcode.isEmpty()) {
-            zipcode = "";
-        }
-        String address = regist.zipAddress(zipcode);
-        result.put("address", address);
-
-        return result;
-    }
-
     @RequestMapping(value="/bpGoRegistAdmin")
     public ModelAndView bpGoRegistAdmin(@ModelAttribute BpInformVO vo) {
 
@@ -181,7 +215,7 @@ public class BPController {
         String key = security.createBpUuid();
         vo.setUuid(key);
 
-        Integer check = regist.bpRuquestInsert(vo);
+        Integer check = regist.insertBpRuquest(vo);
 
         ModelAndView mav = new ModelAndView("redirect:/bp/bpRegistAdmin?key=" + key);
         return mav;
@@ -192,7 +226,7 @@ public class BPController {
 
         BpInformVO vo = new BpInformVO();
         vo.setUuid(key);
-        BpInformDetailVO result = regist.showBpInform(vo);
+        BpInformDetailVO result = regist.getBpInform(vo);
 
         ModelAndView mav = new ModelAndView("bp/bpRegistAdmin");
 
@@ -213,6 +247,8 @@ public class BPController {
 
             return mav;
         }
+        SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
+        vo.setCorporate_birth(fm.format(vo.getCheck_corporate_birth()));
 
         mav = new ModelAndView("bp/bpRegistAdminCheck");
         mav.addObject("bpInform", vo);
@@ -233,7 +269,7 @@ public class BPController {
         ModelAndView mav = new ModelAndView("bp/bpModify");
         BpInformVO vo = new BpInformVO();
         vo.setUuid(key);
-        BpInformDetailVO result = regist.showBpInform(vo);
+        BpInformDetailVO result = regist.getBpInform(vo);
 
         mav.addObject(new BpInformDetailVO());
         mav.addObject("bpInform", result);
@@ -273,6 +309,52 @@ public class BPController {
     public ModelAndView accountList(Long page) {
         ModelAndView mav = new ModelAndView("bp/accountList");
 
+        if(page == null) {
+            page = (long) 1;
+        }
+
+        long initPage = page;
+        AccountPagingVO vo = new AccountPagingVO();
+        vo.setPage(initPage);
+
+        List<AccountVO> list = pagingList.getAccountPagingList(vo);
+        HashMap<String, Object> resMap = accountPaging.getResMap(vo, accountPaging.getPagingCnt(vo));
+
+        mav.addObject("pagingList", list);
+        mav.addObject("resMap", resMap);
+        mav.addObject("currentPage", page);
+
+        return mav;
+    }
+
+    @RequestMapping(value="/accountSearch")
+    public ModelAndView accountSearch(Long page, String search_bank_name,
+                                      String search_branch_name, String search_account_name, Integer search_account_type) {
+        ModelAndView mav = new ModelAndView("bp/accountSearch");
+
+        if(page == null) page = (long) 1;
+        if(search_bank_name == null || search_bank_name.isEmpty()) search_bank_name = "";
+        if(search_branch_name == null || search_branch_name.isEmpty()) search_branch_name = "";
+        if(search_account_name == null || search_account_name.isEmpty()) search_account_name = "";
+
+        long initPage = page;
+        AccountPagingVO vo = new AccountPagingVO();
+        vo.setSearch_bank_name("%"+search_bank_name+"%");
+        vo.setSearch_branch_name("%"+search_branch_name+"%");
+        vo.setSearch_account_name("%"+search_account_name+"%");
+        vo.setSearch_account_type(search_account_type);
+
+        List<AccountVO> list = pagingList.getAccountPagingSearchList(vo);
+        HashMap<String, Object> resMap = accountPaging.getResMap(vo, accountPaging.getSearchCnt(vo));
+
+        mav.addObject("pagingList", list);
+        mav.addObject("resMap", resMap);
+        mav.addObject("currentPage", page);
+
+        mav.addObject("search_bank_name", search_bank_name);
+        mav.addObject("search_branch_name", search_branch_name);
+        mav.addObject("search_account_name", search_account_name);
+        mav.addObject("search_account_type", search_account_type);
 
         return mav;
     }
@@ -280,8 +362,49 @@ public class BPController {
     // BP 36Agreement
 
     @RequestMapping(value="/agreementList")
-    public ModelAndView agreementList() {
+    public ModelAndView agreementList(Long page) {
         ModelAndView mav = new ModelAndView("bp/agreementList");
+
+        if(page == null) page = (long) 1;
+
+        long initPage = page;
+        AgreementPagingVO vo = new AgreementPagingVO();
+        vo.setPage(initPage);
+
+        List<AgreementVO> list = pagingList.get36PagingList(vo);
+        HashMap<String, Object> resMap = agreementPaging.getResMap(vo, agreementPaging.getPagingCnt(vo));
+
+        mav.addObject("pagingList", list);
+        mav.addObject("resMap", resMap);
+        mav.addObject("currentPage", page);
+
+        return mav;
+    }
+
+    @RequestMapping(value="/agreementSearch")
+    public ModelAndView agreementSearch(Long page, String search_dispatch,
+                                        String search_pattern_code, String search_pattern_name) {
+        ModelAndView mav = new ModelAndView("bp/agreemtnSerach");
+
+        if(page == null) page = (long) 1;
+        if(search_dispatch == null || search_dispatch.isEmpty()) search_dispatch = "";
+        if(search_pattern_code == null || search_pattern_code.isEmpty()) search_pattern_code = "";
+        if(search_pattern_name == null || search_pattern_name.isEmpty()) search_pattern_name = "";
+
+        long initPage = page;
+        AgreementPagingVO vo = new AgreementPagingVO();
+        vo.setPage(initPage);
+
+        List<AgreementVO> list = pagingList.get36SearchPagingList(vo);
+        HashMap<String, Object> resMap = agreementPaging.getResMap(vo, agreementPaging.getSearchCnt(vo));
+
+        mav.addObject("pagingList", list);
+        mav.addObject("resMap", resMap);
+        mav.addObject("currentPage", page);
+
+        mav.addObject("search_dispatch", search_dispatch);
+        mav.addObject("search_pattern_code", search_pattern_code);
+        mav.addObject("search_pattern_name", search_pattern_name);
 
         return mav;
     }
