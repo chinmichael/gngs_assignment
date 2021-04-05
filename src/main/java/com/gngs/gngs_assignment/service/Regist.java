@@ -11,7 +11,7 @@ public interface Regist {
     public String getZipAddress(String zipcode);
 
     //BP
-    public BpInformDetailVO getBpInform(BpInformVO vo);
+    public BpInformDetailVO getBpInform(String uuid);
     public String selectBpId(String uuid);
 
     public Integer insertBpRuquest(BpInformVO vo);
@@ -19,14 +19,17 @@ public interface Regist {
     public Integer updateBpDetail(BpInformDetailVO vo);
 
     //BP Account
-    public AccountVO getBpAccount(AccountVO vo);
+    public String getCheckAccount(String key);
+    public AccountVO getBpAccount(String key);
 
     public Integer insertBpAccount(AccountVO vo);
 
     public Integer updateBpAccount(AccountVO vo);
 
     public Integer deleteBpAccount(AccountVO vo);
+
     //BP 36Agreement
+    public String getCheckAgreement(String key);
     public AgreementVO getBpAgreement(AgreementVO vo);
 
     public Integer insertBpAgreement(AgreementVO vo);

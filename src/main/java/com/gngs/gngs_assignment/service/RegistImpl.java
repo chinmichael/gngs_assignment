@@ -31,8 +31,8 @@ public class RegistImpl implements Regist {
     }
 
     //BP
-    public BpInformDetailVO getBpInform(BpInformVO vo) {
-        BpInformDetailVO result = dao.showBpInform(vo);
+    public BpInformDetailVO getBpInform(String uuid) {
+        BpInformDetailVO result = dao.showBpInform(uuid);
 
         if(result.getCorporate_birth() != null && !result.getCorporate_birth().isEmpty()) {
             String[] birth = result.getCorporate_birth().split(" ");
@@ -122,7 +122,14 @@ public class RegistImpl implements Regist {
 
 
     //BP Account
-    public AccountVO getBpAccount(AccountVO vo) {
+    public String getCheckAccount(String key) {
+        String accountBpId = dao.checkAccount(key);
+        if(accountBpId == null || accountBpId.isEmpty()) {
+            accountBpId = "";
+        }
+        return accountBpId;
+    }
+    public AccountVO getBpAccount(String key) {
         return null;
     }
 
@@ -139,6 +146,13 @@ public class RegistImpl implements Regist {
     }
 
     //BP Agreement
+    public String getCheckAgreement(String key) {
+        AgreementVO vo = dao.checkAgreement(key);
+        if(vo == null) {
+            return "";
+        }
+        return vo.getStart_date();
+    }
     public AgreementVO getBpAgreement(AgreementVO vo) {
         return null;
     }

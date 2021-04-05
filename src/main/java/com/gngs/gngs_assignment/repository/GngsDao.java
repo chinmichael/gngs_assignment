@@ -41,19 +41,21 @@ public interface GngsDao {
     //BP Inform Logic
     String lastBpIdCheck ();
     String bpUuidCheck(String uuid);
-    BpInformDetailVO showBpInform(BpInformVO vo);
+    BpInformDetailVO showBpInform(String uuid);
     Integer bpRequestInsert (BpInformVO vo);
     Integer bpAdminUpdate (BpInformDetailVO vo);
     Integer bpPartnerUpdate (BpInformDetailVO vo);
     Integer deleteBP (BpInformVO vo);
 
     //BP Account Logic
+    String checkAccount (String key);
     AccountVO showAccount (AccountVO vo);
     Integer accountRegist(AccountVO vo);
     Integer updateAccount (AccountVO vo);
     Integer deleteAccount (AccountVO vo);
 
     //BP 36Agreement Logic
+    AgreementVO checkAgreement(String key);
     AgreementVO agreementCheck (AgreementVO vo);
     AgreementVO agreementDateCheck (AgreementVO vo);
     AgreementVO showAgreement (AgreementVO vo);

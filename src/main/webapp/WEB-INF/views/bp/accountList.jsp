@@ -203,7 +203,7 @@
     <%--Regist Buttons--%>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <button class="btn btn-dark" type="button" style="font-weight:bold;">
-            <a href=# style="text-decoration: none; color: white;">新規入力</a>
+            <a href="../bp/accountForm" style="text-decoration: none; color: white;">新規入力</a>
         </button>
 
         <button class="btn btn-secondary" type="button" style="font-weight:bold;" onclick="pageTablePrint()">
@@ -232,14 +232,6 @@
 
 <%@ include file="../coverBottom.jsp"%>
 
-<script type="text/javascript">
-    function fnGoPaging(page) {
-        location.href="../bp/bpList?page=" + page;
-    }
-
-    function fnGoSearchPaging(page) {
-        document.searchMove.page.value = page;
-        document.searchMove.submit();
-    }
+<script type="text/javascript" src="../../../resource/js/bp/accountListScript.js">
 </script>
 </html>

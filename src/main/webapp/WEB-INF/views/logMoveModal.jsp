@@ -26,7 +26,11 @@
 
         if(locVar == 'bpList') {
             $("#moveAccept").attr("onclick","location.href='../bp/bpList'");
-        } else if(!isNaN(locVar)) {
+        }
+        else if(locVar == "accountList") {
+            $("#moveAccept").attr("onclick","location.href='../bp/accountList'");
+        }
+        else if(!isNaN(locVar)) {
             $("#moveAccept").attr("onclick","window.history.go("+locVar+")");
         }
     }

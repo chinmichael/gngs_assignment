@@ -22,7 +22,7 @@
             BP詳細情報修正</h3>
 
         <%--Regist Form--%>
-        <form:form modelAttribute="bpInformDetailVO" action="bpModifySend" method="post" name="bpRequestFrm" onsubmit="return check(this)">
+        <form:form modelAttribute="bpInformDetailVO" action="bpModifySend" method="post" name="bpRequestFrm" onsubmit="return check()">
 
             <table class="table table-bordered border-secondary">
                 <thead>
@@ -127,8 +127,9 @@
                         <div class="row g-0">
                             <div class="col-sm-auto">
                                 <input type="date" name="corporateBirth" id="corporateBirth" value="${bpInform.getCorporate_birth()}"/>
-                                <form:hidden path="check_corporate_birth" id="check_corporate_birth" />
+                                <form:hidden path="corporate_birth" id="corporate_birth" />
                                 <form:errors path="check_corporate_birth" style="font-size: 10pt;color: red;padding-left: 5px;"/>
+                                <form:errors path="corporate_birth" style="font-size: 10pt;color: red;padding-left: 5px;"/>
                             </div>
                         </div>
                     </td>
@@ -137,11 +138,15 @@
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
                         <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;郵便番号</th>
                     <td>
-                        <div class="col-sm-3">
-                            <div class="input-group input-group-sm">
-                                <div class="input-group-text">〒</div>
-                                <form:input path="corporate_zipcode" cssClass="form-control form-control-sm" maxlength="7" id="zipcode" onchange="searchAddress();"/>
-                                <form:errors path="corporate_zipcode" style="font-size: 10pt;color: red;padding-left: 5px;"/>
+                        <div class="row g-2">
+                            <div class="col-sm-3">
+                                <div class="input-group input-group-sm">
+                                    <div class="input-group-text">〒</div>
+                                    <form:input path="corporate_zipcode" cssClass="form-control form-control-sm" maxlength="7" id="zipcode" onchange="searchAddress();"/>
+                                </div>
+                            </div>
+                            <div class="col-sm-auto" style="padding-top: 3.5px;">
+                                <form:errors path="corporate_zipcode" style="font-size: 10pt;color: red; padding-left: 5px;"/>
                             </div>
                         </div>
                     </td>
@@ -338,7 +343,7 @@
                     <td>
                         <div class="row g-0">
                             <div class="col-sm-auto">
-                                <form:select path="procedure_status" id="bp_type" cssClass="form-select form-select-sm">
+                                <form:select path="procedure_status" id="procedure_status" cssClass="form-select form-select-sm">
                                     <option value="0">登録依頼</option>
                                     <option value="1">審査待ち</option>
                                     <option value="2">完了</option>
@@ -377,12 +382,52 @@
                 <!--/Process Information-->
 
                 <!--Account, Agreement Regist Form Button + Extra-->
+                <div class="modal fade" id="registMoveModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body" align="center" style="font-size: 11pt;font-weight: bold;">
+                                このページの内容をセーブしますか。
+                            </div>
+                            <div align="center" style="color: #0d6efd; font-size: 50pt; margin-bottom: 5px;">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-secondary btn-sm" id="noSaveMove"
+                                        style="margin-left:20px; margin-bottom:15px;padding-top: 7px;">&nbsp;いいえ&nbsp;</button>
+                                <button type="button" class="btn btn-primary btn-sm" id="saveMove"
+                                        style="float:right; margin-right: 20px; margin-bottom: 15px;padding-top: 7px;">&nbsp;はい&nbsp;</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <tr>
                     <th colspan="2" style="width: 200px;font-size: 12pt; padding-left: 15px;text-align:center;" valign="middle">
-                        <button class="btn btn-dark me-md-2" style="font-weight:bold; color: white;" type="button"
-                                onclick="moveAccount()">&nbsp;&nbsp;口座情報情報変更&nbsp;&nbsp;</button>
-                        <button class="btn btn-dark me-md-2" style="font-weight:bold; color: white;" type="button"
-                                onclick="moveAgreement()">&nbsp;&nbsp;３６協定情報変更&nbsp;&nbsp;</button>
+                        <c:choose>
+                            <c:when test="${not empty bpAccount}">
+                                <button class="btn btn-dark me-md-2" style="font-weight:bold; color: white;" type="button"
+                                        data-bs-toggle="modal" data-bs-target="#registMoveModal"
+                                        onclick="moveAccount()">&nbsp;&nbsp;口座情報情報変更&nbsp;&nbsp;</button>
+                            </c:when>
+                            <c:otherwise>
+                                <button class="btn btn-dark me-md-2" style="font-weight:bold; color: white;" type="button"
+                                        data-bs-toggle="modal" data-bs-target="#registMoveModal"
+                                        onclick="moveAccount()">&nbsp;&nbsp;口座情報情報登録&nbsp;&nbsp;</button>
+                            </c:otherwise>
+                        </c:choose>
+                        <c:choose>
+                            <c:when test="${not empty bpAgreement}">
+                                <button class="btn btn-dark me-md-2" style="font-weight:bold; color: white;" type="button"
+                                        data-bs-toggle="modal" data-bs-target="#registMoveModal"
+                                        onclick="moveAgreement()">&nbsp;&nbsp;３６協定情報変更&nbsp;&nbsp;</button>
+                                <input type="hidden" id="bpAgreement" name="bpAgreement" value="${bpAgreement}">
+                            </c:when>
+                            <c:otherwise>
+                                <button class="btn btn-dark me-md-2" style="font-weight:bold; color: white;" type="button"
+                                        data-bs-toggle="modal" data-bs-target="#registMoveModal"
+                                        onclick="moveAgreement()">&nbsp;&nbsp;３６協定情報登録&nbsp;&nbsp;</button>
+                            </c:otherwise>
+                        </c:choose>
                     </th>
                 </tr>
                 <tr>
@@ -398,6 +443,8 @@
             </table>
 
             <%--Regist Buttons--%>
+            <input type="hidden" id="moveKey" name="moveKey" value="1">
+
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <button class="btn btn-secondary me-md-2" style="font-weight:bold;" type="button"
                         onclick="history.back()">&nbsp;&nbsp;戻る&nbsp;&nbsp;
@@ -417,94 +464,7 @@
 
 <%@ include file="../coverBottom.jsp" %>
 
-<script src="//api.zipaddress.net/sdk/zipaddr.min.js" async></script>
+<script type="text/javascript" src="../../../resource/js/bp/bpModifyScript.js"></script>
 
-<script type="text/javascript">
-    function changeCompType(type) {
-        var comp1 = ["零細","中小","大手"];
-        var comp2 = ["男","女"];
-        var set;
-        var target = document.getElementById("corporate_type2");
-
-        if(type.value == "0") set = comp1;
-        else set = comp2;
-
-        target.options.length = 0;
-
-        for(x in set) {
-            var opt = document.createElement("option");
-            opt.value = x + 3;
-            opt.innerHTML = set[x];
-            target.appendChild(opt);
-        }
-    }
-
-    $(document).ready(function () {
-        var checkBp = $("#bpType").val();
-        var checkComp1 = $("#compType1").val();
-        var checkComp2 = $("#compType2").val();
-        var checkProcedure = $("#procedureStatus").val();
-        var checkDeal = $("#dealStatus").val();
-
-        if(checkBp != "") $("#bp_type").val(checkBp).attr("selected", "true");
-        if(checkComp1 != "") $("#corporate_type1").val(checkComp1).attr("selected", "true");
-        if(checkComp2 != "") $("#corporate_type2").val(checkComp2).attr("selected", "true");
-        if(checkProcedure != "") $("#procedure_status").val(checkProcedure).attr("selected", "true");
-        if(checkDeal != "") $("#deal_status").val(checkDeal).attr("selected", "true");
-    });
-
-    function searchAddress () {
-        var $zipcode = $("#zipcode");
-        var zipcode = $zipcode.val();
-
-        var $address = $("#address1");
-
-        if(zipcode.length === 7) {
-            $.ajax({
-                url: "bpZipcodeCheck",
-                type: "POST",
-                data: {
-                    zipcode: zipcode
-                },
-                success: function (result) {
-                    $address.val(result.address);
-                },
-                error: function () {
-                    alert("err");
-                    $address.val('');
-                }
-            });
-        } else {
-            $address.val('');
-            $zipcode.val('');
-        }
-    }
-
-    function moveAccount() {
-        document.bpRequestFrm.action="";
-        document.bpRequestFrm.submit();
-    }
-
-    function moveAgreement() {
-        document.bpRequestFrm.action="";
-        document.bpRequestFrm.submit();
-    }
-
-    function check(frm) {
-        var compTel = $("#corporateTel1").val() + "-" + $("#corporateTel2").val() + "-" + $("#corporateTel3").val();
-        var compFax = $("#corporateFax1").val() + "-" + $("#corporateFax2").val() + "-" + $("#corporateFax3").val();
-        var contractTel = $("#contractTel1").val() + "-" + $("#contractTel2").val() + "-" + $("#contractTel3").val();
-        var contractPhone = $("#contractPhone1").val() + "-" + $("#contractPhone2").val() + "-" + $("#contractPhone3").val();
-        var dispatchTel = $("#dispatchTel1").val() + "-" + $("#dispatchTel2").val() + "-" + $("#dispatchTel3").val();
-        var birth = $("#corporateBirth").val();
-
-        $("#corporateTel").val(compTel);
-        $("#corporateFax").val(compFax);
-        $("#contractTel").val(contractTel);
-        $("#contractPhone").val(contractPhone);
-        $("#dispatchTel").val(dispatchTel);
-        $("#check_corporate_birth").val(birth);
-    }
-</script>
 
 </html>

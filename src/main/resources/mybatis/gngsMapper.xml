@@ -61,7 +61,7 @@
         select bp_id from bp_inform_tbl where uuid=#{uuid}
     </select>
 
-    <select id="showBpInform" parameterType="BpInformVO" resultType="BpInformDetailVO">
+    <select id="showBpInform" parameterType="String" resultType="BpInformDetailVO">
         select * from bp_inform_tbl where uuid = #{uuid}
     </select>
 
@@ -111,7 +111,7 @@
     <!--/BP Inform-->
 
     <!--BP Account-->
-    <select id="accountCheck" parameterType="AccountVO" resultType="AccountVO">
+    <select id="checkAccount" parameterType="String" resultType="String">
         select bp_id from bp_account_tbl where bp_id=#{bp_id}
     </select>
 
@@ -140,8 +140,12 @@
     <!--/BP Account-->
 
     <!--BP 36Agreement-->
-    <select id="agreementCheck" parameterType="AgreementVO" resultType="AgreementVO">
-        select bp_id, date_format(start_date, '%y%m') as start_date from bp_agreement_tbl where bp_id = #{bp_id}
+
+    <select id="checkAgreement" parameterType="String" resultType="AgreementVO">
+        select @rownum:=@rownum+1 as rnum, bp_id, date_format(start_date, '%y%m') as start_date
+        from bp_agreement_tbl, (select @rownum:=0) TMP
+        where bp_id = #{bp_id} and @rownum = 1
+        order by start_date
     </select>
 
     <select id="agreementDateCheck" parameterType="AgreementVO" resultType="AgreementVO">

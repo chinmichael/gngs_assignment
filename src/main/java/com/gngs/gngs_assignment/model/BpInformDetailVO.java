@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Getter
@@ -18,7 +19,22 @@ public class BpInformDetailVO extends BpInformVO {
 
     @PastOrPresent(message = "日付を確認してください")
     private Date check_corporate_birth;
+    @NotBlank(message = "日付を入力してください")
     private String corporate_birth;
+    public void setCorporate_birth(String corporate_birth) {
+        this.corporate_birth = corporate_birth;
+        SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
+        if(corporate_birth != null || corporate_birth.isEmpty()) {
+            if(corporate_birth != "") {
+                try {
+                    Date convertBirth = fm.parse(corporate_birth);
+                    check_corporate_birth = convertBirth;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
     @Min(value=7, message = "郵便番号を確認してください")
     private String corporate_zipcode;

@@ -234,14 +234,5 @@
 
 <%@ include file="../coverBottom.jsp"%>
 
-<script type="text/javascript">
-    function fnGoPaging(page) {
-        location.href="../bp/bpList?page=" + page;
-    }
-
-    function fnGoSearchPaging(page) {
-        document.searchMove.page.value = page;
-        document.searchMove.submit();
-    }
-</script>
+<script type="text/javascript" src="../../../resource/js/bp/agreementListScript.js"></script>
 </html>

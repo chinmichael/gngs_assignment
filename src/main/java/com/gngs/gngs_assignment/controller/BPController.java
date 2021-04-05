@@ -13,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 
@@ -224,9 +223,7 @@ public class BPController {
     @RequestMapping(value="/bpRegistAdmin")
     public ModelAndView bpRegistAdmin(String key) {
 
-        BpInformVO vo = new BpInformVO();
-        vo.setUuid(key);
-        BpInformDetailVO result = regist.getBpInform(vo);
+        BpInformDetailVO result = regist.getBpInform(key);
 
         ModelAndView mav = new ModelAndView("bp/bpRegistAdmin");
 
@@ -247,8 +244,6 @@ public class BPController {
 
             return mav;
         }
-        SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
-        vo.setCorporate_birth(fm.format(vo.getCheck_corporate_birth()));
 
         mav = new ModelAndView("bp/bpRegistAdminCheck");
         mav.addObject("bpInform", vo);
@@ -267,9 +262,12 @@ public class BPController {
     @RequestMapping(value="/bpModify")
     public ModelAndView bpModify(String key) {
         ModelAndView mav = new ModelAndView("bp/bpModify");
-        BpInformVO vo = new BpInformVO();
-        vo.setUuid(key);
-        BpInformDetailVO result = regist.getBpInform(vo);
+        BpInformDetailVO result = regist.getBpInform(key);
+
+        String checkAccount = regist.getCheckAccount(result.getBp_id());
+        String checkAgreement = regist.getCheckAgreement(result.getBp_id());
+        if(checkAccount != "") mav.addObject("bpAccount", "exist");
+        if(checkAgreement != "") mav.addObject("bpAgreement", checkAgreement);
 
         mav.addObject(new BpInformDetailVO());
         mav.addObject("bpInform", result);
@@ -277,13 +275,12 @@ public class BPController {
     }
 
     @RequestMapping(value="/bpModifySend")
-    public ModelAndView bpModifySend (@Valid @ModelAttribute BpInformDetailVO vo, BindingResult br) {
+    public ModelAndView bpModifySend (@Valid @ModelAttribute BpInformDetailVO vo, BindingResult br, String moveKey) {
         ModelAndView mav;
 
         if(br.hasErrors()) {
             mav = new ModelAndView("bp/bpModify");
             mav.getModel().putAll(br.getModel());
-
             mav.addObject("bpInform", vo);
 
             return mav;
@@ -356,6 +353,13 @@ public class BPController {
         mav.addObject("search_account_name", search_account_name);
         mav.addObject("search_account_type", search_account_type);
 
+        return mav;
+    }
+
+    @RequestMapping(value="/accountForm")
+    public ModelAndView accountForm() {
+        ModelAndView mav = new ModelAndView("bp/accountForm");
+        mav.addObject(new AccountVO());
         return mav;
     }
 
