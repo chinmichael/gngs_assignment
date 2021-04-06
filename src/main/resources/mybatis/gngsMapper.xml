@@ -19,7 +19,7 @@
     <select id="getBpCode" parameterType="BpCodePagingVO" resultType="BpInformDetailVO">
         select  a.*
         from    (select a.*, @rownum:=@rownum+1 as rnum, floor((@rownum- 1 )/#{rows}) + 1 as pageNumber
-                 from (select corporate_name, bp_type, corporate_type1, corporate_type2, date_format(regist_date,'%y%m') as regist_date
+                 from (select bp_id, corporate_name, bp_type, corporate_type1, corporate_type2, date_format(regist_date,'%Y/%m/%d') as regist_date
                      from bp_inform_tbl
                      where corporate_name like #{code_search_name} and ${code_search_type1} = #{code_search_type2}
                      order by regist_date desc)a,
@@ -36,7 +36,7 @@
     <select id="getBpCodeNoType" parameterType="BpCodePagingVO" resultType="BpInformDetailVO">
         select  a.*
         from    (select a.*, @rownum:=@rownum+1 as rnum, floor((@rownum- 1 )/#{rows}) + 1 as pageNumber
-                 from (select corporate_name, bp_type, corporate_type1, corporate_type2, date_format(regist_date,'%y%m') as regist_date
+                 from (select bp_id, corporate_name, bp_type, corporate_type1, corporate_type2, date_format(regist_date,'%Y/%m/%d') as regist_date
                      from bp_inform_tbl
                      where corporate_name like #{code_search_name}
                      order by regist_date desc)a,
@@ -44,7 +44,7 @@
         where a.pageNumber = #{page} order by a.rnum
     </select>
 
-    <select id="getBpCodeNoTypeCnt" parameterType="BpCodePagingVO" resultType="BpInformDetailVO">
+    <select id="getBpCodeCntNoType" parameterType="BpCodePagingVO" resultType="BpInformDetailVO">
         select ceil(count(*)/#{rows}) totalPage from bp_inform_tbl
         where corporate_name like #{code_search_name}
         order by regist_date desc
@@ -142,7 +142,7 @@
     <!--BP 36Agreement-->
 
     <select id="checkAgreement" parameterType="String" resultType="AgreementVO">
-        select @rownum:=@rownum+1 as rnum, bp_id, date_format(start_date, '%y%m') as start_date
+        select @rownum:=@rownum+1 as rnum, bp_id, date_format(start_date, '%Y%m') as start_date
         from bp_agreement_tbl, (select @rownum:=0) TMP
         where bp_id = #{bp_id} and @rownum = 1
         order by start_date
@@ -150,14 +150,14 @@
 
     <select id="agreementDateCheck" parameterType="AgreementVO" resultType="AgreementVO">
         select bp_id from bp_agreement_tbl
-        where bp_id = #{bp_id} and date_format(start_date, '%y%m') = #{start_date}
+        where bp_id = #{bp_id} and date_format(start_date, '%Y%m') = #{start_date}
     </select>
 
     <select id="showAgreement" parameterType="AgreementVO" resultType="AgreementVO">
         select ag.bp_id, corporate_name, uuid, dispatch_code, dispatch_name, pattern, pattern_name,
                overtime_day, overtime_month, overtime_quarter, overtime_half, overtime_year,
                holiday_work, holiday_dayweek, check_month, check_date,
-               date_format(start_date, '%y%m') as start_date, date_format(end_date, '%y%m') as end_date, work_time,
+               date_format(start_date, '%Y%m') as start_date, date_format(end_date, '%Y%m') as end_date, work_time,
                extend_day, extend_month, extend_quarter, extend_half, extend_year,
                agreement_type, count_limit
         from   bp_agreement_tbl ag, bp_inform_tbl i
@@ -180,11 +180,11 @@
             #{holiday_work},#{holiday_dayweek},#{check_month},#{check_date},#{start_date},#{end_date},#{work_time},
             #{extend_day},#{extend_month},#{extend_quarter},#{extend_half},#{extend_year},
             #{agreement_type},#{count_limit}
-        where bp_id=#{bp_id} and date_format(start_date,'%y%d')=#{origin_start_date}
+        where bp_id=#{bp_id} and date_format(start_date,'%Y%d')=#{origin_start_date}
     </update>
 
     <delete id="deleteAgreement" parameterType="AgreementVO">
-        delete from bp_agreement_tbl where bp_id=#{bp_id} and date_format(start_date,'%y%d')=#{origin_start_date}
+        delete from bp_agreement_tbl where bp_id=#{bp_id} and date_format(start_date,'%Y%d')=#{origin_start_date}
     </delete>
     <!--/BP 36Agreement-->
 
@@ -194,8 +194,8 @@
         select a.*
         from   (select a.*, @rownum:=@rownum+1 as rnum, floor((@rownum - 1)/#{rows}) + 1 as pageNumber
                 from (select corporate_name, bp_type, corporate_type1, corporate_type2, corporate_address1,
-                             procedure_status, date_format(procedure_pass_date, '%y/%m/%d') as procedure_pass_date,
-                             deal_status, date_format(deal_pass_date, '%y/%m/%d') as deal_pass_date, uuid
+                             procedure_status, date_format(procedure_pass_date, '%Y/%m/%d') as procedure_pass_date,
+                             deal_status, date_format(deal_pass_date, '%Y/%m/%d') as deal_pass_date, uuid
                         from bp_inform_tbl order by regist_date desc)a,
                      (select @rownum:=0) TMP)a
         where a.pageNumber = #{page} order by a.rnum
@@ -209,8 +209,8 @@
         select  a.*
         from    (select a.*, @rownum:=@rownum+1 as rnum, floor((@rownum- 1 )/#{rows}) + 1 as pageNumber
                  from (select corporate_name, bp_type, corporate_type1, corporate_type2, corporate_address1,
-                     procedure_status, date_format(procedure_pass_date, '%y/%m/%d') as procedure_pass_date,
-                     deal_status, date_format(deal_pass_date, '%y/%m/%d') as deal_pass_date, uuid
+                     procedure_status, date_format(procedure_pass_date, '%Y/%m/%d') as procedure_pass_date,
+                     deal_status, date_format(deal_pass_date, '%Y/%m/%d') as deal_pass_date, uuid
                      from bp_inform_tbl
                      where corporate_name like #{search_name}
                      order by regist_date desc)a,
@@ -229,8 +229,8 @@
         select  a.*
         from    (select a.*, @rownum:=@rownum+1 as rnum, floor((@rownum- 1 )/#{rows}) + 1 as pageNumber
                  from (select corporate_name, bp_type, corporate_type1, corporate_type2, corporate_address1,
-                              procedure_status, date_format(procedure_pass_date, '%y/%m/%d') as procedure_pass_date,
-                              deal_status, date_format(deal_pass_date, '%y/%m/%d') as deal_pass_date, uuid
+                              procedure_status, date_format(procedure_pass_date, '%Y/%m/%d') as procedure_pass_date,
+                              deal_status, date_format(deal_pass_date, '%Y/%m/%d') as deal_pass_date, uuid
                          from bp_inform_tbl
                         where ${search_type1} = #{search_type2} and corporate_name like #{search_name}
                      order by regist_date desc)a,
@@ -310,7 +310,7 @@
         from    (select a.*, @rownum:=@rownum+1 as rnum, floor((@rownum - 1)/#{rows}) + 1 as pageNumber
                  from (select ag.bp_id, corporate_name, uuid, dispatch_code, dispatch_name, pattern, pattern_name,
                               overtime_day, overtime_month, overtime_quarter, overtime_half, overtime_year, holiday_work, ag.regist_date
-                              check_month, check_date, date_format(start_date, '%y/%m') as start_date, date_format(end_date, '%y/%m') as end_date
+                              check_month, check_date, date_format(start_date, '%Y/%m') as start_date, date_format(end_date, '%y/%m') as end_date
                          from bp_agreement_tbl ag, bp_inform_tbl i
                         where ag.bp_id = i.bp_id order by ag.regist_date desc)a,
                       (select @rownum:=0) TMP)a
@@ -326,7 +326,7 @@
         from    (select a.*, @rownum:=@rownum+1 as rnum, floor((@rownum - 1)/#{rows}) + 1 as pageNumber
                  from (select a.bp_id, corporate_name, uuid, dispatch_code, dispatch_name, pattern, pattern_name,
                      overtime_day, overtime_month, overtime_quarter, overtime_half, overtime_year, holiday_work, a.regist_date
-                     check_month, check_date, date_format(start_date, '%y/%m') as start_date, date_format(end_date, '%y/%m') as end_date
+                     check_month, check_date, date_format(start_date, '%Y/%m') as start_date, date_format(end_date, '%Y/%m') as end_date
                      from bp_agreement_tbl a, bp_inform_tbl i
                      where a.bp_id = i.bp_id and dispatch_code=#{search_dispatch} and pattern like #{search_pattern_code} and pattern_name like #{search_pattern_name}
                      order by a.regist_date desc)a,

@@ -13,9 +13,9 @@
 <main class="col bg-faded py-4 flex-grow-1" style="font-family: Meiryo; margin-bottom: 150px; padding-left: 30px; padding-right: 25px;">
 
     <c:choose>
-        <c:when test="${empty moveKey} && ${empty accountInform}">
+        <c:when test="${empty moveKey && empty accountInform}">
             <a href=# data-bs-toggle="modal" data-bs-target="#logMoveModal" style="text-decoration:none;"
-               onclick="logMove('口座情報一覧', 'accountList')">BP情報一覧 ></a>
+               onclick="logMove('口座情報一覧', 'accountList')">口座情報一覧 ></a>
             <a style="text-decoration:none;">口座情報登録</a>
         </c:when>
         <c:otherwise>
@@ -60,6 +60,7 @@
                         <c:if test="${empty accountInform}">
                             <div class="col-sm-auto">
                                 <button type="button" class="btn btn-secondary btn-sm"
+                                        data-bs-toggle="modal" data-bs-target="#bpCodeFindModal"
                                         onclick=""><i class="fas fa-search"></i></button>
                             </div>
                             <%@ include file="../bpCodeFindModal.jsp"%>

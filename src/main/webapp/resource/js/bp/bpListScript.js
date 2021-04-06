@@ -8,7 +8,7 @@ function fnGoSearchPaging(page) {
 }
 
 function changeSearchType2(type1) {
-    var non = ["区分なし"]
+    var non = ["区分なし"];
     var bp = ["顧客","パートナー"];
     var comp1 = ["法人","自営業","その他"];
     var comp2 = ["零細","中小","大手","男","女"];
@@ -17,12 +17,26 @@ function changeSearchType2(type1) {
 
     var set;
 
-    if(type1.value == "0") set = non;
-    else if(type1.value == "bp_type") set = bp;
-    else if(type1.value == "corporate_type1") set = comp1;
-    else if(type1.value == "corporate_type2") set = comp2;
-    else if(type1.value == "procedure_status") set = procedure;
-    else if(type1.value == "deal_status") set = deal;
+    switch (type1.value) {
+        case "0":
+            set = non;
+            break;
+        case "bp_type":
+            set = bp;
+            break;
+        case "corporate_type1":
+            set = comp1;
+            break;
+        case "corporate_type2":
+            set = comp2;
+            break;
+        case "procedure_status":
+            set = procedure;
+            break;
+        case "deal_status":
+            set = deal;
+            break;
+    }
 
     var target = document.getElementById("searchType2")
     target.options.length = 0;

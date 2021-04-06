@@ -72,7 +72,12 @@ public class BPController {
             if(page == null) page = (long) 1;
             long initPage = page;
             BpCodePagingVO vo = new BpCodePagingVO();
+
             vo.setPage(initPage);
+            vo.setCode_search_type1(code_search_type1);
+            vo.setCode_search_type2(Integer.parseInt(code_search_type2));
+            vo.setCode_search_name("%"+code_search_name+"%");
+
             List<BpInformDetailVO> list = pagingList.getBpCodePagingList(vo);
             HashMap<String, Object> pagingListCnt = bpCodePaging.getSearchCnt(vo);
             HashMap<String, Object> resMap = bpCodePaging.getResMap(vo, pagingListCnt);

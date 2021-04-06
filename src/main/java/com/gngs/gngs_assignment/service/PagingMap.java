@@ -11,7 +11,7 @@ abstract public class PagingMap {
     public HashMap<String, Object> getResMap(CommonPagingVO vo, HashMap<String, Object> listCnt) {
         HashMap<String, Object> resMap = new HashMap<String, Object>();
 
-        resMap.put("total", listCnt.get("totalPage"));
+        resMap.put("totalPage", listCnt.get("totalPage"));
         resMap.put("page", vo.getPage()); // Current Page
         resMap.put("pageScale", vo.getPageScale());
 
