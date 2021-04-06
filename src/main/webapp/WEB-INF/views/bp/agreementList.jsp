@@ -125,7 +125,7 @@
 
                     <c:forEach var="i"
                                begin="${resMap.startPage}"
-                               end="${resMap.endPage > resMap.total ? resMap.total : resMap.endPage}"
+                               end="${resMap.endPage > resMap.totalPage ? resMap.totalPage : resMap.endPage}"
                                varStatus="status">
                         <c:choose>
                             <c:when test="${resMap.page eq i}">
@@ -144,7 +144,7 @@
                         </c:choose>
                     </c:forEach>
 
-                    <c:if test="${resMap.nextPage <= resMap.total}">
+                    <c:if test="${resMap.nextPage <= resMap.totalPage}">
                         <li class="page-item">
                             <a class="page-link" aria-label="Next" style="font-weight:bold;box-shadow: none; border: none; background-color: #edf5fb;"
                                href="javascript:fnGoPaging(<c:out value='${resMap.nextPage}'/>)">
