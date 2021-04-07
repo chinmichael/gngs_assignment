@@ -332,7 +332,7 @@ public class BPController {
     @RequestMapping(value="/accountSearch")
     public ModelAndView accountSearch(Long page, String search_bank_name,
                                       String search_branch_name, String search_account_name, Integer search_account_type) {
-        ModelAndView mav = new ModelAndView("bp/accountSearch");
+        ModelAndView mav = new ModelAndView("bp/accountList");
 
         if(page == null) page = (long) 1;
         if(search_bank_name == null || search_bank_name.isEmpty()) search_bank_name = "";
@@ -393,7 +393,7 @@ public class BPController {
     @RequestMapping(value="/agreementSearch")
     public ModelAndView agreementSearch(Long page, String search_dispatch,
                                         String search_pattern_code, String search_pattern_name) {
-        ModelAndView mav = new ModelAndView("bp/agreemtnSerach");
+        ModelAndView mav = new ModelAndView("bp/agreementList");
 
         if(page == null) page = (long) 1;
         if(search_dispatch == null || search_dispatch.isEmpty()) search_dispatch = "";

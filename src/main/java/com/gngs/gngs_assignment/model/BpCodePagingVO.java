@@ -9,4 +9,7 @@ public class BpCodePagingVO extends CommonPagingVO {
     private String code_search_name;
     private String code_search_type1;
     private Integer code_search_type2;
+
+    private long rows = 5;
+    private long pageScale = 3;
 }

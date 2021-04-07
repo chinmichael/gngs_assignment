@@ -18,7 +18,7 @@
             <th style="width: 120px;background-color: #E6E6E6; text-align: center;" valign="middle">
                 &nbsp;検索条件</th>
             <td>
-                <form method="post" name="bpSearchFrm" action="../bp/bpSearch">
+                <form method="post" name="accountSearchFrm" action="../bp/accountSearch">
                     <div class="row g-2">
                         <div class="col-sm-auto">
                             <input type="text" class="form-control form-control-sm" id="search_bank_name"
@@ -32,7 +32,7 @@
                         </div>
                         <div class="col-sm-auto">
                             <select class="form-select form-select-sm" id="search_account_type" name="search_account_type">
-                                <option selected>区分なし</option>
+                                <option value="" selected>区分なし</option>
                                 <option value="0">普通</option>
                                 <option value="1">当座</option>
                             </select>
@@ -135,7 +135,8 @@
                             </c:when>
                             <c:otherwise>
                                 <li class="page-item">
-                                    <a class="page-link" style="box-shadow: none; border: none; background-color: #edf5fb;"
+                                    <a class="page-link"
+                                       style="box-shadow: none; border: none; background-color: #edf5fb;"
                                        href="javascript:fnGoPaging(${i});">${i}</a>
                                 </li>
                             </c:otherwise>
@@ -223,9 +224,10 @@
 <%--Search Hidden Form--%>
 <form name="searchMove" action="../bp/bpSearch" method="post">
     <input type="hidden" name="page">
-    <input type="hidden" name="search_dispatch" value="${search_dispatch}">
-    <input type="hidden" name="search_pattern_code" value="${search_pattern_code}">
-    <input type="hidden" name="search_pattern_name" value="${search_pattern_name}">
+    <input type="hidden" name="search_bank_name" value="${search_bank_name}">
+    <input type="hidden" name="search_branch_name" value="${search_branch_name}">
+    <input type="hidden" name="search_account_type" value="${search_account_type}">
+    <input type="hidden" name="search_account_name" value="${search_account_name}">
 </form>
 <%--/Search Hidden Form--%>
 

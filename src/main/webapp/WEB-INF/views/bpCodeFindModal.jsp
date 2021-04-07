@@ -10,7 +10,7 @@
                     <thead>
                     <tr>
                         <th style="width: 120px;background-color: #E6E6E6; font-weight: bold;" valign="middle">
-                            検索条件
+                            BPコード検索
                         </th>
                         <td colspan="5">
                             <div class="row g-2" align="center">
@@ -46,7 +46,7 @@
                 </table>
             </div>
 
-            <div id="pagingSpace">
+            <div id="pagingSpace" style="margin-top: -15px;">
 
             </div>
         </div>
@@ -54,13 +54,14 @@
 </div>
 
 <script type="text/javascript">
-    function searchBpCode() {
+    function searchBpCode(page) {
         var searchType1 = $("#code_search_type1").val();
         var searchType2 = $("#code_search_type2").val();
         var searchName = $("#code_search_name").val();
 
         $("#tableListName").remove();
         $("#tableListContent").remove();
+        $("#pagingNav").remove();
 
         $.ajax({
            url: "bpCodeSearch",
@@ -68,7 +69,8 @@
             data: {
                 code_search_type1: searchType1,
                 code_search_type2: searchType2,
-                code_search_name: searchName
+                code_search_name: searchName,
+                page: page
             },
             success: function(result) {
 
@@ -143,14 +145,43 @@
                     }
                     $("#bpCodeTable").append("</tbody>");
 
-                    var end = result.resMap.endPage > result.resMap.totalPage ?
-                                result.resMap.totalPage : result.resMap.endPage;
-                    for(i=result.resMap.startPage;
-                        i<=end;
-                        i++) {
+                    var paging =    "<nav aria-label='Page navigation example' id='pagingNav'>" +
+                                    "<ul class='pagination justify-content-center'>";
 
+                    if(result.resMap.pageGroup > 1) {
+                        paging = paging +   "<li class='page-item'>"+
+                                            "<a class='page-link' aria-label='Previous'"+
+                                            "style='font-weight:bold;box-shadow: none; border: none; background-color: white;'"+
+                                            "href='javascript:searchBpCode('+result.resMap.prePage+')'>"+
+                                            "<span aria-hidden='true'>&laquo;</span></a></li>";
                     }
 
+                    var end = result.resMap.endPage > result.resMap.totalPage ? result.resMap.totalPage : result.resMap.endPage;
+
+                    for(i=result.resMap.startPage; i<=end; i++) {
+                        if(result.resMap.page == i) {
+                            paging = paging +   "<li class='page-item'>" +
+                                                "<a class='page-link'" +
+                                                "style='font-weight: bolder;box-shadow: none;border: none;background-color: white;'" +
+                                                "href='javascript:searchBpCode(" +i+ ");'>" +i+ "</a></li>";
+                        } else {
+                            paging = paging +   "<li class='page-item'>" +
+                                                "<a class='page-link'" +
+                                                "style='box-shadow: none; border: none; background-color: white;'" +
+                                                "href='javascript:searchBpCode(" +i+ ");'>" +i+ "</a></li>";
+                        }
+                    }
+
+                    if(result.resMap.nextPage <= result.resMap.totalPage) {
+                        paging = paging +   "<li class='page-item'>"+
+                                            "<a class='page-link' aria-label='Previous'"+
+                                            "style='font-weight:bold;box-shadow: none; border: none; background-color: white;'"+
+                                            "href='javascript:searchBpCode('+result.resMap.nextPage+')'>"+
+                                            "<span aria-hidden='true'>&raquo;</span></a></li>";
+                    }
+
+                    paging = paging + "</ul>" + "</nav>";
+                    $("#pagingSpace").append(paging);
                 }
             },
             error: function() {
@@ -163,6 +194,7 @@
         var code = anchor.innerText;
         $("#tableListName").remove();
         $("#tableListContent").remove();
+        $("#pagingNav").remove();
         $("#setModalBpCode").val(code);
     }
 
@@ -208,7 +240,7 @@
         }
     }
 
-    $(document).ready(function () {
+    /*$(document).ready(function () {
         var searchT1 = document.searchMove.searchType1.value;
         var searchT2 = document.searchMove.searchType2.value;
 
@@ -218,5 +250,5 @@
             changeSearchType2(target);
             $("#searchType2").val(searchT2).attr("selected", "true");
         }
-    });
+    });*/
 </script>

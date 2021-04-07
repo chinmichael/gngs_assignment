@@ -27,10 +27,9 @@
         where a.pageNumber = #{page} order by a.rnum
     </select>
 
-    <select id="getBpCodeCnt" parameterType="BpCodePagingVO" resultType="BpInformDetailVO">
-        select ceil(count(*)/#{rows}) totalPage from bp_inform_tbl
+    <select id="getBpCodeCnt" parameterType="BpCodePagingVO" resultType="Long">
+        select ceil(count(*)/#{rows}) as totalPage from bp_inform_tbl
         where corporate_name like #{code_search_name} and ${code_search_type1} = #{code_search_type2}
-        order by regist_date desc
     </select>
 
     <select id="getBpCodeNoType" parameterType="BpCodePagingVO" resultType="BpInformDetailVO">
@@ -44,10 +43,9 @@
         where a.pageNumber = #{page} order by a.rnum
     </select>
 
-    <select id="getBpCodeCntNoType" parameterType="BpCodePagingVO" resultType="BpInformDetailVO">
-        select ceil(count(*)/#{rows}) totalPage from bp_inform_tbl
+    <select id="getBpCodeCntNoType" parameterType="BpCodePagingVO" resultType="Long">
+        select ceil(count(*)/#{rows}) as totalPage from bp_inform_tbl
         where corporate_name like #{code_search_name}
-        order by regist_date desc
     </select>
     <!--/Ajax-->
 
@@ -279,7 +277,6 @@
         select ceil(count(*)/#{rows}) totalPage from bp_account_tbl
         where bank_name like #{search_bank_name} and branch_name like #{search_branch_name}
               and account_name like #{search_account_name} and account_type = #{search_account_type}
-        order by regist_date
     </select>
 
     <select id="getAccountSearchPagingListNoType" parameterType="AccountPagingVO" resultType="AccountVO">
@@ -299,7 +296,6 @@
         select ceil(count(*)/#{rows}) totalPage from bp_account_tbl
         where bank_name like #{search_bank_name} and branch_name like #{search_branch_name}
           and account_name like #{search_account_name}
-        order by regist_date
     </select>
 
     <!--/BP Account Paging-->
@@ -337,7 +333,6 @@
     <select id="get36SearchPagingListCnt" parameterType="AgreementPagingVO" resultType="Long">
         select ceil(count(*)/#{rows}) totalPage from bp_agreement_tbl
         where dispatch_code=#{search_dispatch} and pattern like #{search_pattern_code} and pattern_name like #{search_pattern_name}
-        order by regist_date
     </select>
     <!--/BP 36 Agreement Paging-->
     <!--/Paging-->
