@@ -113,7 +113,7 @@
         select bp_id from bp_account_tbl where bp_id=#{bp_id}
     </select>
 
-    <select id="showAccount" parameterType="AccountVO" resultType="AccountVO">
+    <select id="showAccount" parameterType="AccountVO" resultType="String">
         select ac.bp_id, corporate_name, uuid, bank_num, bank_name, branch_num, branch_name, account_type, account_num, account_name
         from   bp_account_tbl ac, bp_inform_tbl i
         where  ac.bp_id = i.bp_id and uuid = #{uuid}
@@ -151,15 +151,27 @@
         where bp_id = #{bp_id} and date_format(start_date, '%Y%m') = #{start_date}
     </select>
 
+    <select id="showLastAgreement" parameterType="String" resultType="AgreementVO">
+        select ag.bp_id, corporate_name, uuid, dispatch_code, dispatch_name, pattern, pattern_name,
+               overtime_day, overtime_month, overtime_quarter, overtime_half, overtime_year,
+               holiday_work, holiday_dayweek, check_month, check_date,
+               date_format(start_date, '%Y%m') as start_date, date_format(end_date, '%Y%m') as end_date, work_time,
+               extend_day, extend_month, extend_quarter, extend_half, extend_year,
+               agreement_type, count_limit, uuid, @rownum:=@rownum+1 as rnum
+        from   bp_agreement_tbl ag, bp_inform_tbl i, (select @rownum:=0) TMP
+        where  ag.bp_id = i.bp_id and uuid = #{uuid} and @rownum = 1
+        order by start_date
+    </select>
+
     <select id="showAgreement" parameterType="AgreementVO" resultType="AgreementVO">
         select ag.bp_id, corporate_name, uuid, dispatch_code, dispatch_name, pattern, pattern_name,
                overtime_day, overtime_month, overtime_quarter, overtime_half, overtime_year,
                holiday_work, holiday_dayweek, check_month, check_date,
                date_format(start_date, '%Y%m') as start_date, date_format(end_date, '%Y%m') as end_date, work_time,
                extend_day, extend_month, extend_quarter, extend_half, extend_year,
-               agreement_type, count_limit
+               agreement_type, count_limit, uuid
         from   bp_agreement_tbl ag, bp_inform_tbl i
-        where  ag.bp_id = i.bp_id
+        where  ag.bp_id = i.bp_id and uuid = #{uuid} and start_date = #{start_date}
     </select>
 
     <insert id="agreementRegist" parameterType="AgreementVO">

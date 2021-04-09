@@ -10,7 +10,7 @@
 
 <%--Main Contents--%>
 <main class="col bg-faded py-4 flex-grow-1" style="font-family: Meiryo; margin-bottom: 150px; padding-left: 30px; padding-right: 25px;">
-    <div class="card border-info text-center">
+    <div class="card border-info text-center" style="max-width: 900px;">
         <div class="card-header text-secondary">
             告知
         </div>

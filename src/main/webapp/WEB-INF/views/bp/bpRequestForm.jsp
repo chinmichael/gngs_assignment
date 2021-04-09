@@ -24,7 +24,7 @@
     <%--Regist Form--%>
     <form:form modelAttribute="bpInformVO" action="../bp/bpRequestSend" method="post" name="bpRequestFrm" onsubmit="return check(this)">
 
-    <table class="table table-bordered border-secondary">
+    <table class="table table-bordered border-secondary" style="max-width: 900px;">
         <thead>
             <tr><th colspan="2" style="text-align: right; background-color: #F2F2F2;">
                 <span style="color: red;margin-right:5px;"><i class="fas fa-caret-right"></i> : 入力必須項目です</span>
@@ -135,14 +135,16 @@
     </table>
 
     <%--Regist Buttons--%>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button class="btn btn-secondary me-md-2" style="font-weight:bold;" type="button"
-        onclick="history.back()">&nbsp;&nbsp;戻る&nbsp;&nbsp;
-        </button>
-        <button class="btn btn-dark" type="submit" style="font-weight:bold;">
-            &nbsp;&nbsp;登録&nbsp;&nbsp;
-        </button>
-    </div>
+        <div style="max-width: 900px;">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-secondary me-md-2" style="font-weight:bold;" type="button"
+                        onclick="history.back()">&nbsp;&nbsp;戻る&nbsp;&nbsp;
+                </button>
+                <button class="btn btn-dark" type="submit" style="font-weight:bold;">
+                    &nbsp;&nbsp;登録&nbsp;&nbsp;
+                </button>
+            </div>
+        </div>
     <%--/Regist Buttons--%>
     </form:form>
     <%--/Regist Form--%>

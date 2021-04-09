@@ -130,7 +130,13 @@ public class RegistImpl implements Regist {
         return accountBpId;
     }
     public AccountVO getBpAccount(String key) {
-        return null;
+        AccountVO result = dao.showAccount(key);
+        if(result == null) {
+            result = new AccountVO();
+            result.setBp_id(dao.bpUuidCheck(key));
+        }
+
+        return result;
     }
 
     public Integer insertBpAccount(AccountVO vo) {
@@ -153,8 +159,22 @@ public class RegistImpl implements Regist {
         }
         return vo.getStart_date();
     }
-    public AgreementVO getBpAgreement(AgreementVO vo) {
-        return null;
+    public AgreementVO getBpAgreement(String key, String start_date) {
+        AgreementVO result;
+
+        if(start_date == null || start_date.isEmpty()) {
+            result = dao.showLastAgreement(key);
+        } else {
+            AgreementVO vo = new AgreementVO();
+            vo.setStart_date(start_date); vo.setUuid(key);
+            result = dao.showAgreement(vo);
+        }
+        if(result == null) {
+            result = new AgreementVO();
+            result.setBp_id(dao.bpUuidCheck(key));
+        }
+
+        return result;
     }
 
     public Integer insertBpAgreement(AgreementVO vo) {

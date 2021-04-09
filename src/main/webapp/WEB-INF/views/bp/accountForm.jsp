@@ -21,7 +21,8 @@
         <c:otherwise>
             <a href=# data-bs-toggle="modal" data-bs-target="#logMoveModal" style="text-decoration:none;"
                onclick="logMove('BP情報一覧', 'bpList')">BP情報一覧 ></a>
-            <a style="text-decoration:none;">BP詳細情報修正 ></a>
+            <a href=# data-bs-toggle="modal" data-bs-target="#logMoveModal" style="text-decoration:none;"
+               onclick="logMove('BP詳細情報修正',-1)">BP詳細情報修正 ></a>
             <a style="text-decoration:none;">口座情報登録</a>
         </c:otherwise>
     </c:choose>
@@ -30,7 +31,7 @@
     <%@ include file="../logMoveModal.jsp"%>
 
     <c:choose>
-        <c:when test="${empty accountInform}">
+        <c:when test="${empty accountInform.getAccount_type()}">
             <h3 style="font-size: 20pt;font-weight: bold;text-decoration-line: underline;margin-bottom: 20px; margin-top:20px;">
                 口座情報登録</h3>
         </c:when>
@@ -43,7 +44,7 @@
     <%--Regist Form--%>
     <form:form modelAttribute="accountVO" action="accountSend" method="post" name="accountFrm" onsubmit="return check()">
 
-        <table class="table table-bordered border-secondary">
+        <table class="table table-bordered border-secondary" style="max-width: 900px;">
             <thead>
             <tr>
                 <th colspan="2" style="text-align: right; background-color: #F2F2F2;">
@@ -170,23 +171,24 @@
 
         <%--Regist Buttons--%>
         <input type="hidden" id="moveKey" name="moveKey" value="1">
-
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button class="btn btn-secondary me-md-2" style="font-weight:bold;" type="button"
-                    onclick="history.back()">&nbsp;&nbsp;戻る&nbsp;&nbsp;
-            </button>
-            <c:choose>
-                <c:when test="${empty accountInform}">
-                    <button class="btn btn-dark" type="submit" style="font-weight:bold;">
-                        &nbsp;&nbsp;登録&nbsp;&nbsp;
-                    </button>
-                </c:when>
-                <c:otherwise>
-                    <button class="btn btn-dark" type="submit" style="font-weight:bold;">
-                        &nbsp;&nbsp;変更&nbsp;&nbsp;
-                    </button>
-                </c:otherwise>
-            </c:choose>
+        <div style="max-width: 900px;">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-secondary me-md-2" style="font-weight:bold;" type="button"
+                        onclick="history.back()">&nbsp;&nbsp;戻る&nbsp;&nbsp;
+                </button>
+                <c:choose>
+                    <c:when test="${empty accountInform}">
+                        <button class="btn btn-dark" type="submit" style="font-weight:bold;">
+                            &nbsp;&nbsp;登録&nbsp;&nbsp;
+                        </button>
+                    </c:when>
+                    <c:otherwise>
+                        <button class="btn btn-dark" type="submit" style="font-weight:bold;">
+                            &nbsp;&nbsp;変更&nbsp;&nbsp;
+                        </button>
+                    </c:otherwise>
+                </c:choose>
+            </div>
         </div>
         <%--/Regist Buttons--%>
     </form:form>

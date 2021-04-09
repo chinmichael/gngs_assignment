@@ -14,8 +14,8 @@ public class BpMailVO extends MailVO {
         sb.append("ご確認の上ご対応のほどよろしくお願い致します。");
         sb.append("<br/><br/>");
         sb.append("下記のURLより登録を行ってください。<br/>");
-        sb.append("<a href=\"http://172.30.1.43:8000/bp/bpRegist?key="+uuid+"\">");
-        sb.append("http://172.30.1.43:8005/bp/bpRegist?key="+uuid+"</a>");
+        sb.append("<a href=\"http://172.30.1.37:8005/bp/bpRegist?key="+uuid+"\">");
+        sb.append("http://172.30.1.37:8005/bp/bpRegist?key="+uuid+"</a>");
         sb.append("<br/><br/>");
         sb.append("<本件に関する問い合わせ先>");
         sb.append("株式会社ジエンジサービス<br/>");

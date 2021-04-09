@@ -210,8 +210,8 @@ public class BPController {
         return mav;
     }
 
-    @RequestMapping(value="/bpGoRegistAdmin")
-    public ModelAndView bpGoRegistAdmin(@ModelAttribute BpInformVO vo) {
+    @RequestMapping(value="/goBpModify")
+    public ModelAndView goBpModify(@ModelAttribute BpInformVO vo) {
 
         if(vo.getContract_dept() == null || vo.getContract_dept().isEmpty()) vo.setContract_dept("");
         if(vo.getContract_manager() == null || vo.getContract_manager().isEmpty()) vo.setContract_manager("");
@@ -221,51 +221,23 @@ public class BPController {
 
         Integer check = regist.insertBpRuquest(vo);
 
-        ModelAndView mav = new ModelAndView("redirect:/bp/bpRegistAdmin?key=" + key);
+        ModelAndView mav = new ModelAndView("redirect:/bp/bpModify?move=true&key=" + key);
         return mav;
     }
 
-    @RequestMapping(value="/bpRegistAdmin")
-    public ModelAndView bpRegistAdmin(String key) {
-
+    @RequestMapping(value="/bpRegist")
+    public ModelAndView bpRegist(String key) {
+        ModelAndView mav = new ModelAndView("bp/bpRegist");
         BpInformDetailVO result = regist.getBpInform(key);
-
-        ModelAndView mav = new ModelAndView("bp/bpRegistAdmin");
 
         mav.addObject(new BpInformDetailVO());
         mav.addObject("bpInform", result);
-        return mav;
-    }
-
-    @RequestMapping(value="/bpRegistAdminSend")
-    public ModelAndView bpRegistAdminSend (@Valid @ModelAttribute BpInformDetailVO vo, BindingResult br) {
-        ModelAndView mav;
-
-        if(br.hasErrors()) {
-            mav = new ModelAndView("bp/bpRegistAdmin");
-            mav.getModel().putAll(br.getModel());
-
-            mav.addObject("bpInform", vo);
-
-            return mav;
-        }
-
-        mav = new ModelAndView("bp/bpRegistAdminCheck");
-        mav.addObject("bpInform", vo);
-        mav.addObject(new BpInformDetailVO());
-
-        return mav;
-    }
-
-    @RequestMapping(value="/bpRegistAdminCheckSend")
-    public ModelAndView bpRegistAdminCheckSend(@ModelAttribute BpInformDetailVO vo, HttpSession session) {
-        ModelAndView mav = new ModelAndView("redirect:/bp/bpRequestClear");
 
         return mav;
     }
 
     @RequestMapping(value="/bpModify")
-    public ModelAndView bpModify(String key) {
+    public ModelAndView bpModify(String key, String move) {
         ModelAndView mav = new ModelAndView("bp/bpModify");
         BpInformDetailVO result = regist.getBpInform(key);
 
@@ -276,6 +248,9 @@ public class BPController {
 
         mav.addObject(new BpInformDetailVO());
         mav.addObject("bpInform", result);
+        if(move != null && !move.isEmpty()) {
+            mav.addObject("move", move);
+        }
         return mav;
     }
 
@@ -362,9 +337,21 @@ public class BPController {
     }
 
     @RequestMapping(value="/accountForm")
-    public ModelAndView accountForm() {
+    public ModelAndView accountForm(String key, Integer moveKey) {
         ModelAndView mav = new ModelAndView("bp/accountForm");
         mav.addObject(new AccountVO());
+
+        if(moveKey != null) {
+            mav.addObject("moveKey", moveKey);
+        }
+
+        if(key == null || key.isEmpty()) {
+            return mav;
+        } else {
+            AccountVO vo = regist.getBpAccount(key);
+            mav.addObject("accountInform", vo);
+        }
+
         return mav;
     }
 
@@ -419,13 +406,19 @@ public class BPController {
     }
 
     @RequestMapping(value="/agreementForm")
-    public ModelAndView agreementForm(String bpUuid) {
+    public ModelAndView agreementForm(String key, Integer moveKey, String start_date) {
         ModelAndView mav = new ModelAndView("bp/agreementForm");
+        mav.addObject(new AgreementVO());
 
-        if(bpUuid == null || bpUuid.isEmpty()) {
+        if(moveKey != null) {
+            mav.addObject("moveKey", moveKey);
+        }
 
+        if(key == null || key.isEmpty()) {
+            return mav;
         } else {
-            mav.addObject(new AgreementVO());
+            AgreementVO inform = regist.getBpAgreement(key, start_date);
+            mav.addObject("agreementInform", inform);
         }
 
         return mav;

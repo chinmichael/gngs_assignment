@@ -30,7 +30,7 @@ public interface Regist {
 
     //BP 36Agreement
     public String getCheckAgreement(String key);
-    public AgreementVO getBpAgreement(AgreementVO vo);
+    public AgreementVO getBpAgreement(String key, String start_date);
 
     public Integer insertBpAgreement(AgreementVO vo);
 

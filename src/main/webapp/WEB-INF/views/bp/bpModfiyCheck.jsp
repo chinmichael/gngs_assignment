@@ -9,7 +9,7 @@
 <%@ include file="bpSideNav.jsp" %>
 
 <%--Main Contents--%>
-<main class="col bg-faded py-4 flex-grow-1" style="font-family: Meiryo; margin-bottom: 150px; padding-left: 30px; padding-right: 25px;">
+<main class="col bg-faded py-4 flex-grow-1" style="font-family: Meiryo; margin-bottom: 150px; padding-left: 35px; padding-right: 35px;">
 
     <a href=# data-bs-toggle="modal" data-bs-target="#logMoveModal" style="text-decoration:none;"
        onclick="logMove('BP情報一覧', 'bpList')">BP情報一覧 ></a>
@@ -25,7 +25,7 @@
     <%--Regist Form--%>
     <form:form modelAttribute="bpInformDetailVO" action="../bp/bpModifyCheckSend" method="post" name="bpModifyCheckFrm">
 
-        <table class="table table-bordered border-secondary">
+        <table class="table table-bordered border-secondary" style="max-width: 900px;">
             <tbody>
             <tr>
                 <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">会社(氏)名</th>
@@ -89,13 +89,15 @@
         <form:hidden path="userid" value="${login.getUserid()}"/>
 
         <%--Regist Buttons--%>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button class="btn btn-secondary me-md-2" style="font-weight:bold;" type="button"
-                    onclick="history.back()">&nbsp;&nbsp;戻る&nbsp;&nbsp;
-            </button>
-            <button class="btn btn-dark" type="submit" style="font-weight:bold;">
-                &nbsp;&nbsp;登録&nbsp;&nbsp;
-            </button>
+        <div style="max-width: 900px;">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-secondary me-md-2" style="font-weight:bold;" type="button"
+                        onclick="history.back()">&nbsp;&nbsp;戻る&nbsp;&nbsp;
+                </button>
+                <button class="btn btn-dark" type="submit" style="font-weight:bold;">
+                    &nbsp;&nbsp;登録&nbsp;&nbsp;
+                </button>
+            </div>
         </div>
         <%--/Regist Buttons--%>
     </form:form>

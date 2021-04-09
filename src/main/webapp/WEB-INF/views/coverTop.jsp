@@ -34,6 +34,12 @@
             color: #848484;
             background-color: #E2E4E5;
         }
+        #nav-ul-setting .nav-link {
+            font-weight: bold;font-size: large;color: #b6d4fe;
+        }
+        #nav-ul-setting .nav-link:hover {
+            color: #819FF7
+        }
     </style>
 </head>
 <body>
@@ -50,19 +56,18 @@
 
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup" style="margin-left: 12px;">
 
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="nav-ul-setting">
                     <c:if test="${not empty login}">
                     <li class="nav-item">
                         <a class="nav-link" href="../bp/bpList"
-                            style="font-weight: bold;font-size: large;color: #b6d4fe; padding-right: 20px;">BP情報管理</a>
+                            style="padding-right: 20px;">BP情報管理</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../item/itemList"
-                           style="font-weight: bold;font-size: large;color: #b6d4fe; padding-right: 20px;">案件情報管理</a>
+                           style="padding-right: 20px;">案件情報管理</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"
-                           style="font-weight: bold;font-size: large;color: #b6d4fe;">契約情報管理</a>
+                        <a class="nav-link" href="#">契約情報管理</a>
                     </li>
                     </c:if>
                 </ul>

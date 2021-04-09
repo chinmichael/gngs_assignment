@@ -60,14 +60,18 @@ function searchAddress () {
 
 function moveAccount() {
     $("#moveKey").val('2');
+    var moveKey = $("#moveKey").val();
+    var key = $("#bpKey").val();
     $("#saveMove").attr("onclick","document.bpRequestFrm.submit()");
-    $("#noSaveMove").attr("onclick","location.href='../bp/accountForm'");
+    $("#noSaveMove").attr("onclick","location.href='../bp/accountForm?key="+key+"&moveKey="+moveKey+"'");
 }
 
 function moveAgreement() {
     $("#moveKey").val('3');
+    var moveKey = $("#moveKey").val();
+    var key = $("#bpKey").val();
     $("#saveMove").attr("onclick","document.bpRequestFrm.submit()");
-    $("#noSaveMove").attr("onclick","location.href='../bp/agreementForm'");
+    $("#noSaveMove").attr("onclick","location.href='../bp/agreementForm?key="+key+"&moveKey="+moveKey+"'");
 }
 
 function check() {

@@ -10,21 +10,39 @@
     <%@ include file="bpSideNav.jsp" %>
 
     <%--Main Contents--%>
-    <main class="col bg-faded py-4 flex-grow-1" style="font-family: Meiryo; margin-bottom: 150px; padding-left: 30px; padding-right: 25px;">
+    <main class="col bg-faded py-4 flex-grow-1" style="font-family: Meiryo;padding-left: 35px; padding-right: 35px;">
 
-        <a href=# data-bs-toggle="modal" data-bs-target="#logMoveModal" style="text-decoration:none;"
-           onclick="logMove('BP情報一覧', 'bpList')">BP情報一覧 ></a>
-        <a style="text-decoration:none;">BP詳細情報修正</a>
+        <c:choose>
+            <c:when test="${empty move}">
+                <a href=# data-bs-toggle="modal" data-bs-target="#logMoveModal" style="text-decoration:none;"
+                   onclick="logMove('BP情報一覧', 'bpList')">BP情報一覧 ></a>
+                <a style="text-decoration:none;">BP詳細情報修正</a>
+            </c:when>
+            <c:otherwise>
+                <a href=# data-bs-toggle="modal" data-bs-target="#logMoveModal" style="text-decoration:none;"
+                   onclick="logMove('BP情報一覧', 'bpList')">BP情報一覧 ></a>
+                <a style="text-decoration:none;">BP情報登録依頼 ></a>
+                <a style="text-decoration:none;">BP情報登録依頼確認 ></a>
+                <a style="text-decoration:none;">BP詳細情報登録</a>
+            </c:otherwise>
+        </c:choose>
 
         <%@ include file="../logMoveModal.jsp"%>
 
-        <h3 style="font-size: 20pt;font-weight: bold;text-decoration-line: underline;margin-bottom: 20px; margin-top:20px;">
-            BP詳細情報修正</h3>
+        <c:choose>
+            <c:when test="${empty move}">
+                <h3 style="font-size: 20pt;font-weight: bold;text-decoration-line: underline;margin-bottom: 20px; margin-top:20px;">
+                    BP詳細情報修正</h3>
+            </c:when>
+            <c:otherwise>
+                <h3 style="font-size: 20pt;font-weight: bold;text-decoration-line: underline;margin-bottom: 20px; margin-top:20px;">
+                    BP詳細情報登録</h3>
+            </c:otherwise>
+        </c:choose>
 
         <%--Regist Form--%>
         <form:form modelAttribute="bpInformDetailVO" action="bpModifySend" method="post" name="bpRequestFrm" onsubmit="return check()">
-
-            <table class="table table-bordered border-secondary">
+            <table class="table table-bordered border-secondary" style="max-width: 900px;">
                 <thead>
                 <tr><th colspan="2" style="text-align: right; background-color: #F2F2F2;">
                     <span style="color: red;margin-right:5px;"><i class="fas fa-caret-right"></i> : 入力必須項目です</span>
@@ -444,7 +462,8 @@
 
             <%--Regist Buttons--%>
             <input type="hidden" id="moveKey" name="moveKey" value="1">
-
+            <input type="hidden" id="bpKey" value="${bpInform.getUuid()}">
+            <div style="max-width: 900px;">
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <button class="btn btn-secondary me-md-2" style="font-weight:bold;" type="button"
                         onclick="history.back()">&nbsp;&nbsp;戻る&nbsp;&nbsp;
@@ -452,6 +471,7 @@
                 <button class="btn btn-dark" type="submit" style="font-weight:bold;">
                     &nbsp;&nbsp;変更&nbsp;&nbsp;
                 </button>
+            </div>
             </div>
             <%--/Regist Buttons--%>
         </form:form>
@@ -466,5 +486,30 @@
 
 <script type="text/javascript" src="../../../resource/js/bp/bpModifyScript.js"></script>
 
+<%--
+<script src="//api.zipaddress.net/sdk/zipaddr.min.js" async></script>--%>
 
+<%--<script type="text/javascript">
+    var searchAddress = function () {
+        var $zipcode = $('#zipcode');
+        var zipcode = $zipcode.val();
+        var $address = $('#address1');
+
+        if(zipcode && zipcode.length === 7) {
+            ZA.request(zipcode, function (data, err) {
+               if(err) {
+                   $address.val('');
+                   //$zipcode.focus();
+                   //return alert(data.message);
+               }
+               $address.val(data.fullAddress);
+               //$address.focus();
+            });
+        } else {
+            /!*alert("郵便番号に誤りがあります。");
+            $zipcode.focus();*!/
+            $address.val('');
+        }
+    };
+</script>--%>
 </html>

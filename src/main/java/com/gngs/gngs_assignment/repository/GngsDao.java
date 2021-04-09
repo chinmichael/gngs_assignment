@@ -49,7 +49,7 @@ public interface GngsDao {
 
     //BP Account Logic
     String checkAccount (String key);
-    AccountVO showAccount (AccountVO vo);
+    AccountVO showAccount (String key);
     Integer accountRegist(AccountVO vo);
     Integer updateAccount (AccountVO vo);
     Integer deleteAccount (AccountVO vo);
@@ -58,6 +58,7 @@ public interface GngsDao {
     AgreementVO checkAgreement(String key);
     AgreementVO agreementCheck (AgreementVO vo);
     AgreementVO agreementDateCheck (AgreementVO vo);
+    AgreementVO showLastAgreement (String key);
     AgreementVO showAgreement (AgreementVO vo);
     Integer agreementRegist (AgreementVO vo);
     Integer updateAgreement (AgreementVO vo);
