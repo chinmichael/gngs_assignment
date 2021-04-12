@@ -2,8 +2,12 @@ package com.gngs.gngs_assignment.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Pattern;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -36,7 +40,7 @@ public class BpInformDetailVO extends BpInformVO {
         }
     }
 
-    @Min(value=7, message = "郵便番号を確認してください")
+    @Length(min=7, message = "郵便番号を確認してください")
     private String corporate_zipcode;
     private String corporate_address1;
     private String corporate_address2;

@@ -41,7 +41,7 @@
             padding-right: 10px;
         }
         #breadcrumb .nav-link {
-            color: #C3D9E9;
+            color: white;/*#C3D9E9;*/
         }
         #breadcrumb .nav-link:hover {
             color: #819FF7;

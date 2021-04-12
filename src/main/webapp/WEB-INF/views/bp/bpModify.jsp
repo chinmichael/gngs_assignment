@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="d" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -10,7 +11,7 @@
     <%@ include file="bpSideNav.jsp" %>
 
     <%--Main Contents--%>
-    <main class="col bg-faded py-4 flex-grow-1" style="font-family: Meiryo;padding-left: 35px; padding-right: 35px;">
+    <main class="col bg-faded py-4 flex-grow-1" style="font-family: Meiryo;padding-left: 35px;margin-bottom: 150px; padding-right: 35px;">
 
         <c:choose>
             <c:when test="${empty move}">
@@ -27,7 +28,7 @@
             </c:otherwise>
         </c:choose>
 
-        <%@ include file="../logMoveModal.jsp"%>
+        <%@ include file="../modal/logMoveModal.jsp"%>
 
         <c:choose>
             <c:when test="${empty move}">
@@ -160,7 +161,8 @@
                             <div class="col-sm-3">
                                 <div class="input-group input-group-sm">
                                     <div class="input-group-text">〒</div>
-                                    <form:input path="corporate_zipcode" cssClass="form-control form-control-sm" maxlength="7" id="zipcode" onchange="searchAddress();"/>
+                                    <form:input path="corporate_zipcode" cssClass="form-control form-control-sm" maxlength="7" id="zipcode"
+                                                value="${bpInform.getCorporate_zipcode()}" onchange="searchAddress();"/>
                                 </div>
                             </div>
                             <div class="col-sm-auto" style="padding-top: 3.5px;">
@@ -172,8 +174,10 @@
                 <tr>
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
                         <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;住所</th>
-                    <td><form:input path="corporate_address1" cssClass="form-control form-control-sm" readonly="true" id="address1"/>
-                        <form:input path="corporate_address2" cssClass="form-control form-control-sm" style="margin-top:10px;"/>
+                    <td><form:input path="corporate_address1" cssClass="form-control form-control-sm"
+                                    value="${bpInform.getCorporate_address1()}" readonly="true" id="address1"/>
+                        <form:input path="corporate_address2" cssClass="form-control form-control-sm" style="margin-top:10px;"
+                                    value="${bpInform.getCorporate_address2()}"/>
                     </td>
                 </tr>
                 <tr>
@@ -217,7 +221,7 @@
                 <tr>
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
                         &nbsp;&nbsp;ホームページ URL</th>
-                    <td><form:input path="corporate_homepage" cssClass="form-control form-control-sm"/>
+                    <td><form:input path="corporate_homepage" cssClass="form-control form-control-sm" value="${bpInform.getCorporate_homepage()}"/>
                     </td>
                 </tr>
                 <tr>
@@ -225,7 +229,7 @@
                         &nbsp;&nbsp;代表者名</th>
                     <td>
                         <div class="col-sm-5">
-                            <form:input path="corporate_applier" cssClass="form-control form-control-sm"/>
+                            <form:input path="corporate_applier" cssClass="form-control form-control-sm" value="${bpInform.getCorporate_applier()}"/>
                         </div>
                     </td>
                 </tr>
@@ -235,7 +239,7 @@
                 <tr>
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
                         &nbsp;&nbsp;契約担当部署名</th>
-                    <td><form:input path="contract_dept" cssClass="form-control form-control-sm"/>
+                    <td><form:input path="contract_dept" cssClass="form-control form-control-sm" value="${bpInform.getContract_dept()}"/>
                     </td>
                 </tr>
                 <tr>
@@ -243,7 +247,7 @@
                         &nbsp;&nbsp;契約担当者名</th>
                     <td>
                         <div class="col-sm-5">
-                            <form:input path="contract_manager" cssClass="form-control form-control-sm"/>
+                            <form:input path="contract_manager" cssClass="form-control form-control-sm" value="${bpInform.getContract_manager()}"/>
                         </div>
                     </td>
                 </tr>
@@ -300,7 +304,7 @@
                 <tr>
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
                         <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;派遣元部署名</th>
-                    <td><form:input path="dispatch_dept" cssClass="form-control form-control-sm"/>
+                    <td><form:input path="dispatch_dept" cssClass="form-control form-control-sm" value="${bpInform.getDispatch_dept()}"/>
                         <form:errors path="dispatch_dept" style="font-size: 10pt;color: red;padding-left: 5px;"/>
                     </td>
                 </tr>
@@ -309,7 +313,7 @@
                         <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;派遣元役職名</th>
                     <td>
                         <div class="col-sm-5">
-                            <form:input path="dispatch_admin" cssClass="form-control form-control-sm"/>
+                            <form:input path="dispatch_admin" cssClass="form-control form-control-sm" value="${bpInform.getDispatch_admin()}"/>
                             <form:errors path="dispatch_admin" style="font-size: 10pt;color: red;padding-left: 5px;"/>
                         </div>
                     </td>
@@ -319,7 +323,7 @@
                         <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;派遣元担当者名</th>
                     <td>
                         <div class="col-sm-5">
-                            <form:input path="dispatch_manager" cssClass="form-control form-control-sm"/>
+                            <form:input path="dispatch_manager" cssClass="form-control form-control-sm" value="${bpInform.getDispatch_manager()}"/>
                             <form:errors path="dispatch_manager" style="font-size: 10pt;color: red;padding-left: 5px;"/>
                         </div>
                     </td>
@@ -468,9 +472,18 @@
                 <button class="btn btn-secondary me-md-2" style="font-weight:bold;" type="button"
                         onclick="history.back()">&nbsp;&nbsp;戻る&nbsp;&nbsp;
                 </button>
-                <button class="btn btn-dark" type="submit" style="font-weight:bold;">
-                    &nbsp;&nbsp;変更&nbsp;&nbsp;
-                </button>
+                <c:choose>
+                    <c:when test="${empty move}">
+                        <button class="btn btn-dark" type="submit" style="font-weight:bold;">
+                            &nbsp;&nbsp;登録&nbsp;&nbsp;
+                        </button>
+                    </c:when>
+                    <c:otherwise>
+                        <button class="btn btn-dark" type="submit" style="font-weight:bold;">
+                            &nbsp;&nbsp;変更&nbsp;&nbsp;
+                        </button>
+                    </c:otherwise>
+                </c:choose>
             </div>
             </div>
             <%--/Regist Buttons--%>

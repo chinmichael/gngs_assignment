@@ -16,7 +16,7 @@
         onclick="logMove('BP情報一覧', 'bpList')">BP情報一覧 ></a>
     <a style="text-decoration:none;">BP情報登録依頼</a>
 
-    <%@ include file="../logMoveModal.jsp"%>
+    <%@ include file="../modal/logMoveModal.jsp"%>
 
     <h3 style="font-size: 20pt;font-weight: bold;text-decoration-line: underline;margin-bottom: 20px; margin-top:20px;">
         BP情報登録依頼</h3>

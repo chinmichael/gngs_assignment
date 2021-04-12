@@ -226,13 +226,94 @@ public class BPController {
     }
 
     @RequestMapping(value="/bpRegist")
-    public ModelAndView bpRegist(String key) {
+    public ModelAndView bpRegist(String key, HttpSession session) {
         ModelAndView mav = new ModelAndView("bp/bpRegist");
+
+        BpInformDetailVO bpInform = (BpInformDetailVO) session.getAttribute("bpInform");
+
+        if(bpInform != null) {
+            System.out.println(bpInform.getBp_id());
+            mav.addObject(new BpInformDetailVO());
+            return mav;
+        }
+
         BpInformDetailVO result = regist.getBpInform(key);
 
         mav.addObject(new BpInformDetailVO());
         mav.addObject("bpInform", result);
 
+        return mav;
+    }
+
+    @RequestMapping(value="/bpRegistSend")
+    public ModelAndView bpRegistSend(@Valid @ModelAttribute BpInformDetailVO vo, BindingResult br, HttpSession session) {
+        ModelAndView mav;
+        if(br.hasErrors()) {
+            mav = new ModelAndView("bp/bpRegist");
+            mav.getModel().putAll(br.getModel());
+            mav.addObject("bpInform", vo);
+
+            return mav;
+        }
+
+        mav = new ModelAndView("bp/bpRegistAccount");
+        session.setAttribute("bpInform", vo);
+        session.setMaxInactiveInterval(24*60*60);
+        mav.addObject(new AccountVO());
+        return mav;
+    }
+
+    @RequestMapping(value="/bpRegistAccount")
+    public ModelAndView bpRegistAccount() {
+        ModelAndView mav = new ModelAndView("bp/bpRegistAccount");
+        mav.addObject(new AccountVO());
+        return mav;
+    }
+
+    @RequestMapping(value="/bpRegistAccountSend")
+    public ModelAndView bpAccountSend(@Valid @ModelAttribute AccountVO vo, BindingResult br, HttpSession session) {
+        ModelAndView mav;
+        BpInformDetailVO bpInform = (BpInformDetailVO) session.getAttribute("bpInform");
+        if(br.hasErrors()) {
+            mav = new ModelAndView("bp/bpRegistAccount");
+            mav.getModel().putAll(br.getModel());
+            mav.addObject("accountInform", vo);
+            mav.addObject("bpInform", bpInform);
+            return mav;
+        }
+
+        mav = new ModelAndView("bp/bpRegistAgreement");
+        session.setAttribute("accountInform", vo);
+        mav.addObject(new AgreementVO());
+        return mav;
+    }
+
+    @RequestMapping(value="/bpRegistAgreement")
+    public ModelAndView bpRegistAgreement() {
+        ModelAndView mav = new ModelAndView("bp/bpRegistAgreement");
+        mav.addObject(new AgreementVO());
+        return mav;
+    }
+
+    @RequestMapping(value="/bpRegistAgreementSend")
+    public ModelAndView bpAgreementSend(@Valid @ModelAttribute AgreementVO vo, BindingResult br,
+                                        HttpSession session) {
+        ModelAndView mav;
+
+        BpInformDetailVO bpInform = (BpInformDetailVO) session.getAttribute("bpInform");
+        AccountVO accountInform = (AccountVO) session.getAttribute("accountInform");
+
+        if(br.hasErrors()) {
+            mav = new ModelAndView("bp/bpRegistAgreement");
+            mav.getModel().putAll(br.getModel());
+            mav.addObject("agreeInform", vo);
+            mav.addObject("accountInform", accountInform);
+            mav.addObject("bpInform", bpInform);
+            return mav;
+        }
+
+        mav = new ModelAndView("bpRegistCheck");
+        session.setAttribute("agreeInform", vo);
         return mav;
     }
 

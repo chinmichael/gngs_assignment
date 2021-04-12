@@ -28,7 +28,7 @@
     </c:choose>
 
 
-    <%@ include file="../logMoveModal.jsp"%>
+    <%@ include file="../modal/logMoveModal.jsp"%>
 
     <c:choose>
         <c:when test="${empty accountInform.getAccount_type()}">
@@ -42,7 +42,7 @@
     </c:choose>
 
     <%--Regist Form--%>
-    <form:form modelAttribute="accountVO" action="accountSend" method="post" name="accountFrm" onsubmit="return check()">
+    <form:form modelAttribute="accountVO" action="accountSend" method="post" name="accountFrm">
 
         <table class="table table-bordered border-secondary" style="max-width: 900px;">
             <thead>
@@ -132,10 +132,11 @@
                 <td>
                     <div class="row g-0">
                         <div class="col-sm-auto">
-                            <form:select path="account_type" cssClass="form-select form-select-sm" id="accountType">
+                            <form:select path="account_type" cssClass="form-select form-select-sm">
                                 <option value="0">普通</option>
                                 <option value="1">当座</option>
                             </form:select>
+                            <input type="hidden" id="accountType" value="${accountInform.getAccount_type()}">
                         </div>
                     </div>
                 </td>
@@ -146,7 +147,7 @@
                 </th>
                 <td>
                     <div class="col-sm-5">
-                        <form:input path="account_num" cssClass="form-control form-control-sm"
+                        <form:input path="account_num" cssClass="form-control form-control-sm" maxlength="7"
                                     id="accountNum" value="${accountInform.getAccount_num()}"/>
                         <form:errors path="account_num" style="font-size: 10pt;color: red; padding-left: 5px;"/>
                     </div>
@@ -177,7 +178,7 @@
                         onclick="history.back()">&nbsp;&nbsp;戻る&nbsp;&nbsp;
                 </button>
                 <c:choose>
-                    <c:when test="${empty accountInform}">
+                    <c:when test="${empty accountInform.getAccount_type()}">
                         <button class="btn btn-dark" type="submit" style="font-weight:bold;">
                             &nbsp;&nbsp;登録&nbsp;&nbsp;
                         </button>

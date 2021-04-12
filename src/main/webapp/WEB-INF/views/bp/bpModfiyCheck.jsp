@@ -17,7 +17,7 @@
        onclick="logMove('BP詳細情報登録', -1)">BP詳細情報修正 ></a>
     <a style="text-decoration:none;">BP詳細情報修正確認</a>
 
-    <%@ include file="../logMoveModal.jsp"%>
+    <%@ include file="../modal/logMoveModal.jsp"%>
 
     <h3 style="font-size: 20pt;font-weight: bold;text-decoration-line: underline;margin-bottom: 20px; margin-top:20px;">
         BP詳細情報修正確認</h3>

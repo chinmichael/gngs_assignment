@@ -39,7 +39,8 @@
             基本情報登録</h3>
 
         <%--Regist Form--%>
-        <form:form modelAttribute="bpInformDetailVO" action="bpModifySend" method="post" name="bpRequestFrm" onsubmit="return check()">
+        <form:form modelAttribute="bpInformDetailVO" action="bpRegistSend" method="post" name="bpRequestFrm" onsubmit="return registCheck()">
+            <form:hidden path="bp_id" value="${bpInform.getBp_id()}"/>
             <table class="table table-bordered border-secondary"
                    style="max-width: 900px; margin-left: auto; margin-right: auto;">
                 <thead>
@@ -133,7 +134,8 @@
                             <div class="col-sm-3">
                                 <div class="input-group input-group-sm">
                                     <div class="input-group-text">〒</div>
-                                    <form:input path="corporate_zipcode" cssClass="form-control form-control-sm" maxlength="7" id="zipcode" onchange="searchAddress();"/>
+                                    <form:input path="corporate_zipcode" cssClass="form-control form-control-sm" maxlength="7" id="zipcode"
+                                                value="${bpInform.getCorporate_zipcode()}" onchange="searchAddress();"/>
                                 </div>
                             </div>
                             <div class="col-sm-auto" style="padding-top: 3.5px;">
@@ -145,8 +147,10 @@
                 <tr>
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
                         <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;住所</th>
-                    <td><form:input path="corporate_address1" cssClass="form-control form-control-sm" readonly="true" id="address1"/>
-                        <form:input path="corporate_address2" cssClass="form-control form-control-sm" style="margin-top:10px;"/>
+                    <td><form:input path="corporate_address1" cssClass="form-control form-control-sm"
+                                    value="${bpInform.getCorporate_address1()}" readonly="true" id="address1"/>
+                        <form:input path="corporate_address2" cssClass="form-control form-control-sm" style="margin-top:10px;"
+                                    value="${bpInform.getCorporate_address2()}"/>
                     </td>
                 </tr>
                 <tr>
@@ -190,7 +194,7 @@
                 <tr>
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
                         &nbsp;&nbsp;ホームページ URL</th>
-                    <td><form:input path="corporate_homepage" cssClass="form-control form-control-sm"/>
+                    <td><form:input path="corporate_homepage" cssClass="form-control form-control-sm" value="${bpInform.getCorporate_homepage()}"/>
                     </td>
                 </tr>
                 <tr>
@@ -198,7 +202,7 @@
                         &nbsp;&nbsp;代表者名</th>
                     <td>
                         <div class="col-sm-5">
-                            <form:input path="corporate_applier" cssClass="form-control form-control-sm"/>
+                            <form:input path="corporate_applier" cssClass="form-control form-control-sm" value="${bpInform.getCorporate_applier()}"/>
                         </div>
                     </td>
                 </tr>
@@ -208,7 +212,7 @@
                 <tr>
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
                         &nbsp;&nbsp;契約担当部署名</th>
-                    <td><form:input path="contract_dept" cssClass="form-control form-control-sm"/>
+                    <td><form:input path="contract_dept" cssClass="form-control form-control-sm" value="${bpInform.getContract_dept()}"/>
                     </td>
                 </tr>
                 <tr>
@@ -216,7 +220,7 @@
                         &nbsp;&nbsp;契約担当者名</th>
                     <td>
                         <div class="col-sm-5">
-                            <form:input path="contract_manager" cssClass="form-control form-control-sm"/>
+                            <form:input path="contract_manager" cssClass="form-control form-control-sm" value="${bpInform.getContract_manager()}"/>
                         </div>
                     </td>
                 </tr>
@@ -273,7 +277,7 @@
                 <tr>
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
                         <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;派遣元部署名</th>
-                    <td><form:input path="dispatch_dept" cssClass="form-control form-control-sm"/>
+                    <td><form:input path="dispatch_dept" cssClass="form-control form-control-sm" value="${bpInform.getDispatch_dept()}"/>
                         <form:errors path="dispatch_dept" style="font-size: 10pt;color: red;padding-left: 5px;"/>
                     </td>
                 </tr>
@@ -282,7 +286,7 @@
                         <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;派遣元役職名</th>
                     <td>
                         <div class="col-sm-5">
-                            <form:input path="dispatch_admin" cssClass="form-control form-control-sm"/>
+                            <form:input path="dispatch_admin" cssClass="form-control form-control-sm" value="${bpInform.getDispatch_admin()}"/>
                             <form:errors path="dispatch_admin" style="font-size: 10pt;color: red;padding-left: 5px;"/>
                         </div>
                     </td>
@@ -292,7 +296,7 @@
                         <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;派遣元担当者名</th>
                     <td>
                         <div class="col-sm-5">
-                            <form:input path="dispatch_manager" cssClass="form-control form-control-sm"/>
+                            <form:input path="dispatch_manager" cssClass="form-control form-control-sm" value="${bpInform.getDispatch_manager()}"/>
                             <form:errors path="dispatch_manager" style="font-size: 10pt;color: red;padding-left: 5px;"/>
                         </div>
                     </td>
@@ -326,101 +330,6 @@
                     </td>
                 </tr>
                 <!--/Dispatch Information-->
-
-                <!--Process Information-->
-                <tr>
-                    <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
-                        <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;手続き状況</th>
-                    <td>
-                        <div class="row g-0">
-                            <div class="col-sm-auto">
-                                <form:select path="procedure_status" id="procedure_status" cssClass="form-select form-select-sm">
-                                    <option value="0">登録依頼</option>
-                                    <option value="1">審査待ち</option>
-                                    <option value="2">完了</option>
-                                </form:select>
-                                <input type="hidden" id="procedureStatus" value="${bpInform.getProcedure_status()}">
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
-                        <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;取引状況</th>
-                    <td>
-                        <div class="row g-0">
-                            <div class="col-sm-auto">
-                                <form:select path="deal_status" id="deal_status" cssClass="form-select form-select-sm">
-                                    <option value="0">取引前</option>
-                                    <option value="1">取引中</option>
-                                    <option value="2">取引停止</option>
-                                </form:select>
-                                <input type="hidden" id="dealStatus" value="${bpInform.getDeal_status()}">
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
-                        <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;登録者</th>
-                    <td>
-                        <div class="col-sm-5">
-                            <input class="form-control form-control-sm" type="text" style="text-align: center"
-                                   id="userName" readonly="true" value="${login.getUsername()}">
-                        </div>
-                    </td>
-                </tr>
-                <!--/Process Information-->
-
-                <!--Account, Agreement Regist Form Button + Extra-->
-                <div class="modal fade" id="registMoveModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-sm">
-                        <div class="modal-content">
-                            <div class="modal-body" align="center" style="font-size: 11pt;font-weight: bold;">
-                                このページの内容をセーブしますか。
-                            </div>
-                            <div align="center" style="color: #0d6efd; font-size: 50pt; margin-bottom: 5px;">
-                                <i class="fas fa-cloud-upload-alt"></i>
-                            </div>
-                            <div>
-                                <button type="button" class="btn btn-secondary btn-sm" id="noSaveMove"
-                                        style="margin-left:20px; margin-bottom:15px;padding-top: 7px;">&nbsp;いいえ&nbsp;</button>
-                                <button type="button" class="btn btn-primary btn-sm" id="saveMove"
-                                        style="float:right; margin-right: 20px; margin-bottom: 15px;padding-top: 7px;">&nbsp;はい&nbsp;</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <tr>
-                    <th colspan="2" style="width: 200px;font-size: 12pt; padding-left: 15px;text-align:center;" valign="middle">
-                        <c:choose>
-                            <c:when test="${not empty bpAccount}">
-                                <button class="btn btn-dark me-md-2" style="font-weight:bold; color: white;" type="button"
-                                        data-bs-toggle="modal" data-bs-target="#registMoveModal"
-                                        onclick="moveAccount()">&nbsp;&nbsp;口座情報情報変更&nbsp;&nbsp;</button>
-                            </c:when>
-                            <c:otherwise>
-                                <button class="btn btn-dark me-md-2" style="font-weight:bold; color: white;" type="button"
-                                        data-bs-toggle="modal" data-bs-target="#registMoveModal"
-                                        onclick="moveAccount()">&nbsp;&nbsp;口座情報情報登録&nbsp;&nbsp;</button>
-                            </c:otherwise>
-                        </c:choose>
-                        <c:choose>
-                            <c:when test="${not empty bpAgreement}">
-                                <button class="btn btn-dark me-md-2" style="font-weight:bold; color: white;" type="button"
-                                        data-bs-toggle="modal" data-bs-target="#registMoveModal"
-                                        onclick="moveAgreement()">&nbsp;&nbsp;３６協定情報変更&nbsp;&nbsp;</button>
-                                <input type="hidden" id="bpAgreement" name="bpAgreement" value="${bpAgreement}">
-                            </c:when>
-                            <c:otherwise>
-                                <button class="btn btn-dark me-md-2" style="font-weight:bold; color: white;" type="button"
-                                        data-bs-toggle="modal" data-bs-target="#registMoveModal"
-                                        onclick="moveAgreement()">&nbsp;&nbsp;３６協定情報登録&nbsp;&nbsp;</button>
-                            </c:otherwise>
-                        </c:choose>
-                    </th>
-                </tr>
                 <tr>
                     <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
                         &nbsp;&nbsp;備考
@@ -434,15 +343,12 @@
             </table>
 
             <%--Regist Buttons--%>
-            <input type="hidden" id="moveKey" name="moveKey" value="1">
-            <input type="hidden" id="bpKey" value="${bpInform.getUuid()}">
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button class="btn btn-secondary me-md-2" style="font-weight:bold;" type="button"
-                        onclick="history.back()">&nbsp;&nbsp;戻る&nbsp;&nbsp;
-                </button>
-                <button class="btn btn-dark" type="submit" style="font-weight:bold;">
-                    &nbsp;&nbsp;変更&nbsp;&nbsp;
-                </button>
+            <div style="max-width: 900px; margin: auto;">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button class="btn btn-dark" type="submit" style="font-weight:bold;">
+                        &nbsp;&nbsp;次へ&nbsp;&nbsp;
+                    </button>
+                </div>
             </div>
             <%--/Regist Buttons--%>
         </form:form>
@@ -454,5 +360,6 @@
     </div>
 <!--Footer-->
 <%@ include file="bpRegistBottom.jsp"%>
+<script type="text/javascript" src="../../../resource/js/bp/bpRegistScript.js"></script>
 <!--/Footer-->
 </html>
