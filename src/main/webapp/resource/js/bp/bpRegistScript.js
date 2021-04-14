@@ -6,6 +6,19 @@ $(document).ready(function () {
     if(checkComp1 != "") $("#corporate_type1").val(checkComp1).attr("selected", "true");
     if(checkComp2 != "") $("#corporate_type2").val(checkComp2).attr("selected", "true");
     if(checkAccount != "") $("#account_type").val(checkAccount).attr("selected", "true");
+
+    var date = [];
+    var check_month = document.getElementById("check_month");
+    for(var i = 0; i < 12; i++) {
+            date[i] = i + 1;
+    }
+    for(x in date) {
+        var opt = document.createElement("option");
+        opt.value = x + 1;
+        opt.innerHTML = date[x];
+        check_month.appendChild(opt);
+    }
+
 });
 
 function registCheck() {
@@ -51,6 +64,48 @@ function searchAddress () {
     }
 }
 
+function settingDate() {
+    var date30 = [];
+    var date31 = [];
+    var date28 = [];
+    var set;
+    var $checkMonth = $("#check_month");
+    var $target = $("#check_date");
+
+    var check30 = ["4","6","9","11"];
+
+    if($checkMonth.val() == "2") {
+        for(var i=0; i < 28; i++) {
+            date28[i] = i + 1;
+        }
+        set = date28;
+
+    } else if (check30.includes($checkMonth.val())) {
+        for(var i=0; i < 30; i++) {
+            date30[i] = i + 1;
+            set = date30;
+        }
+        set = date30;
+
+    } else {
+        for(var i=0; i < 31; i++) {
+            date31[i] = i + 1;
+        }
+        set = date31;
+    }
+
+    $target.options.length = 0;
+
+    for(x in set) {
+        var opt = document.createElement("option");
+        opt.value = x + 1;
+        opt.innerHTML = set[x];
+        $target.appendChild(opt);
+    }
+
+
+}
+
 function changeCompType(type) {
     var comp1 = ["零細","中小","大手"];
     var comp2 = ["男","女"];
@@ -64,7 +119,8 @@ function changeCompType(type) {
 
     for(x in set) {
         var opt = document.createElement("option");
-        opt.value = x + 3;
+        if(type.value == "0") opt.value = x;
+        else opt.value = x + 3;
         opt.innerHTML = set[x];
         target.appendChild(opt);
     }

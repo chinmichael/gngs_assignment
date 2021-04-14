@@ -63,7 +63,7 @@
                     <td>
                         <div class="col-sm-3">
                             <form:input path="corporate_name" cssClass="form-control form-control-sm"
-                                        value="${bpInform.getCorporate_num()}" readonly="true"/>
+                                        value="${bpInform.getCorporate_name()}" readonly="true"/>
                         </div>
                     </td>
                 </tr>
@@ -73,14 +73,148 @@
                     </th>
                     <td>
                         <div class="col-sm-5">
+                            <form:hidden path="dispatch_code" value="1"></form:hidden>
                             <form:input path="dispatch_name" cssClass="form-control form-control-sm"
-                                        value="株式会社ジエンジサービス"/>
-                            <form:errors path="bank_name" style="font-size: 10pt;color: red; padding-left: 5px;"/>
+                                        value="株式会社ジエンジサービス" readonly="true"/>
+                            <form:errors path="dispatch_name" style="font-size: 10pt;color: red; padding-left: 5px;"/>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
+                        <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;36協定パターン名
+                    </th>
+                    <td>
+                        <div class="col-sm-auto">
+                            <form:hidden path="pattern" value="02"></form:hidden>
+                            <form:input path="pattern_name" cssClass="form-control form-control-sm"/>
+                            <form:errors path="pattern_name" style="font-size: 10pt;color: red; padding-left: 5px;"/>
+                        </div>
+                    </td>
+                </tr>
+
+                <!--overtime-->
+                <tr>
+                    <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
+                        <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;36協定_1日
+                    </th>
+                    <td>
+                        <div class="col-sm-3">
+                            <form:input path="overtime_day" cssClass="form-control form-control-sm"
+                                        value="${agreementInform.getOvertime_day()}"/>
+                            <form:errors path="overtime_day" style="font-size: 10pt;color: red; padding-left: 5px;"/>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
+                        <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;36協定_1箇月
+                    </th>
+                    <td>
+                        <div class="col-sm-3">
+                            <form:input path="overtime_month" cssClass="form-control form-control-sm"
+                                        value="${agreementInform.getOvertime_month()}"/>
+                            <form:errors path="overtime_month" style="font-size: 10pt;color: red; padding-left: 5px;"/>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
+                        <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;36協定_3箇月
+                    </th>
+                    <td>
+                        <div class="col-sm-3">
+                            <form:input path="overtime_quarter" cssClass="form-control form-control-sm"
+                                        value="${agreementInform.getOvertime_quarter()}"/>
+                            <form:errors path="overtime_quarter" style="font-size: 10pt;color: red; padding-left: 5px;"/>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
+                        <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;36協定_6箇月
+                    </th>
+                    <td>
+                        <div class="col-sm-3">
+                            <form:input path="overtime_half" cssClass="form-control form-control-sm"
+                                        value="${agreementInform.getOvertime_half()}"/>
+                            <form:errors path="overtime_half" style="font-size: 10pt;color: red; padding-left: 5px;"/>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
+                        <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;36協定_1年
+                    </th>
+                    <td>
+                        <div class="col-sm-3">
+                            <form:input path="overtime_year" cssClass="form-control form-control-sm"
+                                        value="${agreementInform.getOvertime_year()}"/>
+                            <form:errors path="overtime_year" style="font-size: 10pt;color: red; padding-left: 5px;"/>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;" valign="middle">
+                        <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;休日労働
+                    </th>
+                    <td>
+                        <div class="col-sm-2">
+                            <div class="input-group input-group-sm">
+                                <form:input path="holiday_work" cssClass="form-control form-control-sm"
+                                            value="${agreementInform.getHoliday_work()}"/>
+                                <div class="input-group-text">回／月</div>
+                                <form:errors path="holiday_work"
+                                             style="font-size: 10pt;color: red; padding-left: 5px;"/>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;"
+                        valign="middle">
+                        <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;法定休日
+                    </th>
+                    <td>
+                        <div class="col-sm-2">
+                            <input type="hidden" id="holidayWork" value="${agreementInform.getHoliday_dayweek()}"/>
+                            <form:select path="holiday_dayweek" cssClass="form-select form-select-sm">
+                                <option value="0">日曜日</option>
+                                <option value="1">月曜日</option>
+                                <option value="2">火曜日</option>
+                                <option value="3">水曜日</option>
+                                <option value="4">木曜日</option>
+                                <option value="5">金曜日</option>
+                                <option value="6">土曜日</option>
+                            </form:select>
+                            <form:errors path="holiday_dayweek"
+                                         style="font-size: 10pt;color: red; padding-left: 5px;"/>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th style="width: 200px;font-size: 12pt; padding-left: 15px; background-color: #F2F2F2;"
+                        valign="middle">
+                        <span style="color: red"><i class="fas fa-caret-right"></i></span>&nbsp;起算月
+                    </th>
+                    <td>
+                        <div class="col-sm-2">
+                            <input type="hidden" id="checkMonth" value="${agreementInform.getCheck_month()}"/>
+                            <form:select path="check_month" cssClass="form-select form-select-sm">
+                            </form:select>
+                            <input type="hidden" id="checkMonth" value="${agreementInform.getCheck_month()}"/>
+                            <form:errors path="check_month"
+                                         style="font-size: 10pt;color: red; padding-left: 5px;"/>
                         </div>
                     </td>
                 </tr>
 
 
+
+                <!--extend time-->
                 </tbody>
             </table>
 

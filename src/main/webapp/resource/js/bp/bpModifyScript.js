@@ -11,7 +11,8 @@ function changeCompType(type) {
 
     for(x in set) {
         var opt = document.createElement("option");
-        opt.value = x + 3;
+        if(type.value == "0") opt.value = x;
+        else opt.value = x + 3;
         opt.innerHTML = set[x];
         target.appendChild(opt);
     }
@@ -26,7 +27,10 @@ $(document).ready(function () {
 
     if(checkBp != "") $("#bp_type").val(checkBp).attr("selected", "true");
     if(checkComp1 != "") $("#corporate_type1").val(checkComp1).attr("selected", "true");
-    if(checkComp2 != "") $("#corporate_type2").val(checkComp2).attr("selected", "true");
+    if(checkComp2 != "") {
+        changeCompType($("#corporate_type1"));
+        $("#corporate_type2").val(checkComp2).attr("selected", "true");
+    }
     if(checkProcedure != "") $("#procedure_status").val(checkProcedure).attr("selected", "true");
     if(checkDeal != "") $("#deal_status").val(checkDeal).attr("selected", "true");
 });
